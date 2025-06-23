@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin - Raj Crackers</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+  <title>Raj Crackers Admin</title>
+  <meta name="description" content="Raj Crackers - Admin Firework Management" />
+  <!-- Font Awesome for icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+</head>
+<body>
+<header class="site-header">
+  <div class="brand-name">
+    <span class="raj">Raj</span>
+    <span class="crackers">Crackers</span>
+    <div class="tagline">Your Trusted Firework Partner</div>
+  </div>
+  <div class="header-right">
+    <div id="liveClock"></div>
+    <a href="details.html" title="Back to Billing" class="icon-link"><i class="fas fa-arrow-left"></i></a>
+  </div>
+</header>
+
+<h2 class="page-title">Admin Panel: Add or Update Firework</h2>
+
+<form id="fireworkForm" onsubmit="event.preventDefault(); addOrUpdateFirework();" style="width:700px;">
+  
+  <label for="fireworkName">Firework Name:<span class="required">*</span></label>
+  <input list="fireworkNamesList" id="fireworkName" class="input-field" autocomplete="off" style="border:1px solid #000;" placeholder="Select or type firework name" required />
+  <datalist id="fireworkNamesList"></datalist>
+
+  <label for="fireworkPrice">Price (₹):<span class="required">*</span></label>
+  <input type="number" id="fireworkPrice" class="input-field" min="1" style="border:1px solid #000;" placeholder="Enter price" required />
+
+  <div class="button-group-right">
+    <button type="submit">Add / Update</button>
+
+  </div>
+</form>
+
+<div id="adminMessage" class="success-message"></div>
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <p><strong>Raj Crackers</strong> — Your Trusted Firework Partner</p>
+    <p>Contact: +91 82967 72217 | Email: support@rajcrackers.in</p>
+    <p class="footer-note">© 2025 Raj Crackers. All rights reserved.</p>
+    <p class="footer-safety">🔥 Please celebrate responsibly and follow all firework safety regulations.</p>
+  </div>
+</footer>
+
+<script>
+
+function addOrUpdateFirework() {
+  const name = document.getElementById("fireworkName").value.trim();
+  const price = parseFloat(document.getElementById("fireworkPrice").value);
+
+  if (!name || isNaN(price) || price <= 0) {
+    alert("Please enter a valid name and price.");
+    return;
+  }
+
+  let fireworkPrices = JSON.parse(localStorage.getItem("fireworkPrices")) || {};
+
+  if (fireworkPrices.hasOwnProperty(name)) {
+    if (fireworkPrices[name] === price) {
+      // Same name and same price
+      document.getElementById("adminMessage").textContent = `ℹ️ "${name}" with price ₹${price} is already available.`;
+      return;
+    } else {
+      // Same name but different price - ask to confirm update
+      const confirmUpdate = confirm(`"${name}" already exists with price ₹${fireworkPrices[name]}. Do you want to update to ₹${price}?`);
+      if (!confirmUpdate) {
+        document.getElementById("adminMessage").textContent = "Update canceled.";
+        return;
+      }
+    }
+  }
+
+  // If new firework or confirmed update:
+  fireworkPrices[name] = price;
+  localStorage.setItem("fireworkPrices", JSON.stringify(fireworkPrices));
+
+  document.getElementById("adminMessage").textContent = `✅ "${name}" set at ₹${price}.`;
+  document.getElementById("fireworkName").value = "";
+  document.getElementById("fireworkPrice").value = "";
+  populateFireworkAutocomplete();
+}
+
+
+  function updateClock() {
+    const now = new Date();
+    document.getElementById("liveClock").textContent = now.toLocaleString();
+  }
+
+  function populateFireworkAutocomplete() {
+    const datalist = document.getElementById("fireworkNamesList");
+    datalist.innerHTML = "";
+
+    const stored = JSON.parse(localStorage.getItem("fireworkPrices")) || {};
+    Object.keys(stored).forEach(name => {
+      const option = document.createElement("option");
+      option.value = name;
+      datalist.appendChild(option);
+    });
+  }
+
+  setInterval(updateClock, 1000);
+  updateClock();
+  populateFireworkAutocomplete();
+
+</script>
+
+
+</body>
+</html>

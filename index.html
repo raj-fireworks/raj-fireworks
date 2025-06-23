@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Raj Crackers Billing</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+  <meta name="description" content="Raj Crackers - Easy and Fast Firework Billing Software" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand-name">
+      <span class="raj">Raj</span>
+      <span class="crackers">Crackers</span>
+      <div class="tagline">Your Trusted Firework Partner</div>
+    </div>
+    <div class="header-right">
+      <div id="liveClock"></div>
+    </div>
+  </header>
+
+  <h2 id="customerDetailsTitle">Enter Customer Details</h2>
+
+  <form id="customerDetailsForm">
+    <label for="customerName">Customer Name:<span class="required">*</span></label>
+    <input type="text" id="customerName" placeholder="Enter customer name" required />
+    <div class="error-message" id="nameError"></div>
+
+    <label for="customerMobile">Mobile Number:<span class="required">*</span></label>
+    <input type="text" id="customerMobile" placeholder="Enter mobile number" required />
+    <div class="error-message" id="mobileError"></div>
+
+    <label for="customerAddress">Address:<span class="required">*</span></label>
+    <textarea id="customerAddress" placeholder="Enter address" required></textarea>
+    <div class="error-message" id="addressError"></div>
+
+    <div class="button-group-right">
+      <button type="button" onclick="goToNextPage()">Next</button>
+      <button type="button" onclick="generateExcel()">Download Excel</button>
+    </div>
+  </form>
+
+  <!-- Include SheetJS (xlsx) library from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+
+  <!-- Your custom JS -->
+  <script src="js/script.js"></script>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p><strong>Raj Crackers</strong> — Your Trusted Firework Partner</p>
+      <p>Contact: +91 82967 72217 | Email: support@rajcrackers.in</p>
+      <p class="footer-note">© 2025 Raj Crackers. All rights reserved.</p>
+      <p class="footer-safety">🔥 Please celebrate responsibly and follow all firework safety regulations.</p>
+    </div>
+  </footer>
+</body>
+</html>

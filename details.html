@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firework Billing</title>
+  <link rel="stylesheet" href="css/style.css">
+<title>Raj Crackers Billing</title>
+<meta name="description" content="Raj Crackers - Easy and Fast Firework Billing Software">
+
+</head>
+<body>
+<header class="site-header">
+  <div class="brand-name">
+    <span class="raj">Raj</span>
+    <span class="crackers">Crackers</span>
+    <div class="tagline">Your Trusted Firework Partner</div>
+  </div>
+  <div class="header-right">
+    <div id="liveClock"></div>
+    
+    <!-- 👤 Admin Icon (you can use Font Awesome or emoji) -->
+    <a href="admin.html" title="Admin Panel" style="margin-left: 20px; font-size: 22px; text-decoration:none;">⚙️</a>
+  </div>
+</header>
+
+
+  <h2 id="fireworkBillingTitle">Firework Billing</h2>
+
+  <!-- Display Customer Details -->
+  <div id="customerDetailsDisplay">
+    <p><strong>Customer Name:</strong> <span id="displayCustomerName"></span></p>
+    <p><strong>Mobile Number:</strong> <span id="displayCustomerMobile"></span></p>
+    <p><strong>Address:</strong> <span id="displayCustomerAddress"></span></p>
+  </div>
+
+
+  <label for="name" style="margin-left: 315px;">Firework Name:<span class="required">*</span></label>
+  <input list="fireworkList" id="name" placeholder="Type firework name">
+  <datalist id="fireworkList">
+    <option value="Sparklers">
+    <option value="Flower Pots">
+    <option value="Rockets">
+    <option value="Chakkars">
+    <option value="Fountains">
+  </datalist>
+
+  <label for="quantity"style="margin-left: 315px;">Quantity:<span class="required">*</span></label>
+  <input type="number" id="quantity" placeholder="e.g., 10" min="1">
+<div class="button-container">
+  <button onclick="addFirework()">Add</button>
+  <button onclick="printList()" id="printListBtn"disabled>Print List</button>
+    <button type="button" onclick="resetForm()">Reset</button>
+  <button type="button" onclick="goBackToFirstPage()">Back</button>
+</div>
+
+ <table id="fireworkTable">
+  <thead>
+    <tr>
+      <th>Firework Name</th>
+      <th>Quantity</th>
+      <th>Total (₹)</th>
+      <th>Action</th>  <!-- Added column for delete icon -->
+    </tr>
+  </thead>
+  <tbody></tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3"><strong>Grand Total</strong></td>
+      <td id="grandTotal">₹0</td>
+    </tr>
+  </tfoot>
+</table>
+
+
+  <script src="js/details.js"></script>
+  <!-- jsPDF CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <p><strong>Raj Crackers</strong> — Your Trusted Firework Partner</p>
+    <p>Contact: +91 82967 72217 | Email: support@rajcrackers.in</p>
+    <p class="footer-note">© 2025 Raj Crackers. All rights reserved.</p>
+    <p class="footer-safety">🔥 Please celebrate responsibly and follow all firework safety regulations.</p>
+  </div>
+</footer>
+
+</body>
+</html>

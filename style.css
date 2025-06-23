@@ -1,0 +1,405 @@
+/* Reset some default styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f7fa;
+  color: #333;
+  padding: 20px;
+}
+
+/* Heading */
+#customerDetailsTitle {
+font-size: 32px;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+}
+#customerDetailsTitle::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #e74c3c;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+.required {
+  color: red;
+  font-weight: bold;
+}
+
+/* Form styling */
+#customerDetailsForm {
+  max-width: 600px;
+  background: #ffffff;
+  padding: 30px 40px;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#customerDetailsForm label {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #34495e;
+}
+
+#customerDetailsForm input,
+#customerDetailsForm textarea {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+#customerDetailsForm input:focus,
+#customerDetailsForm textarea:focus {
+  border-color: #2980b9;
+  outline: none;
+}
+
+  @media print {
+    #fireworkTable, 
+    #fireworkTable th, 
+    #fireworkTable td {
+      border: 1px solid #000;
+      border-collapse: collapse;
+    }
+
+    #fireworkTable th, 
+    #fireworkTable td {
+      padding: 8px;
+    }
+  }
+
+/* Buttons */
+#customerDetailsForm button {
+  display: inline-block;
+  margin-top: 25px;
+  margin-right: 10px;
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#customerDetailsForm button:hover {
+  background-color: #2980b9;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  #customerDetailsForm {
+    padding: 20px;
+  }
+}
+/* Page title */
+#fireworkBillingTitle {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 25px;
+}
+
+/* Customer details display */
+#customerDetailsDisplay {
+  max-width: 600px;
+  margin: 0 auto 30px auto;
+  background-color: #f0f6fc;
+  padding: 20px 25px;
+  border-left: 5px solid #3498db;
+  border-radius: 6px;
+  font-size: 16px;
+  color: #34495e;
+}
+
+  #fireworkTable tbody td:nth-child(1),
+  #fireworkTable tbody td:nth-child(2) {
+    text-align: left;
+  }
+
+
+/* Firework input section */
+label {
+  display: block;
+  margin: 10px auto 5px auto;
+  max-width: 600px;
+  font-weight: 600;
+  color: #34495e;
+      text-align: left;
+}
+
+input[list], input[type="number"] {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 15px auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+/* Buttons */
+button {
+  margin: 10px 5px;
+  padding: 10px 16px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+/* Firework table */
+#fireworkTable {
+  width: 90%;
+  max-width: 900px;
+  margin: 30px auto;
+  border-collapse: collapse;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+#fireworkTable th,
+#fireworkTable td {
+  border: 1px solid #ccc;
+  padding: 12px 15px;
+  text-align: center;
+}
+
+#fireworkTable th {
+  background-color: #3498db;
+  color: white;
+}
+
+#fireworkTable tfoot td {
+  font-weight: bold;
+  background-color: #ecf0f1;
+}
+
+#grandTotal {
+  color: #27ae60;
+  font-size: 18px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 700px) {
+  #fireworkTable {
+    font-size: 14px;
+  }
+
+  input, label {
+    max-width: 90%;
+  }
+
+  button {
+    width: 100%;
+    max-width: 300px;
+    margin: 8px auto;
+  }
+}
+.button-container {
+  max-width: 900px;
+  margin: 20px auto;
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.delete-btn {
+	margin: 0;
+    padding: 0;
+    background: transparent;
+}
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo {
+  height: 60px;
+  width: auto;
+}
+
+.brand-title {
+  font-size: 28px;
+  color: #2c3e50;
+  font-weight: bold;
+}
+body {
+  //background: url("../images/fireworks-bg.jpg") no-repeat center top fixed;
+  background-size: cover;
+  background-color: #f5f7fa;
+  padding: 20px;
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255, 255, 255, 0.85);
+  z-index: -1;
+}
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: #ffffff;
+  padding: 20px 0;
+  text-align: center;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Push page content down so it's not hidden under the fixed header */
+body {
+  margin: 0;
+  padding-top: 120px; /* Adjust based on your header height */
+  background-color: #f5f7fa;
+}
+
+/* Brand name styling */
+.brand-name {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-left: 3rem;
+}
+
+.brand-name .raj {
+  color: #e74c3c;
+  font-weight: 900;
+  font-size: 36px;
+  letter-spacing: 1px;
+}
+
+.brand-name .crackers {
+  color: #3498db;
+  font-weight: 900;
+  font-size: 36px;
+  letter-spacing: 1px;
+}
+
+.brand-name .tagline {
+  font-size: 14px;
+  color: #7f8c8d;
+  margin-top: 5px;
+  font-style: italic;
+}
+@media (max-width: 600px) {
+  .brand-name .raj,
+  .brand-name .crackers {
+    font-size: 28px;
+  }
+
+  .brand-name .tagline {
+    font-size: 12px;
+  }
+}
+.site-footer {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  padding: 30px 20px;
+  text-align: center;
+  margin-top: 60px;
+  font-size: 14px;
+}
+
+.site-footer p {
+  margin: 8px 0;
+}
+
+.footer-note {
+  font-size: 13px;
+  color: #bdc3c7;
+}
+
+.footer-safety {
+  font-style: italic;
+  color: #f39c12;
+  margin-top: 10px;
+}
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.site-footer {
+  margin-top: 3rem;
+}
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.header-right {
+  font-size: 14px;
+  color: #34495e;
+  font-weight: 500;
+}
+.error-message {
+  color: #e74c3c;
+  font-size: 13px;
+  margin-top: 4px;
+  display: none; /* Hide initially */
+}
+.page-title {
+  font-size: 2rem;             /* Larger font size */
+  font-weight: 700;            /* Bold */
+  color: #d84315;              /* Firework-inspired deep orange/red color */
+  margin: 20px 0 30px 0;       /* Vertical spacing */
+  text-align: center;          /* Center align */
+  text-shadow: 1px 1px 3px #ffa726; /* subtle glowing orange shadow */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* clean modern font */
+}
+.success-message {
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+input:invalid,
+textarea:invalid {
+  border-color: #e74c3c;
+}
+form {
+  max-width: 400px;
+  margin: 20px auto;  /* ✅ Centers the form horizontally */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center; /* ✅ Aligns form items to center */
+  text-align: center;  /* ✅ Aligns label text to center */
+}
+
+form label,
+form input {
+  width: 100%;
+}
