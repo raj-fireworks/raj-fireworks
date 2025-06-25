@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Admin - Raj Crackers</title>
+  <title>Admin - AJ Crackers</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
-  <title>Raj Crackers Admin</title>
-  <meta name="description" content="Raj Crackers - Admin Firework Management" />
+  <title>AJ Crackers Admin</title>
+  <meta name="description" content="Aj Crackers - Admin Firework Management" />
   <!-- Font Awesome for icons -->
   <link
     rel="stylesheet"
@@ -17,12 +17,12 @@
 <body>
 <header class="site-header">
   <div class="brand-name">
-    <span class="raj">Raj</span>
+    <span class="raj">AJ</span>
     <span class="crackers">Crackers</span>
     <div class="tagline">Your Trusted Firework Partner</div>
   </div>
   <div class="header-right">
-    <div id="liveClock"></div>
+    <button onclick="logoutAdmin()" style="margin-top: 20px;">Logout Admin</button>
     <a href="details.html" title="Back to Billing" class="icon-link"><i class="fas fa-arrow-left"></i></a>
   </div>
 </header>
@@ -47,17 +47,43 @@
 <div id="adminMessage" class="success-message"></div>
 
 <footer class="site-footer">
-  <div class="footer-content">
-    <p><strong>Raj Crackers</strong> — Your Trusted Firework Partner</p>
-    <p>Contact: +91 82967 72217 | Email: support@rajcrackers.in</p>
-    <p class="footer-note">© 2025 Raj Crackers. All rights reserved.</p>
-    <p class="footer-safety">🔥 Please celebrate responsibly and follow all firework safety regulations.</p>
-  </div>
-</footer>
+    <div class="footer-content">
+      <p><strong>AJ Crackers</strong> — Your Trusted Firework Partner</p>
+      <p>Contact: +91 82967 72217, 99436 81121, 82481 03661 | Email: support@rajcrackers.in</p>
+      <p class="footer-note">© 2025 AJ Crackers. All rights reserved.</p>
+      <p class="footer-safety">🔥 Please celebrate responsibly and follow all firework safety regulations.</p>
+    </div>
+  </footer>
 
 <script>
+const ADMIN_PASSWORD = "PRVidhyuth@36"; // Set your admin password once
+
+function isAdminAuthenticated() {
+  return sessionStorage.getItem("isAdminAuthenticated") === "true";
+}
+
+function promptAdminPassword() {
+  const enteredPassword = prompt("Enter admin password to update firework prices:");
+  if (enteredPassword === ADMIN_PASSWORD) {
+    sessionStorage.setItem("isAdminAuthenticated", "true");
+    return true;
+  } else {
+    alert("Incorrect password. Access denied.");
+    return false;
+  }
+}
+function logoutAdmin() {
+  sessionStorage.removeItem("isAdminAuthenticated");
+  alert("You have been logged out.");
+}
 
 function addOrUpdateFirework() {
+  if (!isAdminAuthenticated()) {
+    if (!promptAdminPassword()) {
+      return; // Stop if wrong password
+    }
+  }
+
   const name = document.getElementById("fireworkName").value.trim();
   const price = parseFloat(document.getElementById("fireworkPrice").value);
 
@@ -70,11 +96,9 @@ function addOrUpdateFirework() {
 
   if (fireworkPrices.hasOwnProperty(name)) {
     if (fireworkPrices[name] === price) {
-      // Same name and same price
       document.getElementById("adminMessage").textContent = `ℹ️ "${name}" with price ₹${price} is already available.`;
       return;
     } else {
-      // Same name but different price - ask to confirm update
       const confirmUpdate = confirm(`"${name}" already exists with price ₹${fireworkPrices[name]}. Do you want to update to ₹${price}?`);
       if (!confirmUpdate) {
         document.getElementById("adminMessage").textContent = "Update canceled.";
@@ -83,7 +107,6 @@ function addOrUpdateFirework() {
     }
   }
 
-  // If new firework or confirmed update:
   fireworkPrices[name] = price;
   localStorage.setItem("fireworkPrices", JSON.stringify(fireworkPrices));
 
@@ -93,29 +116,28 @@ function addOrUpdateFirework() {
   populateFireworkAutocomplete();
 }
 
+function updateClock() {
+  const now = new Date();
+  document.getElementById("liveClock").textContent = now.toLocaleString();
+}
 
-  function updateClock() {
-    const now = new Date();
-    document.getElementById("liveClock").textContent = now.toLocaleString();
-  }
+function populateFireworkAutocomplete() {
+  const datalist = document.getElementById("fireworkNamesList");
+  datalist.innerHTML = "";
 
-  function populateFireworkAutocomplete() {
-    const datalist = document.getElementById("fireworkNamesList");
-    datalist.innerHTML = "";
+  const stored = JSON.parse(localStorage.getItem("fireworkPrices")) || {};
+  Object.keys(stored).forEach(name => {
+    const option = document.createElement("option");
+    option.value = name;
+    datalist.appendChild(option);
+  });
+}
 
-    const stored = JSON.parse(localStorage.getItem("fireworkPrices")) || {};
-    Object.keys(stored).forEach(name => {
-      const option = document.createElement("option");
-      option.value = name;
-      datalist.appendChild(option);
-    });
-  }
-
-  setInterval(updateClock, 1000);
-  updateClock();
-  populateFireworkAutocomplete();
-
+setInterval(updateClock, 1000);
+updateClock();
+populateFireworkAutocomplete();
 </script>
+
 
 
 </body>
