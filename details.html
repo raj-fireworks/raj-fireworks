@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Firework Billing</title>
-  <link rel="stylesheet" href="style.css">
-<title>Raj Crackers Billing</title>
-<meta name="description" content="Raj Crackers - Easy and Fast Firework Billing Software">
+  <title>AJ Firework Billing</title>
+  <link rel="stylesheet" href="css/style.css">
+<title>AJ Crackers Billing</title>
+<meta name="description" content="Aj Crackers - Easy and Fast Firework Billing Software">
 
 </head>
 <body>
 <header class="site-header">
   <div class="brand-name">
-    <span class="raj">Raj</span>
+    <span class="raj">AJ</span>
     <span class="crackers">Crackers</span>
     <div class="tagline">Your Trusted Firework Partner</div>
   </div>
@@ -50,6 +50,7 @@
 <div class="button-container">
   <button onclick="addFirework()">Add</button>
   <button onclick="printList()" id="printListBtn"disabled>Print List</button>
+  <button onclick="sendToWhatsApp()">Send to WhatsApp</button>
     <button type="button" onclick="resetForm()">Reset</button>
   <button type="button" onclick="goBackToFirstPage()">Back</button>
 </div>
@@ -69,23 +70,31 @@
       <td colspan="3"><strong>Grand Total</strong></td>
       <td id="grandTotal">₹0</td>
     </tr>
+  <tr>
+    <td colspan="3"><strong>Discount (%)</strong></td>
+    <td><input type="number" id="discountPercent" min="0" max="100" value="" oninput="updateDiscountedTotal()" /></td>
+  </tr>
+  <tr>
+    <td colspan="3"><strong>Total After Discount</strong></td>
+    <td id="discountedTotal">₹0</td>
+  </tr>
   </tfoot>
 </table>
 
 
-  <script src="details.js"></script>
+  <script src="js/details.js"></script>
   <!-- jsPDF CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 
 <footer class="site-footer">
-  <div class="footer-content">
-    <p><strong>Raj Crackers</strong> — Your Trusted Firework Partner</p>
-    <p>Contact: +91 82967 72217 | Email: support@rajcrackers.in</p>
-    <p class="footer-note">© 2025 Raj Crackers. All rights reserved.</p>
-    <p class="footer-safety">🔥 Please celebrate responsibly and follow all firework safety regulations.</p>
-  </div>
-</footer>
+    <div class="footer-content">
+      <p><strong>AJ Crackers</strong> — Your Trusted Firework Partner</p>
+      <p>Contact: +91 82967 72217, 99436 81121, 82481 03661 | Email: support@rajcrackers.in</p>
+      <p class="footer-note">© 2025 AJ Crackers. All rights reserved.</p>
+      <p class="footer-safety">🔥 Please celebrate responsibly and follow all firework safety regulations.</p>
+    </div>
+  </footer>
 
 </body>
 </html>
