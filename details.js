@@ -193,7 +193,7 @@ function sendToWhatsApp() {
   const customerMobile = localStorage.getItem("customerMobile") || "";
   const customerAddress = localStorage.getItem("customerAddress") || "";
 
-  let message = ` *Raj Crackers - Your Firework Bill*\n\n`;
+  let message = ` *AJ Crackers - Your Firework Bill*\n\n`;
   message += `*Customer:* ${customerName}\n`;
   message += `*Mobile:* ${customerMobile}\n`;
   message += `*Address:* ${customerAddress}\n\n`;
@@ -247,7 +247,7 @@ doc.text(`Customer Name: ${customerName}`, 20, 28);
 doc.text(`Mobile Number: ${customerMobile}`, 20, 36);
 doc.text(`Address: ${customerAddress}`, 20, 44);
 
-  doc.text("Raj Crackers", pageWidth - 20, 20, { align: "right" });
+  doc.text("AJ Crackers", pageWidth - 20, 20, { align: "right" });
   doc.text("Your Trusted Firework Partner", pageWidth - 20, 26, { align: "right" });
   doc.text("Phone: +91 82967 72217", pageWidth - 20, 32, { align: "right" });
   doc.text("Email: support@rajcrackers.in", pageWidth - 20, 38, { align: "right" });
