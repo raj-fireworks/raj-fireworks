@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AJ Crackers Order</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 8px; }
+    th { background: #f4f4f4; }
+    input[type="number"] { width: 60px; }
+    .totals { margin-top: 20px; font-size: 18px; }
+    button { margin-top: 15px; padding: 10px; }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<h2>🔥 AJ Crackers - Order Summary</h2>
+
+<table id="productTable">
+  <thead>
+    <tr>
+      <th>Firework</th>
+      <th>Price (₹)</th>
+      <th>Quantity</th>
+      <th>Subtotal (₹)</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<div class="totals">
+  <p><strong>Total Amount:</strong> ₹<span id="totalAmount">0</span></p>
+  <p><strong>Offer:</strong> ₹<span id="offerAmount">0</span></p>
+  <p><strong>Final Amount:</strong> ₹<span id="finalAmount">0</span></p>
+</div>
+
+<button onclick="downloadPDF()">Download as PDF</button>
+<button onclick="sendWhatsApp()">Send via WhatsApp</button>
+
+<script>
+  function parseDataFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const data = params.get("data");
+    if (!data) return [];
+
+    try {
+      return JSON.parse(decodeURIComponent(data));
+    } catch (e) {
+      alert("Invalid data in URL");
+      return [];
+    }
+  }
+
+  function renderTable(products) {
+    const tbody = document.querySelector("#productTable tbody");
+    tbody.innerHTML = "";
+
+    products.forEach((item, index) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${item.name}</td>
+        <td>₹${item.price}</td>
+        <td><input type="number" value="${item.quantity || 0}" min="0" onchange="updateTotals()" data-index="${index}"></td>
+        <td id="subtotal-${index}">₹0</td>
+      `;
+      tbody.appendChild(row);
+    });
+
+    updateTotals();
+  }
+
+  function updateTotals() {
+    let total = 0;
+    products.forEach((item, index) => {
+      const qtyInput = document.querySelector(`input[data-index="${index}"]`);
+      const qty = parseInt(qtyInput.value) || 0;
+      const subtotal = qty * item.price;
+      document.getElementById(`subtotal-${index}`).textContent = `₹${subtotal}`;
+      item.quantity = qty;
+      item.subtotal = subtotal;
+      total += subtotal;
+    });
+
+    const offer = total > 1000 ? total * 0.1 : 0; // 10% offer if > ₹1000
+    const finalAmount = total - offer;
+
+    document.getElementById("totalAmount").textContent = total.toFixed(2);
+    document.getElementById("offerAmount").textContent = offer.toFixed(2);
+    document.getElementById("finalAmount").textContent = finalAmount.toFixed(2);
+  }
+
+  function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.text("AJ Crackers - Order Summary", 10, 10);
+
+    let y = 20;
+    products.forEach((item, i) => {
+      if (item.quantity > 0) {
+        doc.text(`${i + 1}. ${item.name} - ₹${item.price} x ${item.quantity} = ₹${item.subtotal}`, 10, y);
+        y += 10;
+      }
+    });
+
+    y += 10;
+    doc.text(`Total: ₹${document.getElementById("totalAmount").textContent}`, 10, y);
+    y += 10;
+    doc.text(`Offer: ₹${document.getElementById("offerAmount").textContent}`, 10, y);
+    y += 10;
+    doc.text(`Final: ₹${document.getElementById("finalAmount").textContent}`, 10, y);
+
+    doc.save("AJ_Crackers_Order.pdf");
+  }
+
+  function sendWhatsApp() {
+    let message = "🔥 *AJ Crackers Order Summary* 🔥\n\n";
+    products.forEach((item) => {
+      if (item.quantity > 0) {
+        message += `${item.name} - ₹${item.price} x ${item.quantity} = ₹${item.subtotal}\n`;
+      }
+    });
+    message += `\nTotal: ₹${document.getElementById("totalAmount").textContent}`;
+    message += `\nOffer: ₹${document.getElementById("offerAmount").textContent}`;
+    message += `\nFinal: ₹${document.getElementById("finalAmount").textContent}`;
+    message += `\n\nThank you! 🎇`;
+
+    const phone = "918296772217"; // Replace with your WhatsApp number
+    const whatsappURL = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappURL, "_blank");
+  }
+
+  const products = parseDataFromURL();
+  renderTable(products);
+</script>
+</body>
+</html>
