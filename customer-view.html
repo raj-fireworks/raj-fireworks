@@ -99,35 +99,33 @@
 <p class="footer-note">* Offer is fixed at 70% and prices shown are after discount. Prices inclusive of taxes.</p>
 
 <script>
-  const queryParams = new URLSearchParams(window.location.search);
-  const rawData = queryParams.get("data");
-
   const offerPercent = 70;
   const offerMultiplier = (100 - offerPercent) / 100;
 
-  if (rawData) {
+  async function loadProducts() {
     try {
-      const products = JSON.parse(decodeURIComponent(rawData));
-      const tbody = document.querySelector("#productTable tbody");
-
-      products.forEach(item => {
-        const offerPrice = (item.price * offerMultiplier).toFixed(2);
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${item.name}</td>
-          <td>₹${item.price}</td>
-          <td>₹${offerPrice}</td>
-          <td><input type="number" min="0" value="0" onchange="calculateTotals()" data-price="${offerPrice}" data-name="${item.name}" /></td>
-          <td class="item-total">₹0.00</td>
-        `;
-        tbody.appendChild(row);
-      });
-
+      const res = await fetch("products.json");
+      const products = await res.json();
+      renderProductTable(products);
     } catch (e) {
-      document.body.innerHTML = "<p>Error loading data. Please try again.</p>";
+      document.body.innerHTML = "<p>Error loading products. Please try again later.</p>";
     }
-  } else {
-    document.body.innerHTML = "<p>No data found. Please use the correct link.</p>";
+  }
+
+  function renderProductTable(products) {
+    const tbody = document.querySelector("#productTable tbody");
+    products.forEach(item => {
+      const offerPrice = (item.price * offerMultiplier).toFixed(2);
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${item.name}</td>
+        <td>₹${item.price}</td>
+        <td>₹${offerPrice}</td>
+        <td><input type="number" min="0" value="0" onchange="calculateTotals()" data-price="${offerPrice}" data-name="${item.name}" /></td>
+        <td class="item-total">₹0.00</td>
+      `;
+      tbody.appendChild(row);
+    });
   }
 
   function calculateTotals() {
@@ -179,12 +177,14 @@
     }
 
     message += `\nTotal: ₹${total.toFixed(2)}`;
-    if (phone) message += `\nCustomer Phone: ${phone}`;
+    if (phone) message += `\nPhone: ${phone}`;
     message += `\n\nThank you!`;
 
     const whatsappURL = `https://wa.me/918296772217?text=${encodeURIComponent(message)}`;
     window.open(whatsappURL, '_blank');
   }
+
+  loadProducts();
 </script>
 
 </body>
