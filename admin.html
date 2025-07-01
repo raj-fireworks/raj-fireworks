@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Admin - AJ Crackers</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
   <meta name="description" content="Aj Crackers - Admin Firework Management" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -255,7 +255,7 @@ function updateClock() {
 }
 function generateCustomerLink() {
   const fireworkPrices = JSON.parse(localStorage.getItem("fireworkPrices")) || {};
-  
+
   if (Object.keys(fireworkPrices).length === 0) {
     alert("No fireworks available to share.");
     return;
@@ -268,13 +268,18 @@ function generateCustomerLink() {
   }));
 
   const encoded = encodeURIComponent(JSON.stringify(products));
-  const customerURL = `${window.location.origin}/customer-view.html?data=${encoded}`;
+  const customerURL = `https://karthika43.github.io/raj-fireworks/customer-view.html?data=${encoded}`;
 
-  // Remove old link if exists
+  const whatsappMessage = `Hi! Here's the latest fireworks price list from AJ Crackers:\n\n${customerURL}`;
+  const whatsappURL = `https://wa.me/?text=${encodeURIComponent(whatsappMessage)}`;
+
+  // Open WhatsApp
+  window.open(whatsappURL, '_blank');
+
+  // Show link on page
   const oldLink = document.getElementById("customerLinkDisplay");
   if (oldLink) oldLink.remove();
 
-  // Create link section
   const div = document.createElement("div");
   div.id = "customerLinkDisplay";
   div.style.marginTop = "20px";
@@ -294,6 +299,7 @@ function generateCustomerLink() {
 
   document.body.appendChild(div);
 }
+
 
 // Helper to copy URL
 function copyToClipboard(text) {
