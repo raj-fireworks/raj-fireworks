@@ -147,22 +147,35 @@
     });
   }
 
-  function calculateTotals() {
-    let grandTotal = 0;
-    const rows = document.querySelectorAll("#productTable tbody tr");
+ function calculateTotals() {
+  let originalTotal = 0;
+  let discountTotal = 0;
+  let finalTotal = 0;
 
-    rows.forEach(row => {
-      const qtyInput = row.querySelector("input[type='number']");
-      const qty = parseInt(qtyInput.value) || 0;
-      const price = parseFloat(qtyInput.dataset.price);
-      const total = qty * price;
+  const rows = document.querySelectorAll("#productTable tbody tr");
 
-      row.querySelector(".item-total").textContent = `₹${total.toFixed(2)}`;
-      grandTotal += total;
-    });
+  rows.forEach(row => {
+    const qtyInput = row.querySelector("input[type='number']");
+    const qty = parseInt(qtyInput.value) || 0;
+    const originalPrice = parseFloat(row.children[1].textContent.replace("₹", ""));
+    const discountedPrice = parseFloat(qtyInput.dataset.price);
+    const total = qty * discountedPrice;
 
-    document.getElementById("grandTotal").textContent = grandTotal.toFixed(2);
-  }
+    const originalSubtotal = qty * originalPrice;
+    const discountAmount = originalSubtotal - total;
+
+    row.querySelector(".item-total").textContent = `₹${total.toFixed(2)}`;
+
+    originalTotal += originalSubtotal;
+    discountTotal += discountAmount;
+    finalTotal += total;
+  });
+
+  document.getElementById("originalTotal").textContent = originalTotal.toFixed(2);
+  document.getElementById("discountAmount").textContent = discountTotal.toFixed(2);
+  document.getElementById("grandTotal").textContent = finalTotal.toFixed(2);
+}
+
 
   function sendOrderToWhatsApp() {
     const name = document.getElementById("customerName").value.trim();
