@@ -63,12 +63,18 @@
       color: #888;
       font-size: 14px;
     }
+    .offer-days-left {
+      font-size: 16px;
+      margin-top: 10px;
+      color: #555;
+    }
   </style>
 </head>
 <body>
 
 <h1>🎇 AJ Crackers - Firework Price List</h1>
 <p><strong>Offer:</strong> Flat 70% Discount Applied</p>
+<p class="offer-days-left" id="daysLeft"></p>
 
 <label for="customerName">Your Name:</label>
 <input type="text" id="customerName" placeholder="Enter your name" />
@@ -81,7 +87,6 @@
     <tr>
       <th>Firework Name</th>
       <th>Original Price (₹)</th>
-      <th>Offer Price (30%)</th>
       <th>Quantity</th>
       <th>Total (₹)</th>
     </tr>
@@ -102,6 +107,21 @@
   const offerPercent = 70;
   const offerMultiplier = (100 - offerPercent) / 100;
 
+  // Update this date to your actual offer end date
+  const offerEndDate = new Date('2025-10-25'); // Example: October 25, 2025
+
+  function showDaysLeft() {
+    const today = new Date();
+    const timeDiff = offerEndDate - today;
+    const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+    const msg = daysLeft > 0
+      ? `🔥 Hurry! Only ${daysLeft} day${daysLeft !== 1 ? 's' : ''} left for this offer!`
+      : '⚠️ The offer has ended.';
+    
+    document.getElementById('daysLeft').textContent = msg;
+  }
+
   async function loadProducts() {
     try {
       const res = await fetch("products.json");
@@ -120,7 +140,6 @@
       row.innerHTML = `
         <td>${item.name}</td>
         <td>₹${item.price}</td>
-        <td>₹${offerPrice}</td>
         <td><input type="number" min="0" value="0" onchange="calculateTotals()" data-price="${offerPrice}" data-name="${item.name}" /></td>
         <td class="item-total">₹0.00</td>
       `;
@@ -184,6 +203,7 @@
     window.open(whatsappURL, '_blank');
   }
 
+  showDaysLeft();
   loadProducts();
 </script>
 
