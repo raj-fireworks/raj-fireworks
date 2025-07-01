@@ -254,21 +254,7 @@ function updateClock() {
   if (clock) clock.textContent = now.toLocaleString();
 }
 function generateCustomerLink() {
-  const fireworkPrices = JSON.parse(localStorage.getItem("fireworkPrices")) || {};
-  
-  if (Object.keys(fireworkPrices).length === 0) {
-    alert("No fireworks available to share.");
-    return;
-  }
-
-  const products = Object.keys(fireworkPrices).map(name => ({
-    name: name,
-    price: fireworkPrices[name],
-    quantity: 0
-  }));
-
-  const encoded = encodeURIComponent(JSON.stringify(products));
-  const customerURL = `${window.location.origin}/raj-fireworks/customer-view.html`;
+  const customerURL = "https://karthika43.github.io/raj-fireworks/customer-view.html";
 
   // Remove old link if exists
   const oldLink = document.getElementById("customerLinkDisplay");
