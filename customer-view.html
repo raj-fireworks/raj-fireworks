@@ -2,139 +2,190 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>AJ Crackers Order</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AJ Crackers - Customer View</title>
   <style>
-    body { font-family: Arial; padding: 20px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    th, td { border: 1px solid #ddd; padding: 8px; }
-    th { background: #f4f4f4; }
-    input[type="number"] { width: 60px; }
-    .totals { margin-top: 20px; font-size: 18px; }
-    button { margin-top: 15px; padding: 10px; }
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      color: #d9534f;
+    }
+    input[type="text"], input[type="tel"] {
+      padding: 8px;
+      margin-bottom: 10px;
+      width: 250px;
+      display: block;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    input[type="number"] {
+      width: 60px;
+    }
+    .total-section {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .button-group {
+      margin-top: 20px;
+    }
+    .button-group button {
+      padding: 12px 20px;
+      font-size: 16px;
+      margin-right: 10px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+    }
+    .whatsapp-button {
+      background-color: #25D366;
+      color: white;
+    }
+    .print-button {
+      background-color: #007bff;
+      color: white;
+    }
+    .footer-note {
+      margin-top: 40px;
+      color: #888;
+      font-size: 14px;
+    }
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
 
-<h2>🔥 AJ Crackers - Order Summary</h2>
+<h1>🎇 AJ Crackers - Firework Price List</h1>
+<p><strong>Offer:</strong> Flat 70% Discount Applied</p>
+
+<label for="customerName">Your Name:</label>
+<input type="text" id="customerName" placeholder="Enter your name" />
+
+<label for="customerPhone">Your Phone (optional):</label>
+<input type="tel" id="customerPhone" placeholder="Enter your phone number" />
 
 <table id="productTable">
   <thead>
     <tr>
-      <th>Firework</th>
-      <th>Price (₹)</th>
+      <th>Firework Name</th>
+      <th>Original Price (₹)</th>
+      <th>Offer Price (30%)</th>
       <th>Quantity</th>
-      <th>Subtotal (₹)</th>
+      <th>Total (₹)</th>
     </tr>
   </thead>
   <tbody></tbody>
 </table>
 
-<div class="totals">
-  <p><strong>Total Amount:</strong> ₹<span id="totalAmount">0</span></p>
-  <p><strong>Offer:</strong> ₹<span id="offerAmount">0</span></p>
-  <p><strong>Final Amount:</strong> ₹<span id="finalAmount">0</span></p>
+<div class="total-section">Grand Total: ₹<span id="grandTotal">0.00</span></div>
+
+<div class="button-group">
+  <button class="whatsapp-button" onclick="sendOrderToWhatsApp()">Send Order via WhatsApp</button>
+  <button class="print-button" onclick="window.print()">Print Order</button>
 </div>
 
-<button onclick="downloadPDF()">Download as PDF</button>
-<button onclick="sendWhatsApp()">Send via WhatsApp</button>
+<p class="footer-note">* Offer is fixed at 70% and prices shown are after discount. Prices inclusive of taxes.</p>
 
 <script>
-  function parseDataFromURL() {
-    const params = new URLSearchParams(window.location.search);
-    const data = params.get("data");
-    if (!data) return [];
+  const queryParams = new URLSearchParams(window.location.search);
+  const rawData = queryParams.get("data");
 
+  const offerPercent = 70;
+  const offerMultiplier = (100 - offerPercent) / 100;
+
+  if (rawData) {
     try {
-      return JSON.parse(decodeURIComponent(data));
+      const products = JSON.parse(decodeURIComponent(rawData));
+      const tbody = document.querySelector("#productTable tbody");
+
+      products.forEach(item => {
+        const offerPrice = (item.price * offerMultiplier).toFixed(2);
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>₹${item.price}</td>
+          <td>₹${offerPrice}</td>
+          <td><input type="number" min="0" value="0" onchange="calculateTotals()" data-price="${offerPrice}" data-name="${item.name}" /></td>
+          <td class="item-total">₹0.00</td>
+        `;
+        tbody.appendChild(row);
+      });
+
     } catch (e) {
-      alert("Invalid data in URL");
-      return [];
+      document.body.innerHTML = "<p>Error loading data. Please try again.</p>";
     }
+  } else {
+    document.body.innerHTML = "<p>No data found. Please use the correct link.</p>";
   }
 
-  function renderTable(products) {
-    const tbody = document.querySelector("#productTable tbody");
-    tbody.innerHTML = "";
+  function calculateTotals() {
+    let grandTotal = 0;
+    const rows = document.querySelectorAll("#productTable tbody tr");
 
-    products.forEach((item, index) => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${item.name}</td>
-        <td>₹${item.price}</td>
-        <td><input type="number" value="${item.quantity || 0}" min="0" onchange="updateTotals()" data-index="${index}"></td>
-        <td id="subtotal-${index}">₹0</td>
-      `;
-      tbody.appendChild(row);
-    });
-
-    updateTotals();
-  }
-
-  function updateTotals() {
-    let total = 0;
-    products.forEach((item, index) => {
-      const qtyInput = document.querySelector(`input[data-index="${index}"]`);
+    rows.forEach(row => {
+      const qtyInput = row.querySelector("input[type='number']");
       const qty = parseInt(qtyInput.value) || 0;
-      const subtotal = qty * item.price;
-      document.getElementById(`subtotal-${index}`).textContent = `₹${subtotal}`;
-      item.quantity = qty;
-      item.subtotal = subtotal;
-      total += subtotal;
+      const price = parseFloat(qtyInput.dataset.price);
+      const total = qty * price;
+
+      row.querySelector(".item-total").textContent = `₹${total.toFixed(2)}`;
+      grandTotal += total;
     });
 
-    const offer = total > 1000 ? total * 0.1 : 0; // 10% offer if > ₹1000
-    const finalAmount = total - offer;
-
-    document.getElementById("totalAmount").textContent = total.toFixed(2);
-    document.getElementById("offerAmount").textContent = offer.toFixed(2);
-    document.getElementById("finalAmount").textContent = finalAmount.toFixed(2);
+    document.getElementById("grandTotal").textContent = grandTotal.toFixed(2);
   }
 
-  function downloadPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+  function sendOrderToWhatsApp() {
+    const name = document.getElementById("customerName").value.trim();
+    const phone = document.getElementById("customerPhone").value.trim();
 
-    doc.text("AJ Crackers - Order Summary", 10, 10);
+    if (!name) {
+      alert("Please enter your name before sending the order.");
+      return;
+    }
 
-    let y = 20;
-    products.forEach((item, i) => {
-      if (item.quantity > 0) {
-        doc.text(`${i + 1}. ${item.name} - ₹${item.price} x ${item.quantity} = ₹${item.subtotal}`, 10, y);
-        y += 10;
+    const rows = document.querySelectorAll("#productTable tbody tr");
+    let message = `Hi, I'm ${name}, and I'd like to place an order:\n\n`;
+    let total = 0;
+
+    rows.forEach(row => {
+      const input = row.querySelector("input[type='number']");
+      const qty = parseInt(input.value);
+      const itemName = input.dataset.name;
+      const price = parseFloat(input.dataset.price);
+
+      if (qty && qty > 0) {
+        const itemTotal = (qty * price).toFixed(2);
+        message += `- ${itemName} x ${qty} = ₹${itemTotal}\n`;
+        total += qty * price;
       }
     });
 
-    y += 10;
-    doc.text(`Total: ₹${document.getElementById("totalAmount").textContent}`, 10, y);
-    y += 10;
-    doc.text(`Offer: ₹${document.getElementById("offerAmount").textContent}`, 10, y);
-    y += 10;
-    doc.text(`Final: ₹${document.getElementById("finalAmount").textContent}`, 10, y);
+    if (total === 0) {
+      alert("Please select at least one product.");
+      return;
+    }
 
-    doc.save("AJ_Crackers_Order.pdf");
+    message += `\nTotal: ₹${total.toFixed(2)}`;
+    if (phone) message += `\nCustomer Phone: ${phone}`;
+    message += `\n\nThank you!`;
+
+    const whatsappURL = `https://wa.me/918296772217?text=${encodeURIComponent(message)}`;
+    window.open(whatsappURL, '_blank');
   }
-
-  function sendWhatsApp() {
-    let message = "🔥 *AJ Crackers Order Summary* 🔥\n\n";
-    products.forEach((item) => {
-      if (item.quantity > 0) {
-        message += `${item.name} - ₹${item.price} x ${item.quantity} = ₹${item.subtotal}\n`;
-      }
-    });
-    message += `\nTotal: ₹${document.getElementById("totalAmount").textContent}`;
-    message += `\nOffer: ₹${document.getElementById("offerAmount").textContent}`;
-    message += `\nFinal: ₹${document.getElementById("finalAmount").textContent}`;
-    message += `\n\nThank you! 🎇`;
-
-    const phone = "918296772217"; // Replace with your WhatsApp number
-    const whatsappURL = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappURL, "_blank");
-  }
-
-  const products = parseDataFromURL();
-  renderTable(products);
 </script>
+
 </body>
 </html>
