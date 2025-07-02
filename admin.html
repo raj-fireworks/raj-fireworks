@@ -43,9 +43,9 @@
 <div id="adminMessage" class="success-message"></div>
 <label for="offerPercent">Offer Percentage (%):</label>
 <input type="number" id="offerPercent" value="70" min="1" max="99" style="width:100px;" />
-<button type="button" onclick="saveOffer()">Save Offer</button>
+<button type="button" onclick="saveOffer()" style="    margin-left: auto;
+    margin-right: auto;width:fit-content;">Save Offer</button>
 
-<h3>Current Price List</h3>
 <table id="fireworkTable" border="1" style="width: 700px; border-collapse: collapse; margin-top: 20px;">
   <thead>
     <tr>
@@ -57,9 +57,10 @@
   <tbody id="fireworkTableBody"></tbody>
 </table>
 
-<div class="button-group-right" style="margin-top: 20px;">
+<div class="button-group-right" style="margin-top: 20px;display:flex;justify-content:flex-end;">
   <button onclick="exportToExcel()">Download Price List (Excel)</button>
     <button onclick="generateCustomerLink()">Generate Customer Link</button>
+<button onclick="downloadProductsJson()">Export as JSON</button>
 
 </div>
 
@@ -110,6 +111,18 @@ function saveOffer() {
   // Save locally
   localStorage.setItem("fireworkOffer", JSON.stringify(offerData));
   alert(`✅ Offer set to ${offer}%`);
+}
+function downloadProductsJson() {
+  const data = JSON.parse(localStorage.getItem("fireworkPrices") || "{}");
+
+  const file = new Blob([JSON.stringify(data, null, 2)], {
+    type: "application/json"
+  });
+
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(file);
+  a.download = "products.json";
+  a.click();
 }
 
 function addOrUpdateFirework() {
