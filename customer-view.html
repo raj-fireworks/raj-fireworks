@@ -203,33 +203,36 @@
   }
 
 function loadProducts() {
-  fetch("products.json")
-    .then(res => res.json())
-.then(data => {
-  console.log("Loaded products:", data); // This shows up ✅
+ fetch("products.json")
+  .then(res => res.json())
+  .then(data => {
+    console.log("Loaded products:", data);
 
-  try {
-    const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 70 };
-    currentOffer = storedOffer.offer;
-    document.getElementById("offerValue").textContent = `Flat ${currentOffer}%`;
-    document.getElementById("discountPercent").textContent = `${currentOffer}%`;
+    try {
+      // Get offer from localStorage or default to 70
+      const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 70 };
+      currentOffer = storedOffer.offer;
 
-    const products = Object.entries(data).map(([name, price]) => ({
-      name,
-      price: parseFloat(price)
-    }));
+      // Update discount display only where element exists
+      document.getElementById("discountPercent").textContent = `${currentOffer}%`;
 
-    console.log("Processed products:", products);  // This should now show
+      const products = Object.entries(data).map(([name, price]) => ({
+        name,
+        price: parseFloat(price)
+      }));
 
-    renderProductTable(products);
-  } catch (err) {
-    console.error("❌ Error inside .then():", err);
-  }
-})
-    .catch((err) => {
-  console.error("Error loading products.json:", err);
-  document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="4">Failed to load products.</td></tr>`;
-});
+      console.log("Processed products:", products);
+
+      renderProductTable(products);
+
+    } catch (err) {
+      console.error("❌ Error inside .then():", err);
+    }
+  })
+  .catch((err) => {
+    console.error("Error loading products.json:", err);
+    document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="4">Failed to load products.</td></tr>`;
+  });
 
 }
 
