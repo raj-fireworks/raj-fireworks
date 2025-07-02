@@ -1,19 +1,10 @@
 {
-  "kambi mathappu": { "price": 20, "category": "Rockets" },
-  "sparkles": { "price": 10, "category": "Sparklers" },
-  "spark": { "price": 23, "category": "Sparklers" },
-  "wala1": { "price": 20, "category": "Fountains" },
-  "wala2": { "price": 10, "category": "Fountains" },
-  "wala3": { "price": 20, "category": "Fountains" },
-  "wala4": { "price": 10, "category": "Fountains" },
-  "wala5": { "price": 20, "category": "Fountains" },
-  "wala6": { "price": 20, "category": "Rockets" },
-  "wala7": { "price": 20, "category": "Rockets" },
-  "wala8": { "price": 10, "category": "Sparklers" },
-  "wala9": { "price": 20, "category": "Rockets" },
-  "wala10": { "price": 10, "category": "Rockets" },
-  "wala23": { "price": 12, "category": "Rockets" },
-  "wala52": { "price": 20, "category": "Rockets" },
-  "chakkaram2": { "price": 22, "category": "Fountains" },
-  "dfjgh": { "price": 28, "category": "Rockets" }
+  "Kambi Mathappu": { "price": 20, "category": "Rockets" },
+  "Rocket One": { "price": 100, "category": "Rockets" },
+  "Sparkles": { "price": 50, "category": "Sparklers" },
+  "Spark": { "price": 35, "category": "Sparklers" },
+  "Flower Pot": { "price": 45, "category": "Fountains" },
+  "Ground Spinner": { "price": 30, "category": "Fountains" },
+  "Anar": { "price": 25, "category": "Anars" },
+  "Chakra": { "price": 15, "category": "Chakras" }
 }
