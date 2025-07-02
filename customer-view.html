@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AJ Crackers - Customer View</title>
   <style>
+    /* Your existing styles unchanged */
     body {
       font-family: sans-serif;
       padding: 20px;
@@ -94,46 +95,45 @@
       font-weight: bold;
       margin-top: 10px;
     }
-	.highlight-offer {
-  background: #fff3cd;
-  border: 2px solid #ffc107;
-  padding: 15px;
-  border-radius: 10px;
-  margin-top: 15px;
-  margin-bottom: 20px;
-  text-align: center;
-  font-size: 18px;
-  color: #333;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
+    .highlight-offer {
+      background: #fff3cd;
+      border: 2px solid #ffc107;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 18px;
+      color: #333;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
 
-.blink-text {
-  animation: blink-fast 1s infinite;
-  color: #e60000;
-  font-weight: bold;
-}
+    .blink-text {
+      animation: blink-fast 1s infinite;
+      color: #e60000;
+      font-weight: bold;
+    }
 
-.blink-slow {
-  animation: blink-slow 2.5s infinite;
-  color: #d9534f;
-  font-weight: bold;
-}
+    .blink-slow {
+      animation: blink-slow 2.5s infinite;
+      color: #d9534f;
+      font-weight: bold;
+    }
 
-@keyframes blink-fast {
-  50% {
-    opacity: 0;
-  }
-}
+    @keyframes blink-fast {
+      50% {
+        opacity: 0;
+      }
+    }
 
-@keyframes blink-slow {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.3;
-  }
-}
-
+    @keyframes blink-slow {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.3;
+      }
+    }
   </style>
 </head>
 <body>
@@ -144,10 +144,9 @@
 </header>
 
 <div class="highlight-offer">
-  <p><strong>🎁 Offer: Flat <span class="blink-text">70%</span> Discount Applied</strong></p>
-  <p class="days-left blink-slow">🔥 Hurry! Only <span id="daysLeft">115</span> days left for this offer!</p>
+  <p><strong>🎁 Offer: Flat <span class="blink-text" id="discountPercent">70%</span> Discount Applied</strong></p>
+  <p class="days-left blink-slow">🔥 Hurry! Only <span id="daysLeft">115</span> day<span id="daysPlural">s</span> left for this offer!</p>
 </div>
-
 
 <label for="customerName">Your Name:</label>
 <input type="text" id="customerName" placeholder="Enter your name" />
@@ -168,7 +167,7 @@
 </table>
 
 <div class="total-section">
-  <p>Discount: <strong id="discountPercent">70%</strong></p>
+  <p>Discount: <strong id="discountPercentFooter">70%</strong></p>
   <p>Total Original Price: ₹<span id="originalTotal">0.00</span></p>
   <p>Total Discount Amount: ₹<span id="discountAmount">0.00</span></p>
   <p><strong>Grand Total (After Discount): ₹<span id="grandTotal">0.00</span></strong></p>
@@ -196,101 +195,125 @@
     const today = new Date();
     const timeDiff = offerEndDate - today;
     const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-    const msg = daysLeft > 0
-      ? `🔥 Hurry! Only ${daysLeft} day${daysLeft !== 1 ? 's' : ''} left for this offer!`
-      : '⚠️ The offer has ended.';
-    document.getElementById("daysLeft").textContent = msg;
-  }
+    
+    const daysLeftSpan = document.getElementById("daysLeft");
+    const daysPluralSpan = document.getElementById("daysPlural");
 
-function loadProducts() {
- fetch("products.json")
-  .then(res => res.json())
-  .then(data => {
-    console.log("Loaded products:", data);
-
-    try {
-      // Get offer from localStorage or default to 70
-      const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 70 };
-      currentOffer = storedOffer.offer;
-
-      // Update discount display only where element exists
-      document.getElementById("discountPercent").textContent = `${currentOffer}%`;
-
-      const products = Object.entries(data).map(([name, price]) => ({
-        name,
-        price: parseFloat(price)
-      }));
-
-      console.log("Processed products:", products);
-
-      renderProductTable(products);
-
-    } catch (err) {
-      console.error("❌ Error inside .then():", err);
+    if (daysLeftSpan && daysPluralSpan) {
+      if (daysLeft > 0) {
+        daysLeftSpan.textContent = daysLeft;
+        daysPluralSpan.textContent = daysLeft !== 1 ? "s" : "";
+      } else {
+        // If offer ended, show a different message
+        daysLeftSpan.parentElement.textContent = "⚠️ The offer has ended.";
+      }
     }
-  })
-  .catch((err) => {
-    console.error("Error loading products.json:", err);
-    document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="4">Failed to load products.</td></tr>`;
-  });
-
-}
-
-function renderProductTable(products) {
-  const tbody = document.querySelector("#productTable tbody");
-  tbody.innerHTML = "";
-
-  if (!products.length) {
-    tbody.innerHTML = `<tr><td colspan="4">No products available.</td></tr>`;
-    return;
   }
 
-  const offerMultiplier = (100 - currentOffer) / 100;
+  function loadProducts() {
+    fetch("products.json")
+      .then(res => {
+        if (!res.ok) throw new Error("Network response was not ok");
+        return res.json();
+      })
+      .then(data => {
+        console.log("Loaded products:", data);
 
-  products.forEach(item => {
-    console.log("Rendering item:", item);  // << check each product rendered
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${item.name}</td>
-      <td>₹${item.price.toFixed(2)}</td>
-      <td><input type="number" min="0" value="0" onchange="calculateTotals()" data-name="${item.name}" data-original="${item.price}" /></td>
-      <td class="item-total">₹0.00</td>
-    `;
-    tbody.appendChild(row);
-  });
-}
+        try {
+          const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 70 };
+          currentOffer = storedOffer.offer;
+
+          const discountPercentElem = document.getElementById("discountPercent");
+          const discountPercentFooter = document.getElementById("discountPercentFooter");
+
+          if (discountPercentElem) discountPercentElem.textContent = `${currentOffer}%`;
+          if (discountPercentFooter) discountPercentFooter.textContent = `${currentOffer}%`;
+
+          const products = Object.entries(data).map(([name, price]) => ({
+            name,
+            price: parseFloat(price)
+          }));
+
+          console.log("Processed products:", products);
+
+          renderProductTable(products);
+          calculateTotals(); // reset totals on load
+
+        } catch (err) {
+          console.error("❌ Error inside .then():", err);
+          const tbody = document.querySelector("#productTable tbody");
+          if (tbody) tbody.innerHTML = `<tr><td colspan="4">Failed to load products.</td></tr>`;
+        }
+      })
+      .catch((err) => {
+        console.error("Error loading products.json:", err);
+        const tbody = document.querySelector("#productTable tbody");
+        if (tbody) tbody.innerHTML = `<tr><td colspan="4">Failed to load products.</td></tr>`;
+      });
+  }
+
+  function renderProductTable(products) {
+    const tbody = document.querySelector("#productTable tbody");
+    if (!tbody) return;
+
+    tbody.innerHTML = "";
+
+    if (!products.length) {
+      tbody.innerHTML = `<tr><td colspan="4">No products available.</td></tr>`;
+      return;
+    }
+
+    products.forEach(item => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${item.name}</td>
+        <td>₹${item.price.toFixed(2)}</td>
+        <td><input type="number" min="0" value="0" onchange="calculateTotals()" data-name="${item.name}" data-original="${item.price}" /></td>
+        <td class="item-total">₹0.00</td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
 
   function calculateTotals() {
     const offerMultiplier = (100 - currentOffer) / 100;
     let originalTotal = 0, discountTotal = 0, finalTotal = 0;
 
     const rows = document.querySelectorAll("#productTable tbody tr");
+    if (!rows.length) return;
 
     rows.forEach(row => {
       const qtyInput = row.querySelector("input[type='number']");
+      if (!qtyInput) return;
+
       const qty = parseInt(qtyInput.value) || 0;
-      const originalPrice = parseFloat(qtyInput.dataset.original);
+      const originalPrice = parseFloat(qtyInput.dataset.original) || 0;
       const discountedPrice = originalPrice * offerMultiplier;
       const itemTotal = qty * discountedPrice;
 
       const originalSubtotal = qty * originalPrice;
       const discountAmount = originalSubtotal - itemTotal;
 
-      row.querySelector(".item-total").textContent = `₹${itemTotal.toFixed(2)}`;
+      const itemTotalElem = row.querySelector(".item-total");
+      if (itemTotalElem) itemTotalElem.textContent = `₹${itemTotal.toFixed(2)}`;
 
       originalTotal += originalSubtotal;
       discountTotal += discountAmount;
       finalTotal += itemTotal;
     });
 
-    document.getElementById("originalTotal").textContent = originalTotal.toFixed(2);
-    document.getElementById("discountAmount").textContent = discountTotal.toFixed(2);
-    document.getElementById("grandTotal").textContent = finalTotal.toFixed(2);
+    const originalTotalElem = document.getElementById("originalTotal");
+    const discountAmountElem = document.getElementById("discountAmount");
+    const grandTotalElem = document.getElementById("grandTotal");
+
+    if (originalTotalElem) originalTotalElem.textContent = originalTotal.toFixed(2);
+    if (discountAmountElem) discountAmountElem.textContent = discountTotal.toFixed(2);
+    if (grandTotalElem) grandTotalElem.textContent = finalTotal.toFixed(2);
   }
 
   function sendOrderToWhatsApp() {
-    const name = document.getElementById("customerName").value.trim();
-    const phone = document.getElementById("customerPhone").value.trim();
+    const name = document.getElementById("customerName")?.value.trim();
+    const phone = document.getElementById("customerPhone")?.value.trim();
 
     if (!name) {
       alert("Please enter your name before sending the order.");
@@ -303,6 +326,7 @@ function renderProductTable(products) {
 
     rows.forEach(row => {
       const input = row.querySelector("input[type='number']");
+      if (!input) return;
       const qty = parseInt(input.value);
       const itemName = input.dataset.name;
       const originalPrice = parseFloat(input.dataset.original);
@@ -328,6 +352,7 @@ function renderProductTable(products) {
     window.open(whatsappURL, '_blank');
   }
 
+  // Run on load
   showDaysLeft();
   loadProducts();
 </script>
