@@ -331,14 +331,18 @@ function calculateTotals() {
 
   rows.forEach(row => {
     const qtyInput = row.querySelector("input[type='number']");
+    if (!qtyInput) return; // skip rows with no input
+
     const qty = parseInt(qtyInput.value) || 0;
-    const originalPrice = parseFloat(qtyInput.dataset.original);
+    const originalPrice = parseFloat(qtyInput.dataset.original) || 0;
 
     const originalSubtotal = qty * originalPrice;
     originalTotal += originalSubtotal;
 
-    // Display each item's full price total (no discount applied here)
-    row.querySelector(".item-total").textContent = `₹${originalSubtotal.toFixed(2)}`;
+    const totalCell = row.querySelector(".item-total");
+    if (totalCell) {
+      totalCell.textContent = `₹${originalSubtotal.toFixed(2)}`;
+    }
   });
 
   const discountAmount = originalTotal * (currentOffer / 100);
