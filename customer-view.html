@@ -25,39 +25,23 @@
       margin-top: 5px;
       color: #ffe;
     }
-
-    /* Container for search + filters aligned right */
-    #filterContainer {
-      display: flex;
-      justify-content: flex-end;
-      gap: 15px;
-      margin-bottom: 10px;
-      flex-wrap: wrap;
+    #customerInfo {
+      margin-bottom: 20px;
     }
-    #filterContainer label {
-      font-size: 14px;
-      display: flex;
-      flex-direction: column;
-      color: #333;
+    #customerInfo label {
+      margin-right: 8px;
     }
-    #filterContainer input[type="text"],
-    #filterContainer input[type="number"] {
-      padding: 6px;
-      width: 150px;
-      max-width: 100%;
-      font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      margin-top: 4px;
+    #customerInfo input[type="text"],
+    #customerInfo input[type="tel"] {
+      padding: 8px;
+      margin-right: 20px;
+      width: 200px;
+      display: inline-block;
     }
-    #filterContainer input[type="number"] {
-      width: 80px;
-    }
-
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 0;
+      margin-top: 20px;
     }
     th, td {
       padding: 10px;
@@ -69,38 +53,7 @@
     }
     input[type="number"] {
       width: 60px;
-      padding: 6px;
-      font-size: 14px;
-      text-align: center;
-      border: 1px solid #ccc;
-      border-radius: 4px;
     }
-
-    .category-header {
-      background-color: #e9ecef;
-      cursor: pointer;
-      user-select: none;
-      font-weight: bold;
-      text-align: left;
-      padding-left: 15px;
-      font-size: 16px;
-    }
-    .category-content {
-      display: none;
-    }
-    .category-expanded .category-content {
-      display: table-row-group;
-    }
-    .category-toggle::before {
-      content: "▼";
-      display: inline-block;
-      margin-right: 6px;
-      transition: transform 0.3s ease;
-    }
-    .category-expanded > .category-header .category-toggle::before {
-      transform: rotate(-180deg);
-    }
-
     .total-section {
       margin-top: 20px;
       font-size: 18px;
@@ -160,25 +113,21 @@
       color: #333;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-
     .blink-text {
       animation: blink-fast 1s infinite;
       color: #e60000;
       font-weight: bold;
     }
-
     .blink-slow {
       animation: blink-slow 2.5s infinite;
       color: #d9534f;
       font-weight: bold;
     }
-
     @keyframes blink-fast {
       50% {
         opacity: 0;
       }
     }
-
     @keyframes blink-slow {
       0%, 100% {
         opacity: 1;
@@ -187,6 +136,23 @@
         opacity: 0.3;
       }
     }
+
+    /* Collapsible category styles */
+    .category-header {
+      background-color: #f0f0f0;
+      user-select: none;
+      cursor: pointer;
+      font-weight: bold;
+      text-align: left;
+    }
+    .category-header td {
+      padding-left: 15px;
+      font-size: 18px;
+    }
+    .category-row {
+      transition: all 0.3s ease;
+    }
+
   </style>
 </head>
 <body>
@@ -201,20 +167,13 @@
   <p class="days-left blink-slow">🔥 Hurry! Only <span id="daysLeft">115</span> days left for this offer!</p>
 </div>
 
-<!-- Filters container -->
-<div id="filterContainer">
-  <label>
-    Search Fireworks:
-    <input type="text" id="searchInput" placeholder="Type to search..." />
-  </label>
-  <label>
-    Min Price (₹):
-    <input type="number" id="minPrice" min="0" placeholder="0" />
-  </label>
-  <label>
-    Max Price (₹):
-    <input type="number" id="maxPrice" min="0" placeholder="99999" />
-  </label>
+<!-- Customer Info Inputs -->
+<div id="customerInfo">
+  <label for="customerName">Your Name:</label>
+  <input type="text" id="customerName" placeholder="Enter your name" />
+
+  <label for="customerPhone">Your Phone (optional):</label>
+  <input type="tel" id="customerPhone" placeholder="Enter your phone number" />
 </div>
 
 <table id="productTable">
@@ -252,7 +211,6 @@
 
 <script>
   let currentOffer = 70;
-  let allProductsGrouped = {};
 
   function showDaysLeft() {
     const offerEndDate = new Date("2025-10-25");
@@ -262,7 +220,7 @@
     const msg = daysLeft > 0
       ? `🔥 Hurry! Only ${daysLeft} day${daysLeft !== 1 ? 's' : ''} left for this offer!`
       : '⚠️ The offer has ended.';
-    document.querySelector(".days-left").textContent = msg;
+    document.getElementById("daysLeft").textContent = msg;
   }
 
   function loadProducts() {
@@ -274,109 +232,95 @@
         try {
           const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 70 };
           currentOffer = storedOffer.offer;
-
           document.getElementById("discountPercent").textContent = `${currentOffer}%`;
 
-          // Group products by category
-          const grouped = {};
-          Object.entries(data).forEach(([name, details]) => {
-            // If your products.json has structure like:
-            // { "kambi mathappu": {"price":20, "category":"Rocket"}, ... }
-            // else fallback to price and "Uncategorized"
-            let price = NaN, category = "Uncategorized";
-            if (typeof details === "object" && details !== null) {
-              price = parseFloat(details.price);
-              category = details.category || "Uncategorized";
+          // Convert data into array of products
+          const products = Object.entries(data).map(([name, info]) => {
+            // if info is an object (with price & category), else fallback
+            if (typeof info === "object" && info !== null) {
+              return {
+                name,
+                price: parseFloat(info.price) || 0,
+                category: info.category || "Uncategorized"
+              };
             } else {
-              // If just price number directly, no category
-              price = parseFloat(details);
+              // If your JSON doesn't have category and price inside an object,
+              // treat info as price and category as Uncategorized
+              return {
+                name,
+                price: parseFloat(info) || 0,
+                category: "Uncategorized"
+              };
             }
-            if (isNaN(price)) price = 0;
-
-            if (!grouped[category]) grouped[category] = [];
-            grouped[category].push({ name, price });
           });
 
-          allProductsGrouped = grouped;
-          renderFilteredProducts();
+          renderProductTable(products);
 
         } catch (err) {
           console.error("❌ Error inside .then():", err);
-          document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="4">Failed to load products.</td></tr>`;
+          document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="4">Failed to process products.</td></tr>`;
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.error("Error loading products.json:", err);
         document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="4">Failed to load products.</td></tr>`;
       });
   }
 
-  function renderFilteredProducts() {
-    const searchTerm = document.getElementById("searchInput").value.trim().toLowerCase();
-    const minPrice = parseFloat(document.getElementById("minPrice").value);
-    const maxPrice = parseFloat(document.getElementById("maxPrice").value);
-
-    // Filter products by search and price range
-    const filteredGrouped = {};
-    Object.entries(allProductsGrouped).forEach(([category, products]) => {
-      const filtered = products.filter(item => {
-        const matchesSearch = item.name.toLowerCase().includes(searchTerm);
-        const aboveMin = isNaN(minPrice) || item.price >= minPrice;
-        const belowMax = isNaN(maxPrice) || item.price <= maxPrice;
-        return matchesSearch && aboveMin && belowMax;
-      });
-      if (filtered.length > 0) {
-        filteredGrouped[category] = filtered;
-      }
-    });
-
-    renderProductTableGrouped(filteredGrouped);
-    calculateTotals();
-  }
-
-  function renderProductTableGrouped(groupedProducts) {
+  function renderProductTable(products) {
     const tbody = document.querySelector("#productTable tbody");
     tbody.innerHTML = "";
 
-    if (Object.keys(groupedProducts).length === 0) {
-      tbody.innerHTML = `<tr><td colspan="4">No products found matching criteria.</td></tr>`;
+    if (!products.length) {
+      tbody.innerHTML = `<tr><td colspan="4">No products available.</td></tr>`;
       return;
     }
 
     const offerMultiplier = (100 - currentOffer) / 100;
 
-    Object.entries(groupedProducts).forEach(([category, products]) => {
-      // Category header row
-      const categoryRow = document.createElement("tr");
-      categoryRow.classList.add("category-header-row");
-      categoryRow.innerHTML = `<td colspan="4" class="category-header"><span class="category-toggle">▼</span> ${category}</td>`;
-      tbody.appendChild(categoryRow);
+    // Group products by category
+    const categories = {};
+    products.forEach(item => {
+      const cat = item.category || "Uncategorized";
+      if (!categories[cat]) categories[cat] = [];
+      categories[cat].push(item);
+    });
 
-      // Wrap category products in a tbody for collapsible effect
-      const categoryBody = document.createElement("tbody");
-      categoryBody.classList.add("category-content");
+    // For each category create a collapsible section
+    Object.entries(categories).forEach(([category, items], index) => {
+      // Category header row (clickable)
+      const catRow = document.createElement("tr");
+      catRow.classList.add("category-header");
+      catRow.style.cursor = "pointer";
+      catRow.innerHTML = `<td colspan="4" style="text-align:left; background:#f0f0f0; font-weight:bold;">
+        ▼ ${category}
+      </td>`;
+      tbody.appendChild(catRow);
 
-      products.forEach(item => {
+      // Product rows for this category (initially visible)
+      items.forEach(item => {
         const row = document.createElement("tr");
+        row.classList.add("category-row", `category-${index}`);
         row.innerHTML = `
           <td>${item.name}</td>
           <td>₹${item.price.toFixed(2)}</td>
           <td><input type="number" min="0" value="0" onchange="calculateTotals()" data-name="${item.name}" data-original="${item.price}" /></td>
           <td class="item-total">₹0.00</td>
         `;
-        categoryBody.appendChild(row);
+        tbody.appendChild(row);
       });
 
-      tbody.appendChild(categoryBody);
-    });
-
-    // Add toggle functionality for categories
-    const headers = tbody.querySelectorAll(".category-header");
-    headers.forEach(header => {
-      header.onclick = () => {
-        const tr = header.parentElement;
-        tr.classList.toggle("category-expanded");
-      };
+      // Toggle rows visibility when clicking the category header
+      catRow.addEventListener("click", () => {
+        const catRows = document.querySelectorAll(`.category-${index}`);
+        catRows.forEach(r => {
+          r.style.display = r.style.display === "none" ? "" : "none";
+        });
+        // Toggle arrow icon
+        catRow.cells[0].textContent = catRow.cells[0].textContent.startsWith("▼")
+          ? catRow.cells[0].textContent.replace("▼", "▶")
+          : catRow.cells[0].textContent.replace("▶", "▼");
+      });
     });
   }
 
@@ -384,12 +328,10 @@
     const offerMultiplier = (100 - currentOffer) / 100;
     let originalTotal = 0, discountTotal = 0, finalTotal = 0;
 
-    const rows = document.querySelectorAll("#productTable tbody tr:not(.category-header-row)"); // exclude category headers
+    const rows = document.querySelectorAll("#productTable tbody tr.category-row");
 
     rows.forEach(row => {
       const qtyInput = row.querySelector("input[type='number']");
-      if (!qtyInput) return; // skip header rows
-
       const qty = parseInt(qtyInput.value) || 0;
       const originalPrice = parseFloat(qtyInput.dataset.original);
       const discountedPrice = originalPrice * offerMultiplier;
@@ -411,41 +353,57 @@
   }
 
   function sendOrderToWhatsApp() {
-    const orderLines = [];
-    const rows = document.querySelectorAll("#productTable tbody tr:not(.category-header-row)");
+    const name = document.getElementById("customerName").value.trim();
+    const phone = document.getElementById("customerPhone").value.trim();
 
-    rows.forEach(row => {
-      const qtyInput = row.querySelector("input[type='number']");
-      if (!qtyInput) return;
-      const qty = parseInt(qtyInput.value) || 0;
-      if (qty === 0) return;
-
-      const name = qtyInput.dataset.name;
-      const price = qtyInput.dataset.original;
-      orderLines.push(`${name} x ${qty} (₹${price})`);
-    });
-
-    if (orderLines.length === 0) {
-      alert("Please add some quantity before sending order.");
+    if (!name) {
+      alert("Please enter your name before sending the order.");
       return;
     }
 
-    const total = document.getElementById("grandTotal").textContent;
-    const message = encodeURIComponent(
-      `Order from AJ Crackers:\n\n${orderLines.join("\n")}\n\nGrand Total: ₹${total}\n\nThank you!`
-    );
+    const rows = document.querySelectorAll("#productTable tbody tr.category-row");
+    let message = `Hi, I'm ${name}, and I'd like to place an order:\n\n`;
+    let total = 0;
 
-    const phoneNumber = "918296772217"; // Use your number with country code without +
-    window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+    rows.forEach(row => {
+      const input = row.querySelector("input[type='number']");
+      const qty = parseInt(input.value);
+      const itemName = input.dataset.name;
+      const originalPrice = parseFloat(input.dataset.original);
+      const discountedPrice = originalPrice * ((100 - currentOffer) / 100);
+
+      if (qty && qty > 0) {
+        const itemTotal = qty * discountedPrice;
+        message += `${itemName} - Qty: ${qty}, ₹${itemTotal.toFixed(2)}\n`;
+        total += itemTotal;
+      }
+    });
+
+    if (total === 0) {
+      alert("Please select at least one product quantity before sending the order.");
+      return;
+    }
+
+    message += `\nTotal after discount: ₹${total.toFixed(2)}`;
+    if (phone) {
+      message += `\nCustomer Phone: ${phone}`;
+    }
+
+    // URL encode message for WhatsApp
+    const encodedMessage = encodeURIComponent(message);
+
+    // Replace with your WhatsApp business number with country code (no plus or spaces)
+    const whatsappNumber = "918296772217";
+
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+    window.open(whatsappURL, "_blank");
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    loadProducts();
-    document.getElementById("searchInput").addEventListener("input", renderFilteredProducts);
-    document.getElementById("minPrice").addEventListener("input", renderFilteredProducts);
-    document.getElementById("maxPrice").addEventListener("input", renderFilteredProducts);
+  // Initialize
+  window.onload = function () {
     showDaysLeft();
-  });
+    loadProducts();
+  };
 </script>
 
 </body>
