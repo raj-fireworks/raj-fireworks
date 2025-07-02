@@ -202,10 +202,12 @@
     document.getElementById("daysLeft").textContent = msg;
   }
 
- function loadProducts() {
+function loadProducts() {
   fetch("products.json")
     .then(res => res.json())
     .then(data => {
+      console.log("Loaded products:", data);  // << check what data is
+
       const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 70 };
       currentOffer = storedOffer.offer;
       document.getElementById("offerValue").textContent = `Flat ${currentOffer}%`;
@@ -216,6 +218,8 @@
         price: parseFloat(price)
       }));
 
+      console.log("Processed products:", products); // << check processed product array
+
       renderProductTable(products);
     })
     .catch(() => {
@@ -223,23 +227,29 @@
     });
 }
 
-  function renderProductTable(products) {
-    const tbody = document.querySelector("#productTable tbody");
-    tbody.innerHTML = "";
+function renderProductTable(products) {
+  const tbody = document.querySelector("#productTable tbody");
+  tbody.innerHTML = "";
 
-    const offerMultiplier = (100 - currentOffer) / 100;
-
-    products.forEach(item => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${item.name}</td>
-        <td>₹${item.price.toFixed(2)}</td>
-        <td><input type="number" min="0" value="0" onchange="calculateTotals()" data-name="${item.name}" data-original="${item.price}" /></td>
-        <td class="item-total">₹0.00</td>
-      `;
-      tbody.appendChild(row);
-    });
+  if (!products.length) {
+    tbody.innerHTML = `<tr><td colspan="4">No products available.</td></tr>`;
+    return;
   }
+
+  const offerMultiplier = (100 - currentOffer) / 100;
+
+  products.forEach(item => {
+    console.log("Rendering item:", item);  // << check each product rendered
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${item.name}</td>
+      <td>₹${item.price.toFixed(2)}</td>
+      <td><input type="number" min="0" value="0" onchange="calculateTotals()" data-name="${item.name}" data-original="${item.price}" /></td>
+      <td class="item-total">₹0.00</td>
+    `;
+    tbody.appendChild(row);
+  });
+}
 
   function calculateTotals() {
     const offerMultiplier = (100 - currentOffer) / 100;
