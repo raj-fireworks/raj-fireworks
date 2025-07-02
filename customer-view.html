@@ -8,9 +8,22 @@
     body {
       font-family: sans-serif;
       padding: 20px;
+      margin: 0;
     }
-    h1 {
-      color: #d9534f;
+    header {
+      background-color: #d9534f;
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+    header .tagline {
+      font-size: 14px;
+      margin-top: 5px;
+      color: #ffe;
     }
     input[type="text"], input[type="tel"] {
       padding: 8px;
@@ -59,7 +72,7 @@
       color: white;
     }
     .footer-note {
-      margin-top: 40px;
+      margin-top: 20px;
       color: #888;
       font-size: 14px;
     }
@@ -68,13 +81,73 @@
       margin-top: 10px;
       color: #555;
     }
+    footer {
+      background-color: #f2f2f2;
+      padding: 20px;
+      margin-top: 40px;
+      font-size: 14px;
+      text-align: center;
+      color: #444;
+    }
+    footer .safety {
+      color: #d9534f;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+	.highlight-offer {
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 18px;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.blink-text {
+  animation: blink-fast 1s infinite;
+  color: #e60000;
+  font-weight: bold;
+}
+
+.blink-slow {
+  animation: blink-slow 2.5s infinite;
+  color: #d9534f;
+  font-weight: bold;
+}
+
+@keyframes blink-fast {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes blink-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
   </style>
 </head>
 <body>
 
-<h1>🎇 AJ Crackers - Firework Price List</h1>
-<p><strong>Offer:</strong> Flat 70% Discount Applied</p>
-<p class="offer-days-left" id="daysLeft"></p>
+<header>
+  <h1>🎇 AJ Crackers</h1>
+  <div class="tagline">Your Trusted Firework Partner</div>
+</header>
+
+<div class="highlight-offer">
+  <p><strong>🎁 Offer: Flat <span class="blink-text">70%</span> Discount Applied</strong></p>
+  <p class="days-left blink-slow">🔥 Hurry! Only <span id="daysLeft">115</span> days left for this offer!</p>
+</div>
+
 
 <label for="customerName">Your Name:</label>
 <input type="text" id="customerName" placeholder="Enter your name" />
@@ -95,93 +168,107 @@
 </table>
 
 <div class="total-section">
-  <p>Discount: <strong>70%</strong></p>
+  <p>Discount: <strong id="discountPercent">70%</strong></p>
   <p>Total Original Price: ₹<span id="originalTotal">0.00</span></p>
   <p>Total Discount Amount: ₹<span id="discountAmount">0.00</span></p>
   <p><strong>Grand Total (After Discount): ₹<span id="grandTotal">0.00</span></strong></p>
 </div>
-
 
 <div class="button-group">
   <button class="whatsapp-button" onclick="sendOrderToWhatsApp()">Send Order via WhatsApp</button>
   <button class="print-button" onclick="window.print()">Print Order</button>
 </div>
 
-<p class="footer-note">* Offer is fixed at 70% and prices shown are after discount. Prices inclusive of taxes.</p>
+<p class="footer-note">* Offer is fixed and prices shown are after discount. Prices inclusive of taxes.</p>
+
+<footer>
+  <p><strong>AJ Crackers</strong> — Your Trusted Firework Partner</p>
+  <p>Contact: +91 82967 72217, 99436 81121 | Email: support@rajcrackers.in</p>
+  <p>© 2025 AJ Crackers. All rights reserved.</p>
+  <p class="safety">🔥 Please celebrate responsibly and follow firework safety rules!</p>
+</footer>
 
 <script>
-  const offerPercent = 70;
-  const offerMultiplier = (100 - offerPercent) / 100;
-
-  // Update this date to your actual offer end date
-  const offerEndDate = new Date('2025-10-25'); // Example: October 25, 2025
+  let currentOffer = 70;
 
   function showDaysLeft() {
+    const offerEndDate = new Date("2025-10-25");
     const today = new Date();
     const timeDiff = offerEndDate - today;
     const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-
     const msg = daysLeft > 0
       ? `🔥 Hurry! Only ${daysLeft} day${daysLeft !== 1 ? 's' : ''} left for this offer!`
       : '⚠️ The offer has ended.';
-    
-    document.getElementById('daysLeft').textContent = msg;
+    document.getElementById("daysLeft").textContent = msg;
   }
 
-  async function loadProducts() {
-    try {
-      const res = await fetch("products.json");
-      const products = await res.json();
-      renderProductTable(products);
-    } catch (e) {
-      document.body.innerHTML = "<p>Error loading products. Please try again later.</p>";
+  function loadProducts() {
+    const storedPrices = localStorage.getItem("fireworkPrices");
+    const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 70 };
+
+    if (!storedPrices) {
+      document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="4">No fireworks available.</td></tr>`;
+      return;
     }
+
+    currentOffer = storedOffer.offer;
+    document.getElementById("offerValue").textContent = `Flat ${currentOffer}%`;
+    document.getElementById("discountPercent").textContent = `${currentOffer}%`;
+
+    const fireworkPrices = JSON.parse(storedPrices);
+    const products = Object.entries(fireworkPrices).map(([name, price]) => ({
+      name,
+      price: parseFloat(price)
+    }));
+
+    renderProductTable(products);
   }
 
   function renderProductTable(products) {
     const tbody = document.querySelector("#productTable tbody");
+    tbody.innerHTML = "";
+
+    const offerMultiplier = (100 - currentOffer) / 100;
+
     products.forEach(item => {
-      const offerPrice = (item.price * offerMultiplier).toFixed(2);
       const row = document.createElement("tr");
       row.innerHTML = `
         <td>${item.name}</td>
-        <td>₹${item.price}</td>
-        <td><input type="number" min="0" value="0" onchange="calculateTotals()" data-price="${offerPrice}" data-name="${item.name}" /></td>
+        <td>₹${item.price.toFixed(2)}</td>
+        <td><input type="number" min="0" value="0" onchange="calculateTotals()" data-name="${item.name}" data-original="${item.price}" /></td>
         <td class="item-total">₹0.00</td>
       `;
       tbody.appendChild(row);
     });
   }
 
- function calculateTotals() {
-  let originalTotal = 0;
-  let discountTotal = 0;
-  let finalTotal = 0;
+  function calculateTotals() {
+    const offerMultiplier = (100 - currentOffer) / 100;
+    let originalTotal = 0, discountTotal = 0, finalTotal = 0;
 
-  const rows = document.querySelectorAll("#productTable tbody tr");
+    const rows = document.querySelectorAll("#productTable tbody tr");
 
-  rows.forEach(row => {
-    const qtyInput = row.querySelector("input[type='number']");
-    const qty = parseInt(qtyInput.value) || 0;
-    const originalPrice = parseFloat(row.children[1].textContent.replace("₹", ""));
-    const discountedPrice = parseFloat(qtyInput.dataset.price);
-    const total = qty * discountedPrice;
+    rows.forEach(row => {
+      const qtyInput = row.querySelector("input[type='number']");
+      const qty = parseInt(qtyInput.value) || 0;
+      const originalPrice = parseFloat(qtyInput.dataset.original);
+      const discountedPrice = originalPrice * offerMultiplier;
+      const itemTotal = qty * discountedPrice;
 
-    const originalSubtotal = qty * originalPrice;
-    const discountAmount = originalSubtotal - total;
+      const originalSubtotal = qty * originalPrice;
+      const discountAmount = originalSubtotal - itemTotal;
 
-    row.querySelector(".item-total").textContent = `₹${total.toFixed(2)}`;
+      row.querySelector(".item-total").textContent = `₹${itemTotal.toFixed(2)}`;
 
-    originalTotal += originalSubtotal;
-    discountTotal += discountAmount;
-    finalTotal += total;
-  });
+      originalTotal += originalSubtotal;
+      discountTotal += discountAmount;
+      finalTotal += itemTotal;
+    });
 
-  document.getElementById("originalTotal").textContent = originalTotal.toFixed(2);
-  document.getElementById("discountAmount").textContent = discountTotal.toFixed(2);
-  document.getElementById("grandTotal").textContent = finalTotal.toFixed(2);
-}
-
+    document.getElementById("originalTotal").textContent = originalTotal.toFixed(2);
+    document.getElementById("discountAmount").textContent = discountTotal.toFixed(2);
+    document.getElementById("grandTotal").textContent = finalTotal.toFixed(2);
+  }
 
   function sendOrderToWhatsApp() {
     const name = document.getElementById("customerName").value.trim();
@@ -200,12 +287,13 @@
       const input = row.querySelector("input[type='number']");
       const qty = parseInt(input.value);
       const itemName = input.dataset.name;
-      const price = parseFloat(input.dataset.price);
+      const originalPrice = parseFloat(input.dataset.original);
+      const discountedPrice = originalPrice * ((100 - currentOffer) / 100);
 
       if (qty && qty > 0) {
-        const itemTotal = (qty * price).toFixed(2);
-        message += `- ${itemName} x ${qty} = ₹${itemTotal}\n`;
-        total += qty * price;
+        const itemTotal = qty * discountedPrice;
+        message += `- ${itemName} x ${qty} = ₹${itemTotal.toFixed(2)}\n`;
+        total += itemTotal;
       }
     });
 
@@ -214,7 +302,7 @@
       return;
     }
 
-    message += `\nTotal: ₹${total.toFixed(2)}`;
+    message += `\nTotal after ${currentOffer}% discount: ₹${total.toFixed(2)}`;
     if (phone) message += `\nPhone: ${phone}`;
     message += `\n\nThank you!`;
 
