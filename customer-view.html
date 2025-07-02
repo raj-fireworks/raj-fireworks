@@ -324,80 +324,80 @@
     });
   }
 
-  function calculateTotals() {
-    const offerMultiplier = (100 - currentOffer) / 100;
-    let originalTotal = 0, discountTotal = 0, finalTotal = 0;
+function calculateTotals() {
+  let originalTotal = 0;
 
-    const rows = document.querySelectorAll("#productTable tbody tr.category-row");
+  const rows = document.querySelectorAll("#productTable tbody tr");
 
-    rows.forEach(row => {
-      const qtyInput = row.querySelector("input[type='number']");
-      const qty = parseInt(qtyInput.value) || 0;
-      const originalPrice = parseFloat(qtyInput.dataset.original);
-      const discountedPrice = originalPrice * offerMultiplier;
-      const itemTotal = qty * discountedPrice;
+  rows.forEach(row => {
+    const qtyInput = row.querySelector("input[type='number']");
+    const qty = parseInt(qtyInput.value) || 0;
+    const originalPrice = parseFloat(qtyInput.dataset.original);
 
-      const originalSubtotal = qty * originalPrice;
-      const discountAmount = originalSubtotal - itemTotal;
+    const originalSubtotal = qty * originalPrice;
+    originalTotal += originalSubtotal;
 
-      row.querySelector(".item-total").textContent = `₹${itemTotal.toFixed(2)}`;
+    // Display each item's full price total (no discount applied here)
+    row.querySelector(".item-total").textContent = `₹${originalSubtotal.toFixed(2)}`;
+  });
 
-      originalTotal += originalSubtotal;
-      discountTotal += discountAmount;
-      finalTotal += itemTotal;
-    });
+  const discountAmount = originalTotal * (currentOffer / 100);
+  const grandTotal = originalTotal - discountAmount;
 
-    document.getElementById("originalTotal").textContent = originalTotal.toFixed(2);
-    document.getElementById("discountAmount").textContent = discountTotal.toFixed(2);
-    document.getElementById("grandTotal").textContent = finalTotal.toFixed(2);
+  document.getElementById("originalTotal").textContent = originalTotal.toFixed(2);
+  document.getElementById("discountAmount").textContent = discountAmount.toFixed(2);
+  document.getElementById("grandTotal").textContent = grandTotal.toFixed(2);
+}
+
+
+function sendOrderToWhatsApp() {
+  const name = document.getElementById("customerName").value.trim();
+  const phone = document.getElementById("customerPhone").value.trim();
+
+  if (!name) {
+    alert("Please enter your name before sending the order.");
+    return;
   }
 
-  function sendOrderToWhatsApp() {
-    const name = document.getElementById("customerName").value.trim();
-    const phone = document.getElementById("customerPhone").value.trim();
+  const rows = document.querySelectorAll("#productTable tbody tr");
+  let message = `Hi, I'm ${name}, and I'd like to place an order:\n\n`;
+  let originalTotal = 0;
 
-    if (!name) {
-      alert("Please enter your name before sending the order.");
-      return;
+  rows.forEach(row => {
+    const input = row.querySelector("input[type='number']");
+    const qty = parseInt(input.value);
+    const itemName = input.dataset.name;
+    const originalPrice = parseFloat(input.dataset.original);
+
+    if (qty && qty > 0) {
+      const itemTotal = qty * originalPrice;
+      message += `- ${itemName} × ${qty} = ₹${itemTotal.toFixed(2)}\n`;
+      originalTotal += itemTotal;
     }
+  });
 
-    const rows = document.querySelectorAll("#productTable tbody tr.category-row");
-    let message = `Hi, I'm ${name}, and I'd like to place an order:\n\n`;
-    let total = 0;
-
-    rows.forEach(row => {
-      const input = row.querySelector("input[type='number']");
-      const qty = parseInt(input.value);
-      const itemName = input.dataset.name;
-      const originalPrice = parseFloat(input.dataset.original);
-      const discountedPrice = originalPrice * ((100 - currentOffer) / 100);
-
-      if (qty && qty > 0) {
-        const itemTotal = qty * discountedPrice;
-        message += `${itemName} - Qty: ${qty}, ₹${itemTotal.toFixed(2)}\n`;
-        total += itemTotal;
-      }
-    });
-
-    if (total === 0) {
-      alert("Please select at least one product quantity before sending the order.");
-      return;
-    }
-
-    message += `\nTotal after discount: ₹${total.toFixed(2)}`;
-    if (phone) {
-      message += `\nCustomer Phone: ${phone}`;
-    }
-
-    // URL encode message for WhatsApp
-    const encodedMessage = encodeURIComponent(message);
-
-    // Replace with your WhatsApp business number with country code (no plus or spaces)
-    const whatsappNumber = "918296772217";
-
-    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-    window.open(whatsappURL, "_blank");
+  if (originalTotal === 0) {
+    alert("Please select at least one product quantity before sending the order.");
+    return;
   }
+
+  const discountAmount = originalTotal * (currentOffer / 100);
+  const grandTotal = originalTotal - discountAmount;
+
+  message += `\nOriginal Total: ₹${originalTotal.toFixed(2)}`;
+  message += `\nDiscount (${currentOffer}%): ₹${discountAmount.toFixed(2)}`;
+  message += `\nGrand Total: ₹${grandTotal.toFixed(2)}`;
+
+  if (phone) {
+    message += `\nCustomer Phone: ${phone}`;
+  }
+
+  message += `\n\nThank you!`;
+
+  const encodedMessage = encodeURIComponent(message);
+  const whatsappURL = `https://wa.me/918296772217?text=${encodedMessage}`;
+  window.open(whatsappURL, "_blank");
+}
 
   // Initialize
   window.onload = function () {
