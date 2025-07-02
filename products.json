@@ -1,17 +1,8 @@
 {
-  "kambi mathappu": { "price": 20, "category": "Sparklers" },
+  "kambi mathappu": { "price": 20, "category": "Rockets" },
   "sparkles": { "price": 10, "category": "Sparklers" },
-  "chakkaram2": { "price": 22, "category": "Chakkarams" },
-  "dfjgh": { "price": 28, "category": "Rockets" },
-  "jet red rocket": { "price": 350, "category": "Rockets" },
-  "rocket s": { "price": 40, "category": "Rockets" },
-  "b00m": { "price": 40, "category": "Bombs" },
-  "bomb": { "price": 35, "category": "Bombs" },
-  "firecracker1": { "price": 50, "category": "Firecrackers" },
-  "firecracker2": { "price": 45, "category": "Firecrackers" },
-  "fountain1": { "price": 70, "category": "Fountains" },
-  "fountain2": { "price": 75, "category": "Fountains" },
-  "roman candle": { "price": 120, "category": "Candles" },
-  "flowerpot": { "price": 90, "category": "Flowerpots" },
-  "whistle bomb": { "price": 55, "category": "Whistles" }
+  "spark": { "price": 23, "category": "Sparklers" },
+  "kambi mathappu1": { "price": 20, "category": "Rockets" },
+  "wala1": { "price": 20, "category": "Fountains" }
+  // ... and so on
 }
