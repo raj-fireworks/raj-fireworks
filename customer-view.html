@@ -1,197 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>RAJ Crackers - Customer View</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 20px;
-      margin: 0;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RAJ Crackers - Customer View</title>
+<style>
+  body {
+    font-family: sans-serif;
+    padding: 20px;
+    margin: 0;
+  }
+
+  /* Make header full width */
+  header, footer {
+    width: 100vw;   /* full viewport width */
+    margin: 0;
+    padding: 0;     /* no horizontal padding */
+    box-sizing: border-box;
+    background-color: #d9534f;
+    color: white;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  }
+
+  /* Container inside header/footer to center content and add side padding */
+  .header-container, .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  /* Header left and right */
+  .header-left {
+    max-width: 50%;
+    text-align: left;
+  }
+  .header-left h1 {
+    margin: 0;
+    font-size: 28px;
+  }
+  .header-left .tagline {
+    font-size: 14px;
+    margin-top: 5px;
+    color: #ffe;
+  }
+
+  .header-right {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    color: #333;
+    padding: 12px 20px;
+    border-radius: 10px;
+    max-width: 45%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: right;
+    font-size: 16px;
+  }
+
+  /* Blink animations */
+  .blink-text {
+    animation: blink-fast 1s infinite;
+    color: #e60000;
+    font-weight: bold;
+  }
+  .blink-slow {
+    animation: blink-slow 2.5s infinite;
+    color: #d9534f;
+    font-weight: bold;
+  }
+  @keyframes blink-fast {
+    50% {
+      opacity: 0;
     }
-    /* Updated Header styles */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #d9534f;
-      color: white;
-      padding: 15px 30px;
-      border-radius: 0 0 10px 10px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-      flex-wrap: wrap;
-      gap: 15px;
+  }
+  @keyframes blink-slow {
+    0%, 100% {
+      opacity: 1;
     }
-    .header-left {
-      max-width: 50%;
+    50% {
+      opacity: 0.3;
+    }
+  }
+
+  /* Responsive for small screens */
+  @media (max-width: 600px) {
+    .header-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .header-left, .header-right {
+      max-width: 100%;
       text-align: left;
-    }
-    .header-left h1 {
-      margin: 0;
-      font-size: 28px;
-    }
-    .header-left .tagline {
-      font-size: 14px;
-      margin-top: 5px;
-      color: #ffe;
     }
     .header-right {
-      background: #fff3cd;
-      border: 2px solid #ffc107;
-      color: #333;
-      padding: 12px 20px;
-      border-radius: 10px;
-      max-width: 45%;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      text-align: right;
-      font-size: 16px;
+      margin-top: 10px;
     }
-    /* Blink animations */
-    .blink-text {
-      animation: blink-fast 1s infinite;
-      color: #e60000;
-      font-weight: bold;
-    }
-    .blink-slow {
-      animation: blink-slow 2.5s infinite;
-      color: #d9534f;
-      font-weight: bold;
-    }
-    @keyframes blink-fast {
-      50% {
-        opacity: 0;
-      }
-    }
-    @keyframes blink-slow {
-      0%, 100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.3;
-      }
-    }
-    /* Responsive for small screens */
-    @media (max-width: 600px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .header-left, .header-right {
-        max-width: 100%;
-        text-align: left;
-      }
-      .header-right {
-        margin-top: 10px;
-      }
-    }
+  }
 
-    /* Rest of your styles */
-    #customerInfo {
-      margin-bottom: 20px;
-       margin-top: 20px;
-    }
-    #customerInfo label {
-      margin-right: 8px;
-    }
-    #customerInfo input[type="text"],
-    #customerInfo input[type="tel"] {
-      padding: 8px;
-      margin-right: 20px;
-      width: 200px;
-      display: inline-block;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    th, td {
-      padding: 10px;
-      border: 1px solid #ddd;
-      text-align: center;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    input[type="number"] {
-      width: 60px;
-    }
-    .total-section {
-      margin-top: 20px;
-      font-size: 18px;
-      font-weight: bold;
-    }
-    .button-group {
-      margin-top: 20px;
-    }
-    .button-group button {
-      padding: 12px 20px;
-      font-size: 16px;
-      margin-right: 10px;
-      cursor: pointer;
-      border: none;
-      border-radius: 4px;
-    }
-    .whatsapp-button {
-      background-color: #25D366;
-      color: white;
-    }
-    .print-button {
-      background-color: #007bff;
-      color: white;
-    }
-    .footer-note {
-      margin-top: 20px;
-      color: #888;
-      font-size: 14px;
-    }
-    .offer-days-left {
-      font-size: 16px;
-      margin-top: 10px;
-      color: #555;
-    }
-    footer {
-      background-color: #f2f2f2;
-      padding: 20px;
-      margin-top: 40px;
-      font-size: 14px;
-      text-align: center;
-      color: #444;
-    }
-    footer .safety {
-      color: #d9534f;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-    /* Collapsible category styles */
-    .category-header {
-      background-color: #f0f0f0;
-      user-select: none;
-      cursor: pointer;
-      font-weight: bold;
-      text-align: left;
-    }
-    .category-header td {
-      padding-left: 15px;
-      font-size: 18px;
-    }
-    .category-row {
-      transition: all 0.3s ease;
-    }
-  </style>
+  /* Footer styles */
+  footer {
+    background-color: #f2f2f2;
+    color: #444;
+  }
+  footer .footer-container {
+    flex-direction: column;
+    text-align: center;
+    font-size: 14px;
+    gap: 10px;
+  }
+  footer .safety {
+    color: #d9534f;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  /* Rest of your page content */
+  #customerInfo {
+    margin-bottom: 20px;
+  }
+  #customerInfo label {
+    margin-right: 8px;
+  }
+  #customerInfo input[type="text"],
+  #customerInfo input[type="tel"] {
+    padding: 8px;
+    margin-right: 20px;
+    width: 200px;
+    display: inline-block;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  input[type="number"] {
+    width: 60px;
+  }
+  .total-section {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .button-group {
+    margin-top: 20px;
+  }
+  .button-group button {
+    padding: 12px 20px;
+    font-size: 16px;
+    margin-right: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+  }
+  .whatsapp-button {
+    background-color: #25D366;
+    color: white;
+  }
+  .print-button {
+    background-color: #007bff;
+    color: white;
+  }
+  .footer-note {
+    margin-top: 20px;
+    color: #888;
+    font-size: 14px;
+  }
+  .offer-days-left {
+    font-size: 16px;
+    margin-top: 10px;
+    color: #555;
+  }
+
+  /* Collapsible category styles */
+  .category-header {
+    background-color: #f0f0f0;
+    user-select: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: left;
+  }
+  .category-header td {
+    padding-left: 15px;
+    font-size: 18px;
+  }
+  .category-row {
+    transition: all 0.3s ease;
+  }
+</style>
 </head>
 <body>
 
 <header>
-  <div class="header-left">
-    <h1>🎇 AJ Crackers</h1>
-    <div class="tagline">Your Trusted Firework Partner</div>
-  </div>
+  <div class="header-container">
+    <div class="header-left">
+      <h1>🎇 AJ Crackers</h1>
+      <div class="tagline">Your Trusted Firework Partner</div>
+    </div>
 
-  <div class="header-right">
-    <p><strong>🎁 Offer: Flat <span class="blink-text">70%</span> Discount Applied</strong></p>
-    <p class="days-left blink-slow">🔥 Hurry! Only <span id="daysLeft">115</span> days left for this offer!</p>
+    <div class="header-right">
+      <p><strong>🎁 Offer: Flat <span class="blink-text">70%</span> Discount Applied</strong></p>
+      <p class="days-left blink-slow">🔥 Hurry! Only <span id="daysLeft">115</span> days left for this offer!</p>
+    </div>
   </div>
 </header>
 
@@ -231,10 +252,12 @@
 <p class="footer-note">* Offer is fixed and prices shown are after discount. Prices inclusive of taxes.</p>
 
 <footer>
-  <p><strong>RAJ Crackers</strong> — Your Trusted Firework Partner</p>
-  <p>Contact: +91 82967 72217, 99436 81121 | Email: support@rajcrackers.in</p>
-  <p>© 2025 RAJ Crackers. All rights reserved.</p>
-  <p class="safety">🔥 Please celebrate responsibly and follow firework safety rules!</p>
+  <div class="footer-container">
+    <p><strong>RAJ Crackers</strong> — Your Trusted Firework Partner</p>
+    <p>Contact: +91 82967 72217, 99436 81121 | Email: support@rajcrackers.in</p>
+    <p>© 2025 RAJ Crackers. All rights reserved.</p>
+    <p class="safety">🔥 Please celebrate responsibly and follow firework safety rules!</p>
+  </div>
 </footer>
 
 <script>
@@ -245,9 +268,7 @@
     const today = new Date();
     const timeDiff = offerEndDate - today;
     const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-    const msg = daysLeft > 0
-      ? `${daysLeft}`
-      : '0';
+    const msg = daysLeft > 0 ? `${daysLeft}` : '0';
     document.getElementById("daysLeft").textContent = msg;
   }
 
@@ -300,8 +321,6 @@
       return;
     }
 
-    const offerMultiplier = (100 - currentOffer) / 100;
-
     const categories = {};
     products.forEach(item => {
       const cat = item.category || "Uncategorized";
@@ -344,7 +363,6 @@
 
   function calculateTotals() {
     let originalTotal = 0;
-
     const rows = document.querySelectorAll("#productTable tbody tr");
 
     rows.forEach(row => {
