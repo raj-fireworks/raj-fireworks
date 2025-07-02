@@ -2,7 +2,18 @@
   "kambi mathappu": { "price": 20, "category": "Rockets" },
   "sparkles": { "price": 10, "category": "Sparklers" },
   "spark": { "price": 23, "category": "Sparklers" },
-  "kambi mathappu1": { "price": 20, "category": "Rockets" },
-  "wala1": { "price": 20, "category": "Fountains" }
-  // ... and so on
+  "wala1": { "price": 20, "category": "Fountains" },
+  "wala2": { "price": 10, "category": "Fountains" },
+  "wala3": { "price": 20, "category": "Fountains" },
+  "wala4": { "price": 10, "category": "Fountains" },
+  "wala5": { "price": 20, "category": "Fountains" },
+  "wala6": { "price": 20, "category": "Rockets" },
+  "wala7": { "price": 20, "category": "Rockets" },
+  "wala8": { "price": 10, "category": "Sparklers" },
+  "wala9": { "price": 20, "category": "Rockets" },
+  "wala10": { "price": 10, "category": "Rockets" },
+  "wala23": { "price": 12, "category": "Rockets" },
+  "wala52": { "price": 20, "category": "Rockets" },
+  "chakkaram2": { "price": 22, "category": "Fountains" },
+  "dfjgh": { "price": 28, "category": "Rockets" }
 }
