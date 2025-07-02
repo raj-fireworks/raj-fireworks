@@ -242,76 +242,89 @@
     document.getElementById("daysLeft").textContent = msg;
   }
 
-  function loadProducts() {
-    fetch("products.json")
-      .then(res => res.json())
-      .then(data => {
-        // Transform product data assuming structure:
-        // { "productName": { "price": X, "category": "CategoryName" }, ... }
-        allProducts = Object.entries(data).map(([name, info]) => {
-          if (typeof info === 'object' && info !== null) {
-            return {
-              name,
-              price: parseFloat(info.price),
-              category: info.category || 'Uncategorized'
-            };
-          } else {
-            // fallback if old format without category
-            return {
-              name,
-              price: parseFloat(info),
-              category: 'Uncategorized'
-            };
-          }
+ function loadProducts() {
+  fetch("products.json")
+    .then(res => res.json())
+    .then(data => {
+      console.log("Loaded products:", data);
+
+      try {
+        // Get offer from localStorage or default to 70
+        const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 70 };
+        currentOffer = storedOffer.offer;
+
+        document.getElementById("discountPercent").textContent = `${currentOffer}%`;
+
+        // Group products by category
+        const grouped = {};
+        Object.entries(data).forEach(([name, details]) => {
+          const category = details.category || "Uncategorized";
+          if (!grouped[category]) grouped[category] = [];
+          grouped[category].push({ name, price: parseFloat(details.price) });
         });
 
-        renderProductTable(allProducts);
-      })
-      .catch((err) => {
-        console.error("Error loading products.json:", err);
-        document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="4">Failed to load products.</td></tr>`;
-      });
-  }
+        console.log("Grouped products:", grouped);
 
-  function renderProductTable(products) {
-    const tbody = document.querySelector("#productTable tbody");
-    tbody.innerHTML = "";
+        renderProductsByCategory(grouped);
 
-    if (products.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="4">No products available.</td></tr>`;
-      return;
-    }
+      } catch (err) {
+        console.error("❌ Error inside .then():", err);
+      }
+    })
+    .catch((err) => {
+      console.error("Error loading products.json:", err);
+      document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="4">Failed to load products.</td></tr>`;
+    });
+}
 
-    // Group products by category
-    const grouped = products.reduce((acc, p) => {
-      (acc[p.category] = acc[p.category] || []).push(p);
-      return acc;
-    }, {});
+// New render function for categories + products
+function renderProductsByCategory(groupedProducts) {
+  const tbody = document.querySelector("#productTable tbody");
+  tbody.innerHTML = "";
 
-    for (const category in grouped) {
-      // Category header row
-      const catRow = document.createElement('tr');
-      catRow.classList.add('category-header');
-      catRow.innerHTML = `<td colspan="4">${category} ▼</td>`;
-      catRow.onclick = () => toggleCategory(catRow, category);
-      tbody.appendChild(catRow);
+  // For each category, create a collapsible section
+  Object.entries(groupedProducts).forEach(([category, products]) => {
+    // Create category row (collapsible header)
+    const categoryRow = document.createElement("tr");
+    categoryRow.classList.add("category-row");
+    categoryRow.style.backgroundColor = "#f9f9f9";
+    categoryRow.style.cursor = "pointer";
+    categoryRow.innerHTML = `
+      <td colspan="4" style="text-align:left; font-weight:bold; font-size:16px;">
+        ▶ ${category}
+      </td>
+    `;
+    tbody.appendChild(categoryRow);
 
-      grouped[category].forEach(item => {
-        const row = document.createElement("tr");
-        row.classList.add('category-row');
-        row.dataset.category = category;
-        row.innerHTML = `
-          <td>${item.name}</td>
-          <td>₹${item.price.toFixed(2)}</td>
-          <td><input class="qty-input" type="number" min="0" value="0" onchange="calculateTotals()" data-name="${item.name}" data-original="${item.price}" /></td>
-          <td class="item-total">₹0.00</td>
-        `;
-        tbody.appendChild(row);
-      });
-    }
+    // Container for products in this category
+    products.forEach(item => {
+      const row = document.createElement("tr");
+      row.classList.add("product-row");
+      row.dataset.category = category;
+      row.innerHTML = `
+        <td>${item.name}</td>
+        <td>₹${item.price.toFixed(2)}</td>
+        <td><input type="number" min="0" value="0" onchange="calculateTotals()" data-name="${item.name}" data-original="${item.price}" /></td>
+        <td class="item-total">₹0.00</td>
+      `;
+      tbody.appendChild(row);
+    });
 
-    calculateTotals();
-  }
+    // Initially hide product rows for this category
+    products.forEach(item => {
+      const productRows = tbody.querySelectorAll(`tr.product-row[data-category="${category}"]`);
+      productRows.forEach(r => r.style.display = "none");
+    });
+
+    // Toggle collapse/expand on clicking category row
+    categoryRow.addEventListener("click", () => {
+      const productRows = tbody.querySelectorAll(`tr.product-row[data-category="${category}"]`);
+      const isHidden = productRows[0].style.display === "none";
+      productRows.forEach(r => r.style.display = isHidden ? "" : "none");
+      categoryRow.querySelector("td").textContent = (isHidden ? "▼ " : "▶ ") + category;
+    });
+  });
+}
 
   function toggleCategory(headerRow, category) {
     const rows = document.querySelectorAll(`tr.category-row[data-category='${category}']`);
