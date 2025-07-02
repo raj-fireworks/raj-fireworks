@@ -10,21 +10,83 @@
       padding: 20px;
       margin: 0;
     }
+    /* Updated Header styles */
     header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       background-color: #d9534f;
       color: white;
-      padding: 15px 20px;
-      text-align: center;
+      padding: 15px 30px;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      flex-wrap: wrap;
+      gap: 15px;
     }
-    header h1 {
+    .header-left {
+      max-width: 50%;
+      text-align: left;
+    }
+    .header-left h1 {
       margin: 0;
       font-size: 28px;
     }
-    header .tagline {
+    .header-left .tagline {
       font-size: 14px;
       margin-top: 5px;
       color: #ffe;
     }
+    .header-right {
+      background: #fff3cd;
+      border: 2px solid #ffc107;
+      color: #333;
+      padding: 12px 20px;
+      border-radius: 10px;
+      max-width: 45%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: right;
+      font-size: 16px;
+    }
+    /* Blink animations */
+    .blink-text {
+      animation: blink-fast 1s infinite;
+      color: #e60000;
+      font-weight: bold;
+    }
+    .blink-slow {
+      animation: blink-slow 2.5s infinite;
+      color: #d9534f;
+      font-weight: bold;
+    }
+    @keyframes blink-fast {
+      50% {
+        opacity: 0;
+      }
+    }
+    @keyframes blink-slow {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.3;
+      }
+    }
+    /* Responsive for small screens */
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .header-left, .header-right {
+        max-width: 100%;
+        text-align: left;
+      }
+      .header-right {
+        margin-top: 10px;
+      }
+    }
+
+    /* Rest of your styles */
     #customerInfo {
       margin-bottom: 20px;
     }
@@ -101,42 +163,6 @@
       font-weight: bold;
       margin-top: 10px;
     }
-    .highlight-offer {
-      background: #fff3cd;
-      border: 2px solid #ffc107;
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 15px;
-      margin-bottom: 20px;
-      text-align: center;
-      font-size: 18px;
-      color: #333;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .blink-text {
-      animation: blink-fast 1s infinite;
-      color: #e60000;
-      font-weight: bold;
-    }
-    .blink-slow {
-      animation: blink-slow 2.5s infinite;
-      color: #d9534f;
-      font-weight: bold;
-    }
-    @keyframes blink-fast {
-      50% {
-        opacity: 0;
-      }
-    }
-    @keyframes blink-slow {
-      0%, 100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.3;
-      }
-    }
-
     /* Collapsible category styles */
     .category-header {
       background-color: #f0f0f0;
@@ -152,44 +178,21 @@
     .category-row {
       transition: all 0.3s ease;
     }
-header {
-  background-color: #d9534f;
-  color: white;
-  padding: 20px 20px 30px; /* more bottom padding for banner */
-  text-align: center;
-  border-radius: 0 0 10px 10px; /* optional rounded bottom corners */
-  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-  position: relative;
-}
-
-/* Highlight-offer inside header: */
-header .highlight-offer {
-  background: #fff3cd;
-  border: 2px solid #ffc107;
-  color: #333;
-  padding: 12px 15px;
-  border-radius: 8px;
-  margin-top: 10px;
-  display: inline-block;
-  max-width: 480px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
   </style>
 </head>
 <body>
 
 <header>
-  <h1>🎇 AJ Crackers</h1>
-  <div class="tagline">Your Trusted Firework Partner</div>
+  <div class="header-left">
+    <h1>🎇 AJ Crackers</h1>
+    <div class="tagline">Your Trusted Firework Partner</div>
+  </div>
 
-  <div class="highlight-offer" style="margin-top: 15px;">
+  <div class="header-right">
     <p><strong>🎁 Offer: Flat <span class="blink-text">70%</span> Discount Applied</strong></p>
     <p class="days-left blink-slow">🔥 Hurry! Only <span id="daysLeft">115</span> days left for this offer!</p>
   </div>
 </header>
-
-
 
 <!-- Customer Info Inputs -->
 <div id="customerInfo">
@@ -199,6 +202,7 @@ header .highlight-offer {
   <label for="customerPhone">Your Phone (optional):</label>
   <input type="tel" id="customerPhone" placeholder="Enter your phone number" />
 </div>
+
 <table id="productTable">
   <thead>
     <tr>
@@ -241,8 +245,8 @@ header .highlight-offer {
     const timeDiff = offerEndDate - today;
     const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
     const msg = daysLeft > 0
-      ? `🔥 Hurry! Only ${daysLeft} day${daysLeft !== 1 ? 's' : ''} left for this offer!`
-      : '⚠️ The offer has ended.';
+      ? `${daysLeft}`
+      : '0';
     document.getElementById("daysLeft").textContent = msg;
   }
 
@@ -257,9 +261,7 @@ header .highlight-offer {
           currentOffer = storedOffer.offer;
           document.getElementById("discountPercent").textContent = `${currentOffer}%`;
 
-          // Convert data into array of products
           const products = Object.entries(data).map(([name, info]) => {
-            // if info is an object (with price & category), else fallback
             if (typeof info === "object" && info !== null) {
               return {
                 name,
@@ -267,8 +269,6 @@ header .highlight-offer {
                 category: info.category || "Uncategorized"
               };
             } else {
-              // If your JSON doesn't have category and price inside an object,
-              // treat info as price and category as Uncategorized
               return {
                 name,
                 price: parseFloat(info) || 0,
@@ -301,7 +301,6 @@ header .highlight-offer {
 
     const offerMultiplier = (100 - currentOffer) / 100;
 
-    // Group products by category
     const categories = {};
     products.forEach(item => {
       const cat = item.category || "Uncategorized";
@@ -309,9 +308,7 @@ header .highlight-offer {
       categories[cat].push(item);
     });
 
-    // For each category create a collapsible section
     Object.entries(categories).forEach(([category, items], index) => {
-      // Category header row (clickable)
       const catRow = document.createElement("tr");
       catRow.classList.add("category-header");
       catRow.style.cursor = "pointer";
@@ -320,7 +317,6 @@ header .highlight-offer {
       </td>`;
       tbody.appendChild(catRow);
 
-      // Product rows for this category (initially visible)
       items.forEach(item => {
         const row = document.createElement("tr");
         row.classList.add("category-row", `category-${index}`);
@@ -333,13 +329,11 @@ header .highlight-offer {
         tbody.appendChild(row);
       });
 
-      // Toggle rows visibility when clicking the category header
       catRow.addEventListener("click", () => {
         const catRows = document.querySelectorAll(`.category-${index}`);
         catRows.forEach(r => {
           r.style.display = r.style.display === "none" ? "" : "none";
         });
-        // Toggle arrow icon
         catRow.cells[0].textContent = catRow.cells[0].textContent.startsWith("▼")
           ? catRow.cells[0].textContent.replace("▼", "▶")
           : catRow.cells[0].textContent.replace("▶", "▼");
@@ -347,86 +341,85 @@ header .highlight-offer {
     });
   }
 
-function calculateTotals() {
-  let originalTotal = 0;
+  function calculateTotals() {
+    let originalTotal = 0;
 
-  const rows = document.querySelectorAll("#productTable tbody tr");
+    const rows = document.querySelectorAll("#productTable tbody tr");
 
-  rows.forEach(row => {
-    const qtyInput = row.querySelector("input[type='number']");
-    if (!qtyInput) return; // skip rows with no input
+    rows.forEach(row => {
+      const qtyInput = row.querySelector("input[type='number']");
+      if (!qtyInput) return;
 
-    const qty = parseInt(qtyInput.value) || 0;
-    const originalPrice = parseFloat(qtyInput.dataset.original) || 0;
+      const qty = parseInt(qtyInput.value) || 0;
+      const originalPrice = parseFloat(qtyInput.dataset.original) || 0;
 
-    const originalSubtotal = qty * originalPrice;
-    originalTotal += originalSubtotal;
+      const originalSubtotal = qty * originalPrice;
+      originalTotal += originalSubtotal;
 
-    const totalCell = row.querySelector(".item-total");
-    if (totalCell) {
-      totalCell.textContent = `₹${originalSubtotal.toFixed(2)}`;
+      const totalCell = row.querySelector(".item-total");
+      if (totalCell) {
+        totalCell.textContent = `₹${originalSubtotal.toFixed(2)}`;
+      }
+    });
+
+    const discountAmount = originalTotal * (currentOffer / 100);
+    const grandTotal = originalTotal - discountAmount;
+
+    document.getElementById("originalTotal").textContent = originalTotal.toFixed(2);
+    document.getElementById("discountAmount").textContent = discountAmount.toFixed(2);
+    document.getElementById("grandTotal").textContent = grandTotal.toFixed(2);
+  }
+
+  function sendOrderToWhatsApp() {
+    const name = document.getElementById("customerName").value.trim();
+    const phone = document.getElementById("customerPhone").value.trim();
+
+    if (!name) {
+      alert("Please enter your name before sending the order.");
+      return;
     }
-  });
 
-  const discountAmount = originalTotal * (currentOffer / 100);
-  const grandTotal = originalTotal - discountAmount;
+    const rows = document.querySelectorAll("#productTable tbody tr");
+    let message = `Hi, I'm ${name}, and I'd like to place an order:\n\n`;
+    let originalTotal = 0;
 
-  document.getElementById("originalTotal").textContent = originalTotal.toFixed(2);
-  document.getElementById("discountAmount").textContent = discountAmount.toFixed(2);
-  document.getElementById("grandTotal").textContent = grandTotal.toFixed(2);
-}
+    rows.forEach(row => {
+      const input = row.querySelector("input[type='number']");
+      if (!input) return;
+      const qty = parseInt(input.value);
+      const itemName = input.dataset.name;
+      const originalPrice = parseFloat(input.dataset.original);
 
+      if (qty && qty > 0) {
+        const itemTotal = qty * originalPrice;
+        message += `- ${itemName} × ${qty} = ₹${itemTotal.toFixed(2)}\n`;
+        originalTotal += itemTotal;
+      }
+    });
 
-function sendOrderToWhatsApp() {
-  const name = document.getElementById("customerName").value.trim();
-  const phone = document.getElementById("customerPhone").value.trim();
-
-  if (!name) {
-    alert("Please enter your name before sending the order.");
-    return;
-  }
-
-  const rows = document.querySelectorAll("#productTable tbody tr");
-  let message = `Hi, I'm ${name}, and I'd like to place an order:\n\n`;
-  let originalTotal = 0;
-
-  rows.forEach(row => {
-    const input = row.querySelector("input[type='number']");
-    const qty = parseInt(input.value);
-    const itemName = input.dataset.name;
-    const originalPrice = parseFloat(input.dataset.original);
-
-    if (qty && qty > 0) {
-      const itemTotal = qty * originalPrice;
-      message += `- ${itemName} × ${qty} = ₹${itemTotal.toFixed(2)}\n`;
-      originalTotal += itemTotal;
+    if (originalTotal === 0) {
+      alert("Please select at least one product quantity before sending the order.");
+      return;
     }
-  });
 
-  if (originalTotal === 0) {
-    alert("Please select at least one product quantity before sending the order.");
-    return;
+    const discountAmount = originalTotal * (currentOffer / 100);
+    const grandTotal = originalTotal - discountAmount;
+
+    message += `\nOriginal Total: ₹${originalTotal.toFixed(2)}`;
+    message += `\nDiscount (${currentOffer}%): ₹${discountAmount.toFixed(2)}`;
+    message += `\nGrand Total: ₹${grandTotal.toFixed(2)}`;
+
+    if (phone) {
+      message += `\nCustomer Phone: ${phone}`;
+    }
+
+    message += `\n\nThank you!`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/918296772217?text=${encodedMessage}`;
+    window.open(whatsappURL, "_blank");
   }
 
-  const discountAmount = originalTotal * (currentOffer / 100);
-  const grandTotal = originalTotal - discountAmount;
-
-  message += `\nOriginal Total: ₹${originalTotal.toFixed(2)}`;
-  message += `\nDiscount (${currentOffer}%): ₹${discountAmount.toFixed(2)}`;
-  message += `\nGrand Total: ₹${grandTotal.toFixed(2)}`;
-
-  if (phone) {
-    message += `\nCustomer Phone: ${phone}`;
-  }
-
-  message += `\n\nThank you!`;
-
-  const encodedMessage = encodeURIComponent(message);
-  const whatsappURL = `https://wa.me/918296772217?text=${encodedMessage}`;
-  window.open(whatsappURL, "_blank");
-}
-
-  // Initialize
   window.onload = function () {
     showDaysLeft();
     loadProducts();
