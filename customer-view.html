@@ -202,27 +202,26 @@
     document.getElementById("daysLeft").textContent = msg;
   }
 
-  function loadProducts() {
-    const storedPrices = localStorage.getItem("fireworkPrices");
-    const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 70 };
+ function loadProducts() {
+  fetch("products.json")
+    .then(res => res.json())
+    .then(data => {
+      const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 70 };
+      currentOffer = storedOffer.offer;
+      document.getElementById("offerValue").textContent = `Flat ${currentOffer}%`;
+      document.getElementById("discountPercent").textContent = `${currentOffer}%`;
 
-    if (!storedPrices) {
-      document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="4">No fireworks available.</td></tr>`;
-      return;
-    }
+      const products = Object.entries(data).map(([name, price]) => ({
+        name,
+        price: parseFloat(price)
+      }));
 
-    currentOffer = storedOffer.offer;
-    document.getElementById("offerValue").textContent = `Flat ${currentOffer}%`;
-    document.getElementById("discountPercent").textContent = `${currentOffer}%`;
-
-    const fireworkPrices = JSON.parse(storedPrices);
-    const products = Object.entries(fireworkPrices).map(([name, price]) => ({
-      name,
-      price: parseFloat(price)
-    }));
-
-    renderProductTable(products);
-  }
+      renderProductTable(products);
+    })
+    .catch(() => {
+      document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="4">Failed to load products.</td></tr>`;
+    });
+}
 
   function renderProductTable(products) {
     const tbody = document.querySelector("#productTable tbody");
