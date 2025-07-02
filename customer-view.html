@@ -25,16 +25,39 @@
       margin-top: 5px;
       color: #ffe;
     }
-    input[type="text"], input[type="tel"] {
-      padding: 8px;
+
+    /* Container for search + filters aligned right */
+    #filterContainer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
       margin-bottom: 10px;
-      width: 250px;
-      display: block;
+      flex-wrap: wrap;
     }
+    #filterContainer label {
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      color: #333;
+    }
+    #filterContainer input[type="text"],
+    #filterContainer input[type="number"] {
+      padding: 6px;
+      width: 150px;
+      max-width: 100%;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-top: 4px;
+    }
+    #filterContainer input[type="number"] {
+      width: 80px;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 20px;
+      margin-top: 0;
     }
     th, td {
       padding: 10px;
@@ -46,7 +69,38 @@
     }
     input[type="number"] {
       width: 60px;
+      padding: 6px;
+      font-size: 14px;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
+
+    .category-header {
+      background-color: #e9ecef;
+      cursor: pointer;
+      user-select: none;
+      font-weight: bold;
+      text-align: left;
+      padding-left: 15px;
+      font-size: 16px;
+    }
+    .category-content {
+      display: none;
+    }
+    .category-expanded .category-content {
+      display: table-row-group;
+    }
+    .category-toggle::before {
+      content: "▼";
+      display: inline-block;
+      margin-right: 6px;
+      transition: transform 0.3s ease;
+    }
+    .category-expanded > .category-header .category-toggle::before {
+      transform: rotate(-180deg);
+    }
+
     .total-section {
       margin-top: 20px;
       font-size: 18px;
@@ -106,21 +160,25 @@
       color: #333;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
+
     .blink-text {
       animation: blink-fast 1s infinite;
       color: #e60000;
       font-weight: bold;
     }
+
     .blink-slow {
       animation: blink-slow 2.5s infinite;
       color: #d9534f;
       font-weight: bold;
     }
+
     @keyframes blink-fast {
       50% {
         opacity: 0;
       }
     }
+
     @keyframes blink-slow {
       0%, 100% {
         opacity: 1;
@@ -128,11 +186,6 @@
       50% {
         opacity: 0.3;
       }
-    }
-    .category-row {
-      background-color: #f9f9f9;
-      cursor: pointer;
-      user-select: none;
     }
   </style>
 </head>
@@ -144,15 +197,25 @@
 </header>
 
 <div class="highlight-offer">
-  <p><strong>🎁 Offer: Flat <span class="blink-text" id="discountPercent">70%</span> Discount Applied</strong></p>
-  <p class="days-left blink-slow">🔥 Hurry! Only <span id="daysLeft"></span> days left for this offer!</p>
+  <p><strong>🎁 Offer: Flat <span class="blink-text">70%</span> Discount Applied</strong></p>
+  <p class="days-left blink-slow">🔥 Hurry! Only <span id="daysLeft">115</span> days left for this offer!</p>
 </div>
 
-<label for="customerName">Your Name:</label>
-<input type="text" id="customerName" placeholder="Enter your name" />
-
-<label for="customerPhone">Your Phone (optional):</label>
-<input type="tel" id="customerPhone" placeholder="Enter your phone number" />
+<!-- Filters container -->
+<div id="filterContainer">
+  <label>
+    Search Fireworks:
+    <input type="text" id="searchInput" placeholder="Type to search..." />
+  </label>
+  <label>
+    Min Price (₹):
+    <input type="number" id="minPrice" min="0" placeholder="0" />
+  </label>
+  <label>
+    Max Price (₹):
+    <input type="number" id="maxPrice" min="0" placeholder="99999" />
+  </label>
+</div>
 
 <table id="productTable">
   <thead>
@@ -167,7 +230,7 @@
 </table>
 
 <div class="total-section">
-  <p>Discount: <strong id="discountPercentSummary">70%</strong></p>
+  <p>Discount: <strong id="discountPercent">70%</strong></p>
   <p>Total Original Price: ₹<span id="originalTotal">0.00</span></p>
   <p>Total Discount Amount: ₹<span id="discountAmount">0.00</span></p>
   <p><strong>Grand Total (After Discount): ₹<span id="grandTotal">0.00</span></strong></p>
@@ -189,6 +252,7 @@
 
 <script>
   let currentOffer = 70;
+  let allProductsGrouped = {};
 
   function showDaysLeft() {
     const offerEndDate = new Date("2025-10-25");
@@ -196,9 +260,9 @@
     const timeDiff = offerEndDate - today;
     const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
     const msg = daysLeft > 0
-      ? `${daysLeft}`
-      : '0';
-    document.getElementById("daysLeft").textContent = msg;
+      ? `🔥 Hurry! Only ${daysLeft} day${daysLeft !== 1 ? 's' : ''} left for this offer!`
+      : '⚠️ The offer has ended.';
+    document.querySelector(".days-left").textContent = msg;
   }
 
   function loadProducts() {
@@ -208,37 +272,66 @@
         console.log("Loaded products:", data);
 
         try {
-          // Get offer from localStorage or default to 70
           const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 70 };
           currentOffer = storedOffer.offer;
 
-          // Update discount display where needed
           document.getElementById("discountPercent").textContent = `${currentOffer}%`;
-          document.getElementById("discountPercentSummary").textContent = `${currentOffer}%`;
 
           // Group products by category
           const grouped = {};
-
           Object.entries(data).forEach(([name, details]) => {
-            const price = parseFloat(details.price);
-            const category = details.category || "Uncategorized";
+            // If your products.json has structure like:
+            // { "kambi mathappu": {"price":20, "category":"Rocket"}, ... }
+            // else fallback to price and "Uncategorized"
+            let price = NaN, category = "Uncategorized";
+            if (typeof details === "object" && details !== null) {
+              price = parseFloat(details.price);
+              category = details.category || "Uncategorized";
+            } else {
+              // If just price number directly, no category
+              price = parseFloat(details);
+            }
+            if (isNaN(price)) price = 0;
 
             if (!grouped[category]) grouped[category] = [];
             grouped[category].push({ name, price });
           });
 
-          console.log("Grouped products:", grouped);
-
-          renderProductTableGrouped(grouped);
+          allProductsGrouped = grouped;
+          renderFilteredProducts();
 
         } catch (err) {
           console.error("❌ Error inside .then():", err);
+          document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="4">Failed to load products.</td></tr>`;
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.error("Error loading products.json:", err);
         document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="4">Failed to load products.</td></tr>`;
       });
+  }
+
+  function renderFilteredProducts() {
+    const searchTerm = document.getElementById("searchInput").value.trim().toLowerCase();
+    const minPrice = parseFloat(document.getElementById("minPrice").value);
+    const maxPrice = parseFloat(document.getElementById("maxPrice").value);
+
+    // Filter products by search and price range
+    const filteredGrouped = {};
+    Object.entries(allProductsGrouped).forEach(([category, products]) => {
+      const filtered = products.filter(item => {
+        const matchesSearch = item.name.toLowerCase().includes(searchTerm);
+        const aboveMin = isNaN(minPrice) || item.price >= minPrice;
+        const belowMax = isNaN(maxPrice) || item.price <= maxPrice;
+        return matchesSearch && aboveMin && belowMax;
+      });
+      if (filtered.length > 0) {
+        filteredGrouped[category] = filtered;
+      }
+    });
+
+    renderProductTableGrouped(filteredGrouped);
+    calculateTotals();
   }
 
   function renderProductTableGrouped(groupedProducts) {
@@ -246,56 +339,44 @@
     tbody.innerHTML = "";
 
     if (Object.keys(groupedProducts).length === 0) {
-      tbody.innerHTML = `<tr><td colspan="4">No products available.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="4">No products found matching criteria.</td></tr>`;
       return;
     }
 
+    const offerMultiplier = (100 - currentOffer) / 100;
+
     Object.entries(groupedProducts).forEach(([category, products]) => {
-      // Category header row with toggle arrow
+      // Category header row
       const categoryRow = document.createElement("tr");
-      categoryRow.classList.add("category-row");
-      categoryRow.innerHTML = `
-        <td colspan="4" style="text-align: left; font-weight: bold;">
-          ▼ ${category}
-        </td>
-      `;
+      categoryRow.classList.add("category-header-row");
+      categoryRow.innerHTML = `<td colspan="4" class="category-header"><span class="category-toggle">▼</span> ${category}</td>`;
       tbody.appendChild(categoryRow);
 
-      // Create rows for products in this category inside a fragment
-      const fragment = document.createDocumentFragment();
+      // Wrap category products in a tbody for collapsible effect
+      const categoryBody = document.createElement("tbody");
+      categoryBody.classList.add("category-content");
 
       products.forEach(item => {
         const row = document.createElement("tr");
-        row.classList.add("product-row");
-        row.dataset.category = category;
         row.innerHTML = `
           <td>${item.name}</td>
           <td>₹${item.price.toFixed(2)}</td>
           <td><input type="number" min="0" value="0" onchange="calculateTotals()" data-name="${item.name}" data-original="${item.price}" /></td>
           <td class="item-total">₹0.00</td>
         `;
-        fragment.appendChild(row);
+        categoryBody.appendChild(row);
       });
 
-      tbody.appendChild(fragment);
+      tbody.appendChild(categoryBody);
+    });
 
-      // Initially collapse all categories except Uncategorized
-      if (category !== "Uncategorized") {
-        products.forEach((_, idx) => {
-          tbody.querySelectorAll("tr.product-row")[tbody.querySelectorAll("tr.product-row").length - products.length + idx].style.display = "none";
-        });
-        categoryRow.querySelector("td").textContent = `► ${category}`;
-      }
-
-      // Add click listener to toggle collapse
-      categoryRow.addEventListener("click", () => {
-        const isCollapsed = categoryRow.querySelector("td").textContent.startsWith("►");
-        categoryRow.querySelector("td").textContent = (isCollapsed ? "▼ " : "► ") + category;
-
-        tbody.querySelectorAll(`tr.product-row[data-category="${category}"]`).forEach(row => {
-          row.style.display = isCollapsed ? "" : "none";
-        });
-      });
+    // Add toggle functionality for categories
+    const headers = tbody.querySelectorAll(".category-header");
+    headers.forEach(header => {
+      header.onclick = () => {
+        const tr = header.parentElement;
+        tr.classList.toggle("category-expanded");
+      };
     });
   }
 
@@ -303,10 +384,12 @@
     const offerMultiplier = (100 - currentOffer) / 100;
     let originalTotal = 0, discountTotal = 0, finalTotal = 0;
 
-    const rows = document.querySelectorAll("#productTable tbody tr.product-row");
+    const rows = document.querySelectorAll("#productTable tbody tr:not(.category-header-row)"); // exclude category headers
 
     rows.forEach(row => {
       const qtyInput = row.querySelector("input[type='number']");
+      if (!qtyInput) return; // skip header rows
+
       const qty = parseInt(qtyInput.value) || 0;
       const originalPrice = parseFloat(qtyInput.dataset.original);
       const discountedPrice = originalPrice * offerMultiplier;
@@ -328,55 +411,40 @@
   }
 
   function sendOrderToWhatsApp() {
-    const name = document.getElementById("customerName").value.trim();
-    if (!name) {
-      alert("Please enter your name before sending the order.");
-      return;
-    }
-    const phone = document.getElementById("customerPhone").value.trim();
-    const countryCode = "91";
+    const orderLines = [];
+    const rows = document.querySelectorAll("#productTable tbody tr:not(.category-header-row)");
 
-    let message = `*AJ Crackers Order*\nCustomer: ${name}\n`;
-
-    if (phone) message += `Phone: +${countryCode}${phone}\n`;
-
-    message += "\nOrder Details:\n";
-
-    const rows = document.querySelectorAll("#productTable tbody tr.product-row");
-    let orderExists = false;
     rows.forEach(row => {
       const qtyInput = row.querySelector("input[type='number']");
+      if (!qtyInput) return;
       const qty = parseInt(qtyInput.value) || 0;
-      if (qty > 0) {
-        orderExists = true;
-        const productName = row.cells[0].textContent;
-        const totalPrice = row.querySelector(".item-total").textContent;
-        message += `- ${productName}: Qty ${qty}, ${totalPrice}\n`;
-      }
+      if (qty === 0) return;
+
+      const name = qtyInput.dataset.name;
+      const price = qtyInput.dataset.original;
+      orderLines.push(`${name} x ${qty} (₹${price})`);
     });
 
-    if (!orderExists) {
-      alert("Please add quantities for at least one product.");
+    if (orderLines.length === 0) {
+      alert("Please add some quantity before sending order.");
       return;
     }
 
-    message += `\nTotal after ${currentOffer}% discount: ₹${document.getElementById("grandTotal").textContent}\n`;
-    message += "\nThank you for ordering from AJ Crackers!";
+    const total = document.getElementById("grandTotal").textContent;
+    const message = encodeURIComponent(
+      `Order from AJ Crackers:\n\n${orderLines.join("\n")}\n\nGrand Total: ₹${total}\n\nThank you!`
+    );
 
-    const encodedMsg = encodeURIComponent(message);
-
-    // Use AJ Crackers WhatsApp number (change if needed)
-    const waNumber = "918296772217"; // country code + number, no '+' or spaces
-
-    const waURL = `https://wa.me/${waNumber}?text=${encodedMsg}`;
-
-    window.open(waURL, "_blank");
+    const phoneNumber = "918296772217"; // Use your number with country code without +
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
   }
 
-  // Initialize
   document.addEventListener("DOMContentLoaded", () => {
-    showDaysLeft();
     loadProducts();
+    document.getElementById("searchInput").addEventListener("input", renderFilteredProducts);
+    document.getElementById("minPrice").addEventListener("input", renderFilteredProducts);
+    document.getElementById("maxPrice").addEventListener("input", renderFilteredProducts);
+    showDaysLeft();
   });
 </script>
 
