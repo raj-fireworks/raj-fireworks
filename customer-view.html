@@ -152,20 +152,44 @@
     .category-row {
       transition: all 0.3s ease;
     }
+header {
+  background-color: #d9534f;
+  color: white;
+  padding: 20px 20px 30px; /* more bottom padding for banner */
+  text-align: center;
+  border-radius: 0 0 10px 10px; /* optional rounded bottom corners */
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+/* Highlight-offer inside header: */
+header .highlight-offer {
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+  color: #333;
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-top: 10px;
+  display: inline-block;
+  max-width: 480px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
 
   </style>
 </head>
 <body>
 
 <header>
-  <h1>🎇 RAJ Crackers</h1>
+  <h1>🎇 AJ Crackers</h1>
   <div class="tagline">Your Trusted Firework Partner</div>
+
+  <div class="highlight-offer" style="margin-top: 15px;">
+    <p><strong>🎁 Offer: Flat <span class="blink-text">70%</span> Discount Applied</strong></p>
+    <p class="days-left blink-slow">🔥 Hurry! Only <span id="daysLeft">115</span> days left for this offer!</p>
+  </div>
 </header>
 
-<div class="highlight-offer">
-  <p><strong>🎁 Offer: Flat <span class="blink-text">70%</span> Discount Applied</strong></p>
-  <p class="days-left blink-slow">🔥 Hurry! Only <span id="daysLeft">115</span> days left for this offer!</p>
-</div>
+
 
 <!-- Customer Info Inputs -->
 <div id="customerInfo">
