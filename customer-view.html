@@ -222,9 +222,11 @@ function loadProducts() {
 
       renderProductTable(products);
     })
-    .catch(() => {
-      document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="4">Failed to load products.</td></tr>`;
-    });
+    .catch((err) => {
+  console.error("Error loading products.json:", err);
+  document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="4">Failed to load products.</td></tr>`;
+});
+
 }
 
 function renderProductTable(products) {
