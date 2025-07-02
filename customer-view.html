@@ -205,23 +205,27 @@
 function loadProducts() {
   fetch("products.json")
     .then(res => res.json())
-    .then(data => {
-      console.log("Loaded products:", data);  // << check what data is
+.then(data => {
+  console.log("Loaded products:", data); // This shows up ✅
 
-      const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 70 };
-      currentOffer = storedOffer.offer;
-      document.getElementById("offerValue").textContent = `Flat ${currentOffer}%`;
-      document.getElementById("discountPercent").textContent = `${currentOffer}%`;
+  try {
+    const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 70 };
+    currentOffer = storedOffer.offer;
+    document.getElementById("offerValue").textContent = `Flat ${currentOffer}%`;
+    document.getElementById("discountPercent").textContent = `${currentOffer}%`;
 
-      const products = Object.entries(data).map(([name, price]) => ({
-        name,
-        price: parseFloat(price)
-      }));
+    const products = Object.entries(data).map(([name, price]) => ({
+      name,
+      price: parseFloat(price)
+    }));
 
-      console.log("Processed products:", products); // << check processed product array
+    console.log("Processed products:", products);  // This should now show
 
-      renderProductTable(products);
-    })
+    renderProductTable(products);
+  } catch (err) {
+    console.error("❌ Error inside .then():", err);
+  }
+})
     .catch((err) => {
   console.error("Error loading products.json:", err);
   document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="4">Failed to load products.</td></tr>`;
