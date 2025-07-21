@@ -6,14 +6,15 @@
   <title>Admin - AJ Crackers</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
-  <meta name="description" content="Aj Crackers - Admin Firework Management" />
+  <meta name="description" content="AJ Crackers - Admin Firework Management" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
   <!-- SheetJS for Excel Export -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
-  <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
 
+  <!-- ✅ Firebase SDKs (compat versions) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 </head>
 <body>
 
@@ -33,39 +34,38 @@
 
 <form id="fireworkForm" onsubmit="event.preventDefault(); addOrUpdateFirework();" style="width:700px;">
   <label for="fireworkName">Firework Name:<span class="required">*</span></label>
-  <input list="fireworkNamesList" id="fireworkName" class="input-field" autocomplete="off" style="border:1px solid #000;" placeholder="Select or type firework name" required />
+  <input list="fireworkNamesList" id="fireworkName" class="input-field" autocomplete="off" placeholder="Select or type firework name" required />
   <datalist id="fireworkNamesList"></datalist>
 
   <label for="fireworkPrice">Price (₹):<span class="required">*</span></label>
-  <input type="number" id="fireworkPrice" class="input-field" min="1" style="border:1px solid #000;" placeholder="Enter price" required />
+  <input type="number" id="fireworkPrice" class="input-field" min="1" placeholder="Enter price" required />
 
   <div class="button-group-right">
-    <button type="submit">Add </button>
+    <button type="submit">Add</button>
   </div>
 </form>
 
 <div id="adminMessage" class="success-message"></div>
+
 <label for="offerPercent">Offer Percentage (%):</label>
 <input type="number" id="offerPercent" value="70" min="1" max="99" style="width:100px;" />
-<button type="button" onclick="saveOffer()" style="    margin-left: auto;
-    margin-right: auto;width:fit-content;">Save Offer</button>
+<button type="button" onclick="saveOffer()">Save Offer</button>
 
 <table id="fireworkTable" border="1" style="width: 700px; border-collapse: collapse; margin-top: 20px;">
   <thead>
     <tr>
-      <th style="text-align:left; padding: 8px;">Firework Name</th>
-      <th style="text-align:left; padding: 8px;">Price (₹)</th>
-      <th style="text-align:center; padding: 8px;">Actions</th>
+      <th style="padding: 8px;">Firework Name</th>
+      <th style="padding: 8px;">Price (₹)</th>
+      <th style="padding: 8px; text-align:center;">Actions</th>
     </tr>
   </thead>
   <tbody id="fireworkTableBody"></tbody>
 </table>
 
-<div class="button-group-right" style="margin-top: 20px;display:flex;justify-content:flex-end;">
+<div class="button-group-right" style="margin-top: 20px;">
   <button onclick="exportToExcel()">Download Price List (Excel)</button>
-    <button onclick="generateCustomerLink()">Generate Customer Link</button>
-<button onclick="downloadProductsJson()">Export as JSON</button>
-
+  <button onclick="generateCustomerLink()">Generate Customer Link</button>
+  <button onclick="downloadProductsJson()">Export as JSON</button>
 </div>
 
 <footer class="site-footer">
@@ -78,19 +78,19 @@
 </footer>
 
 <script>
-  // Firebase Config
+  // ✅ Firebase Config
   const firebaseConfig = {
     apiKey: "AIzaSyBCgufTTErG1FMLCcOoScj6dZlmI8Liq_E",
     authDomain: "aj-crackers-16343.firebaseapp.com",
+    databaseURL: "https://aj-crackers-16343-default-rtdb.asia-southeast1.firebasedatabase.app",
     projectId: "aj-crackers-16343",
-    storageBucket: "aj-crackers-16343.firebasestorage.app",
+    storageBucket: "aj-crackers-16343.appspot.com",
     messagingSenderId: "541140087323",
     appId: "1:541140087323:web:f7034f7248b3301f44febe",
-    measurementId: "G-3DZBHD8SEB",
-    databaseURL: "https://aj-crackers-16343-default-rtdb.asia-southeast1.firebasedatabase.app"
+    measurementId: "G-3DZBHD8SEB"
   };
 
-  // Initialize Firebase
+  // ✅ Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   const db = firebase.database();
 
@@ -124,12 +124,11 @@
       return;
     }
 
-    const offerData = {
+    db.ref("offer").set({
       offer: offer,
       validTill: "2025-07-15"
-    };
+    });
 
-    db.ref("offer").set(offerData);
     alert(`✅ Offer set to ${offer}%`);
   }
 
@@ -185,6 +184,7 @@
       `;
       tbody.appendChild(row);
     });
+
     populateFireworkAutocomplete(data);
   }
 
@@ -229,19 +229,7 @@
   function deleteFirework(name) {
     const confirmDelete = confirm(`Are you sure you want to delete "${name}"?`);
     if (!confirmDelete) return;
-
     db.ref("fireworks/" + name).remove();
-  }
-
-  function downloadProductsJson() {
-    db.ref("fireworks").once("value", snapshot => {
-      const data = snapshot.val() || {};
-      const file = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(file);
-      a.download = "products.json";
-      a.click();
-    });
   }
 
   function exportToExcel() {
@@ -261,6 +249,17 @@
       const workbook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(workbook, worksheet, "Price List");
       XLSX.writeFile(workbook, "AJ_Crackers_Price_List.xlsx");
+    });
+  }
+
+  function downloadProductsJson() {
+    db.ref("fireworks").once("value", snapshot => {
+      const data = snapshot.val() || {};
+      const file = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(file);
+      a.download = "products.json";
+      a.click();
     });
   }
 
@@ -303,17 +302,8 @@
     });
   }
 
-  function updateClock() {
-    const now = new Date();
-    const clock = document.getElementById("liveClock");
-    if (clock) clock.textContent = now.toLocaleString();
-  }
-
-  setInterval(updateClock, 1000);
-  updateClock();
   loadData();
 </script>
-
 
 </body>
 </html>
