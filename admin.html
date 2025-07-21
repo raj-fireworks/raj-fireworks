@@ -6,94 +6,60 @@
   <title>Admin - AJ Crackers</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
-  <meta name="description" content="AJ Crackers - Admin Firework Management" />
+  <meta name="description" content="AJ Crackers - Admin Panel" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-  <!-- SheetJS for Excel Export -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
 
-  <!-- ✅ Firebase SDKs (compat versions) -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <!-- ✅ Firebase compat SDKs for easy use -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 </head>
 <body>
 
-<header class="site-header">
-  <div class="brand-name">
-    <span class="raj">AJ</span>
-    <span class="crackers">Crackers</span>
-    <div class="tagline">Your Trusted Firework Partner</div>
-  </div>
-  <div class="header-right">
-    <button onclick="logoutAdmin()" style="margin-top: 20px;">Logout Admin</button>
-    <a href="details.html" title="Back to Billing" class="icon-link"><i class="fas fa-arrow-left"></i></a>
-  </div>
+<header>
+  <h1>AJ Crackers – Admin Panel</h1>
+  <button onclick="logoutAdmin()">Logout</button>
 </header>
 
-<h2 class="page-title">Admin Panel: Add or Update Firework</h2>
+<section>
+  <h2>Add / Update Firework</h2>
+  <form id="fireworkForm" onsubmit="event.preventDefault(); addOrUpdateFirework();">
+    <input list="fireworkNamesList" id="fireworkName" placeholder="Firework Name" required />
+    <input type="number" id="fireworkPrice" placeholder="Price (₹)" min="1" required />
+    <button type="submit">Save</button>
+  </form>
+  <div id="adminMessage"></div>
+</section>
 
-<form id="fireworkForm" onsubmit="event.preventDefault(); addOrUpdateFirework();" style="width:700px;">
-  <label for="fireworkName">Firework Name:<span class="required">*</span></label>
-  <input list="fireworkNamesList" id="fireworkName" class="input-field" autocomplete="off" placeholder="Select or type firework name" required />
-  <datalist id="fireworkNamesList"></datalist>
+<section>
+  <h2>Offer Percentage</h2>
+  <input type="number" id="offerPercent" min="1" max="99" value="70" />
+  <button onclick="saveOffer()">Save Offer</button>
+</section>
 
-  <label for="fireworkPrice">Price (₹):<span class="required">*</span></label>
-  <input type="number" id="fireworkPrice" class="input-field" min="1" placeholder="Enter price" required />
-
-  <div class="button-group-right">
-    <button type="submit">Add</button>
-  </div>
-</form>
-
-<div id="adminMessage" class="success-message"></div>
-
-<label for="offerPercent">Offer Percentage (%):</label>
-<input type="number" id="offerPercent" value="70" min="1" max="99" style="width:100px;" />
-<button type="button" onclick="saveOffer()">Save Offer</button>
-
-<table id="fireworkTable" border="1" style="width: 700px; border-collapse: collapse; margin-top: 20px;">
-  <thead>
-    <tr>
-      <th style="padding: 8px;">Firework Name</th>
-      <th style="padding: 8px;">Price (₹)</th>
-      <th style="padding: 8px; text-align:center;">Actions</th>
-    </tr>
-  </thead>
-  <tbody id="fireworkTableBody"></tbody>
-</table>
-
-<div class="button-group-right" style="margin-top: 20px;">
-  <button onclick="exportToExcel()">Download Price List (Excel)</button>
-  <button onclick="generateCustomerLink()">Generate Customer Link</button>
-  <button onclick="downloadProductsJson()">Export as JSON</button>
-</div>
-
-<footer class="site-footer">
-  <div class="footer-content">
-    <p><strong>AJ Crackers</strong> — Your Trusted Firework Partner</p>
-    <p>Contact: +91 82967 72217, 99436 81121, 82481 03661 | Email: support@rajcrackers.in</p>
-    <p class="footer-note">© 2025 AJ Crackers. All rights reserved.</p>
-    <p class="footer-safety">🔥 Please celebrate responsibly and follow all firework safety regulations.</p>
-  </div>
-</footer>
+<section>
+  <h2>Fireworks List</h2>
+  <table border="1">
+    <thead><tr><th>Name</th><th>Price (₹)</th><th>Actions</th></tr></thead>
+    <tbody id="fireworkTableBody"></tbody>
+  </table>
+  <button onclick="exportToExcel()">Download Excel</button>
+  <button onclick="downloadProductsJson()">Download JSON</button>
+</section>
 
 <script>
-  // ✅ Firebase Config
   const firebaseConfig = {
-    apiKey: "AIzaSyBCgufTTErG1FMLCcOoScj6dZlmI8Liq_E",
+    apiKey: "...",
     authDomain: "aj-crackers-16343.firebaseapp.com",
     databaseURL: "https://aj-crackers-16343-default-rtdb.asia-southeast1.firebasedatabase.app",
     projectId: "aj-crackers-16343",
     storageBucket: "aj-crackers-16343.appspot.com",
     messagingSenderId: "541140087323",
-    appId: "1:541140087323:web:f7034f7248b3301f44febe",
+    appId: "...",
     measurementId: "G-3DZBHD8SEB"
   };
-
-  // ✅ Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   const db = firebase.database();
-
   const ADMIN_PASSWORD = "PRVidhyuth@36";
 
   function isAdminAuthenticated() {
@@ -101,35 +67,19 @@
   }
 
   function promptAdminPassword() {
-    const enteredPassword = prompt("Enter admin password to update firework prices:");
-    if (enteredPassword === ADMIN_PASSWORD) {
+    const pwd = prompt("Admin password:");
+    if (pwd === ADMIN_PASSWORD) {
       sessionStorage.setItem("isAdminAuthenticated", "true");
       return true;
-    } else {
-      alert("Incorrect password. Access denied.");
-      return false;
     }
+    alert("Incorrect password");
+    return false;
   }
 
   function logoutAdmin() {
     sessionStorage.removeItem("isAdminAuthenticated");
-    alert("You have been logged out.");
+    alert("Logged out");
     location.reload();
-  }
-
-  function saveOffer() {
-    const offer = parseInt(document.getElementById("offerPercent").value);
-    if (isNaN(offer) || offer < 1 || offer > 99) {
-      alert("Enter a valid offer percentage (1–99).");
-      return;
-    }
-
-    db.ref("offer").set({
-      offer: offer,
-      validTill: "2025-07-15"
-    });
-
-    alert(`✅ Offer set to ${offer}%`);
   }
 
   function addOrUpdateFirework() {
@@ -137,168 +87,101 @@
 
     const name = document.getElementById("fireworkName").value.trim();
     const price = parseFloat(document.getElementById("fireworkPrice").value);
-
     if (!name || isNaN(price) || price <= 0) {
-      alert("Please enter a valid name and price.");
+      alert("Enter valid name and price");
       return;
     }
 
-    db.ref("fireworks/" + name).once("value", snapshot => {
-      if (snapshot.exists() && snapshot.val() !== price) {
-        const confirmUpdate = confirm(`"${name}" exists with ₹${snapshot.val()}. Update to ₹${price}?`);
-        if (!confirmUpdate) {
-          document.getElementById("adminMessage").textContent = "Update canceled.";
-          return;
-        }
-      }
-
-      db.ref("fireworks/" + name).set(price);
-      document.getElementById("adminMessage").textContent = `✅ "${name}" set at ₹${price}.`;
-      document.getElementById("fireworkName").value = "";
-      document.getElementById("fireworkPrice").value = "";
-    });
+    const ref = db.ref("fireworks/" + encodeURIComponent(name));
+    ref.once("value").then(snap => {
+      const existing = snap.val();
+      return existing && existing != price ?
+        confirm(`Update "${name}" from ₹${existing} to ₹${price}?`) ? ref.set(price) : null
+        : ref.set(price);
+    }).then(() => {
+      document.getElementById("adminMessage").textContent = `Saved "${name}" ₹${price}`;
+      loadData();
+    }).catch(e => alert("Error: " + e.message));
   }
 
-  function renderFireworkTable(data) {
+  function saveOffer() {
+    const val = parseInt(document.getElementById("offerPercent").value);
+    if (!val || val < 1 || val > 99) return alert("Enter 1–99");
+    db.ref("offer").set({offer: val, validTill: "2025-07-15"});
+    alert(`Offer set at ${val}%`);
+  }
+
+  function renderFireworkTable(data = {}) {
     const tbody = document.getElementById("fireworkTableBody");
-    tbody.innerHTML = "";
-
-    const fireworkPrices = data || {};
-    const names = Object.keys(fireworkPrices).sort();
-
-    if (names.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="3" style="padding:8px;">No fireworks added yet.</td></tr>`;
-      return;
-    }
-
-    names.forEach(name => {
-      const price = fireworkPrices[name];
+    tbody.innerHTML = '';
+    Object.keys(data).sort().forEach(name => {
+      const price = data[name];
       const row = document.createElement("tr");
       row.innerHTML = `
-        <td style="padding: 8px;" data-name="${name}">${name}</td>
-        <td style="padding: 8px;" data-price="${name}">₹${price}</td>
-        <td style="padding: 8px; text-align: center;" data-actions="${name}">
+        <td>${decodeURIComponent(name)}</td>
+        <td>₹${price}</td>
+        <td>
           <button onclick="editInline('${name}', ${price})">Edit</button>
           <button onclick="deleteFirework('${name}')">Delete</button>
-        </td>
-      `;
+        </td>`;
       tbody.appendChild(row);
     });
-
-    populateFireworkAutocomplete(data);
   }
 
-  function populateFireworkAutocomplete(data) {
-    const datalist = document.getElementById("fireworkNamesList");
-    datalist.innerHTML = "";
-    Object.keys(data || {}).forEach(name => {
-      const option = document.createElement("option");
-      option.value = name;
-      datalist.appendChild(option);
+  function loadData() {
+    db.ref("fireworks").on("value", snap => renderFireworkTable(snap.val()));
+  }
+
+  function editInline(encodedName, price) {
+    const rows = document.querySelectorAll(`#fireworkTableBody tr`);
+    rows.forEach(r => {
+      const cell = r.cells[0];
+      if (cell.textContent === decodeURIComponent(encodedName)) {
+        cell.innerHTML = `<input id="editName" value="${decodeURIComponent(encodedName)}">`;
+        r.cells[1].innerHTML = `<input type="number" id="editPrice" value="${price}">`;
+        r.cells[2].innerHTML = `
+          <button onclick="saveInline('${encodedName}')">Save</button>
+          <button onclick="loadData()">Cancel</button>`;
+      }
     });
   }
 
-  function editInline(name, price) {
-    const nameCell = document.querySelector(`[data-name="${name}"]`);
-    const priceCell = document.querySelector(`[data-price="${name}"]`);
-    const actionCell = document.querySelector(`[data-actions="${name}"]`);
-
-    nameCell.innerHTML = `<input type="text" id="editName" value="${name}" style="width: 100%;">`;
-    priceCell.innerHTML = `<input type="number" id="editPrice" value="${price}" style="width: 100%;">`;
-    actionCell.innerHTML = `
-      <button onclick="saveInline('${name}')">Save</button>
-      <button onclick="loadData()">Cancel</button>
-    `;
-  }
-
-  function saveInline(originalName) {
-    const newName = document.getElementById("editName").value.trim();
+  function saveInline(origEncName) {
+    const newName = encodeURIComponent(document.getElementById("editName").value.trim());
     const newPrice = parseFloat(document.getElementById("editPrice").value);
-
-    if (!newName || isNaN(newPrice) || newPrice <= 0) {
-      alert("Please enter valid name and price.");
-      return;
-    }
-
-    if (newName !== originalName) {
-      db.ref("fireworks/" + originalName).remove();
-    }
+    if (!newName || isNaN(newPrice) || newPrice <= 0) return alert("Invalid");
+    if (newName !== origEncName) db.ref("fireworks/" + origEncName).remove();
     db.ref("fireworks/" + newName).set(newPrice);
+    loadData();
   }
 
   function deleteFirework(name) {
-    const confirmDelete = confirm(`Are you sure you want to delete "${name}"?`);
-    if (!confirmDelete) return;
-    db.ref("fireworks/" + name).remove();
+    if (confirm("Delete " + decodeURIComponent(name) + "?")) {
+      db.ref("fireworks/" + name).remove();
+    }
   }
 
   function exportToExcel() {
-    db.ref("fireworks").once("value", snapshot => {
-      const data = snapshot.val() || {};
-      const rows = Object.keys(data).map(name => ({
-        "Firework Name": name,
-        "Price (₹)": data[name]
+    db.ref("fireworks").once("value").then(snap => {
+      const data = snap.val() || {};
+      const rows = Object.keys(data).map(n => ({
+        "Firework": decodeURIComponent(n), "Price": data[n]
       }));
-
-      if (rows.length === 0) {
-        alert("No fireworks to export.");
-        return;
-      }
-
-      const worksheet = XLSX.utils.json_to_sheet(rows);
-      const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(workbook, worksheet, "Price List");
-      XLSX.writeFile(workbook, "AJ_Crackers_Price_List.xlsx");
+      if (!rows.length) return alert("Empty list");
+      const ws = XLSX.utils.json_to_sheet(rows);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "List");
+      XLSX.writeFile(wb, "AJ_Fireworks.xlsx");
     });
   }
 
   function downloadProductsJson() {
-    db.ref("fireworks").once("value", snapshot => {
-      const data = snapshot.val() || {};
-      const file = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    db.ref("fireworks").once("value").then(snap => {
+      const file = new Blob([JSON.stringify(snap.val(), null, 2)], {type:"application/json"});
       const a = document.createElement("a");
-      a.href = URL.createObjectURL(file);
       a.download = "products.json";
+      a.href = URL.createObjectURL(file);
       a.click();
-    });
-  }
-
-  function generateCustomerLink() {
-    const customerURL = "https://karthika43.github.io/raj-fireworks/customer-view.html";
-
-    const oldLink = document.getElementById("customerLinkDisplay");
-    if (oldLink) oldLink.remove();
-
-    const div = document.createElement("div");
-    div.id = "customerLinkDisplay";
-    div.style.marginTop = "20px";
-    div.style.padding = "10px";
-    div.style.border = "1px solid #aaa";
-    div.style.background = "#f9f9f9";
-
-    div.innerHTML = `
-      <p><strong>Share this link with the customer:</strong></p>
-      <a href="${customerURL}" target="_blank" style="color:blue; font-weight:bold;">
-        👉 Open Customer Order Page
-      </a>
-      <p style="margin-top:10px;">
-        <button onclick="copyToClipboard('${customerURL}')">Copy Link</button>
-      </p>
-    `;
-
-    document.body.appendChild(div);
-  }
-
-  function copyToClipboard(text) {
-    navigator.clipboard.writeText(text)
-      .then(() => alert("Link copied to clipboard!"))
-      .catch(() => alert("Failed to copy link."));
-  }
-
-  function loadData() {
-    db.ref("fireworks").on("value", snapshot => {
-      const data = snapshot.val() || {};
-      renderFireworkTable(data);
     });
   }
 
