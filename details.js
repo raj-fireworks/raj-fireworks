@@ -1,4 +1,4 @@
-import { db, doc, getDoc, setDoc, onSnapshot } from "./firebase-config.js";
+import { db, doc, getDoc, setDoc, onSnapshot } from "./firebaseConfig.js";
 
 let fireworkPrices = {};
 let fireworkRows = [];
