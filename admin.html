@@ -6,60 +6,78 @@
   <title>Admin - AJ Crackers</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
-  <meta name="description" content="AJ Crackers - Admin Panel" />
+  <meta name="description" content="Aj Crackers - Admin Firework Management" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
 
-  <!-- ✅ Firebase compat SDKs for easy use -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
 </head>
 <body>
 
-<header>
-  <h1>AJ Crackers – Admin Panel</h1>
-  <button onclick="logoutAdmin()">Logout</button>
+<header class="site-header">
+  <div class="brand-name">
+    <span class="raj">AJ</span>
+    <span class="crackers">Crackers</span>
+    <div class="tagline">Your Trusted Firework Partner</div>
+  </div>
+  <div class="header-right">
+    <button onclick="logoutAdmin()">Logout Admin</button>
+    <a href="details.html" title="Back to Billing"><i class="fas fa-arrow-left"></i></a>
+  </div>
 </header>
 
-<section>
-  <h2>Add / Update Firework</h2>
-  <form id="fireworkForm" onsubmit="event.preventDefault(); addOrUpdateFirework();">
-    <input list="fireworkNamesList" id="fireworkName" placeholder="Firework Name" required />
-    <input type="number" id="fireworkPrice" placeholder="Price (₹)" min="1" required />
-    <button type="submit">Save</button>
-  </form>
-  <div id="adminMessage"></div>
-</section>
+<h2>Admin Panel: Add or Update Firework</h2>
 
-<section>
-  <h2>Offer Percentage</h2>
-  <input type="number" id="offerPercent" min="1" max="99" value="70" />
-  <button onclick="saveOffer()">Save Offer</button>
-</section>
+<form id="fireworkForm" onsubmit="event.preventDefault(); addOrUpdateFirework();">
+  <label for="fireworkName">Firework Name:</label>
+  <input list="fireworkNamesList" id="fireworkName" required />
+  <datalist id="fireworkNamesList"></datalist>
 
-<section>
-  <h2>Fireworks List</h2>
-  <table border="1">
-    <thead><tr><th>Name</th><th>Price (₹)</th><th>Actions</th></tr></thead>
-    <tbody id="fireworkTableBody"></tbody>
-  </table>
-  <button onclick="exportToExcel()">Download Excel</button>
-  <button onclick="downloadProductsJson()">Download JSON</button>
-</section>
+  <label for="fireworkPrice">Price (₹):</label>
+  <input type="number" id="fireworkPrice" min="1" required />
+
+  <div>
+    <button type="submit">Add / Update</button>
+  </div>
+</form>
+
+<div id="adminMessage"></div>
+
+<label for="offerPercent">Offer %:</label>
+<input type="number" id="offerPercent" value="70" min="1" max="99" />
+<button onclick="saveOffer()">Save Offer</button>
+
+<table id="fireworkTable" border="1">
+  <thead>
+    <tr>
+      <th>Firework Name</th>
+      <th>Price (₹)</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody id="fireworkTableBody"></tbody>
+</table>
+
+<div>
+  <button onclick="exportToExcel()">Download Price List</button>
+</div>
 
 <script>
   const firebaseConfig = {
-    apiKey: "...",
+    apiKey: "AIzaSyBCgufTTErG1FMLCcOoScj6dZlmI8Liq_E",
     authDomain: "aj-crackers-16343.firebaseapp.com",
     databaseURL: "https://aj-crackers-16343-default-rtdb.asia-southeast1.firebasedatabase.app",
     projectId: "aj-crackers-16343",
     storageBucket: "aj-crackers-16343.appspot.com",
     messagingSenderId: "541140087323",
-    appId: "...",
-    measurementId: "G-3DZBHD8SEB"
+    appId: "1:541140087323:web:f7034f7248b3301f44febe"
   };
+
   firebase.initializeApp(firebaseConfig);
   const db = firebase.database();
+
   const ADMIN_PASSWORD = "PRVidhyuth@36";
 
   function isAdminAuthenticated() {
@@ -67,7 +85,7 @@
   }
 
   function promptAdminPassword() {
-    const pwd = prompt("Admin password:");
+    const pwd = prompt("Enter admin password:");
     if (pwd === ADMIN_PASSWORD) {
       sessionStorage.setItem("isAdminAuthenticated", "true");
       return true;
@@ -87,38 +105,52 @@
 
     const name = document.getElementById("fireworkName").value.trim();
     const price = parseFloat(document.getElementById("fireworkPrice").value);
-    if (!name || isNaN(price) || price <= 0) {
-      alert("Enter valid name and price");
+
+    if (!name || isNaN(price)) {
+      alert("Valid name and price required.");
       return;
     }
 
-    const ref = db.ref("fireworks/" + encodeURIComponent(name));
-    ref.once("value").then(snap => {
-      const existing = snap.val();
-      return existing && existing != price ?
-        confirm(`Update "${name}" from ₹${existing} to ₹${price}?`) ? ref.set(price) : null
-        : ref.set(price);
-    }).then(() => {
-      document.getElementById("adminMessage").textContent = `Saved "${name}" ₹${price}`;
-      loadData();
-    }).catch(e => alert("Error: " + e.message));
+    const fireworkData = {
+      price: price,
+      updatedBy: "adminKey123"
+    };
+
+    db.ref("fireworks/" + name).set(fireworkData)
+      .then(() => {
+        document.getElementById("adminMessage").textContent = `✅ ${name} set to ₹${price}`;
+        document.getElementById("fireworkName").value = "";
+        document.getElementById("fireworkPrice").value = "";
+      })
+      .catch(err => alert("❌ Error: " + err.message));
   }
 
   function saveOffer() {
-    const val = parseInt(document.getElementById("offerPercent").value);
-    if (!val || val < 1 || val > 99) return alert("Enter 1–99");
-    db.ref("offer").set({offer: val, validTill: "2025-07-15"});
-    alert(`Offer set at ${val}%`);
+    const offer = parseInt(document.getElementById("offerPercent").value);
+    if (isNaN(offer) || offer < 1 || offer > 99) {
+      alert("Enter valid offer between 1 and 99.");
+      return;
+    }
+    db.ref("offer").set({ offer: offer, updatedBy: "adminKey123" })
+      .then(() => alert("✅ Offer updated"))
+      .catch(err => alert("❌ " + err.message));
   }
 
-  function renderFireworkTable(data = {}) {
+  function renderFireworkTable(data) {
     const tbody = document.getElementById("fireworkTableBody");
-    tbody.innerHTML = '';
-    Object.keys(data).sort().forEach(name => {
-      const price = data[name];
+    tbody.innerHTML = "";
+
+    const names = Object.keys(data || {});
+    if (names.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="3">No fireworks added</td></tr>`;
+      return;
+    }
+
+    names.forEach(name => {
+      const price = data[name].price;
       const row = document.createElement("tr");
       row.innerHTML = `
-        <td>${decodeURIComponent(name)}</td>
+        <td>${name}</td>
         <td>₹${price}</td>
         <td>
           <button onclick="editInline('${name}', ${price})">Edit</button>
@@ -126,62 +158,45 @@
         </td>`;
       tbody.appendChild(row);
     });
-  }
 
-  function loadData() {
-    db.ref("fireworks").on("value", snap => renderFireworkTable(snap.val()));
-  }
-
-  function editInline(encodedName, price) {
-    const rows = document.querySelectorAll(`#fireworkTableBody tr`);
-    rows.forEach(r => {
-      const cell = r.cells[0];
-      if (cell.textContent === decodeURIComponent(encodedName)) {
-        cell.innerHTML = `<input id="editName" value="${decodeURIComponent(encodedName)}">`;
-        r.cells[1].innerHTML = `<input type="number" id="editPrice" value="${price}">`;
-        r.cells[2].innerHTML = `
-          <button onclick="saveInline('${encodedName}')">Save</button>
-          <button onclick="loadData()">Cancel</button>`;
-      }
+    // update autocomplete
+    const datalist = document.getElementById("fireworkNamesList");
+    datalist.innerHTML = "";
+    names.forEach(name => {
+      const opt = document.createElement("option");
+      opt.value = name;
+      datalist.appendChild(opt);
     });
   }
 
-  function saveInline(origEncName) {
-    const newName = encodeURIComponent(document.getElementById("editName").value.trim());
-    const newPrice = parseFloat(document.getElementById("editPrice").value);
-    if (!newName || isNaN(newPrice) || newPrice <= 0) return alert("Invalid");
-    if (newName !== origEncName) db.ref("fireworks/" + origEncName).remove();
-    db.ref("fireworks/" + newName).set(newPrice);
-    loadData();
+  function editInline(name, price) {
+    document.getElementById("fireworkName").value = name;
+    document.getElementById("fireworkPrice").value = price;
   }
 
   function deleteFirework(name) {
-    if (confirm("Delete " + decodeURIComponent(name) + "?")) {
-      db.ref("fireworks/" + name).remove();
-    }
+    if (!confirm(`Delete "${name}"?`)) return;
+    db.ref("fireworks/" + name).remove();
   }
 
   function exportToExcel() {
-    db.ref("fireworks").once("value").then(snap => {
-      const data = snap.val() || {};
-      const rows = Object.keys(data).map(n => ({
-        "Firework": decodeURIComponent(n), "Price": data[n]
+    db.ref("fireworks").once("value", snapshot => {
+      const data = snapshot.val() || {};
+      const rows = Object.keys(data).map(name => ({
+        "Firework Name": name,
+        "Price (₹)": data[name].price
       }));
-      if (!rows.length) return alert("Empty list");
-      const ws = XLSX.utils.json_to_sheet(rows);
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "List");
-      XLSX.writeFile(wb, "AJ_Fireworks.xlsx");
+      const worksheet = XLSX.utils.json_to_sheet(rows);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Price List");
+      XLSX.writeFile(workbook, "AJ_Crackers_Price_List.xlsx");
     });
   }
 
-  function downloadProductsJson() {
-    db.ref("fireworks").once("value").then(snap => {
-      const file = new Blob([JSON.stringify(snap.val(), null, 2)], {type:"application/json"});
-      const a = document.createElement("a");
-      a.download = "products.json";
-      a.href = URL.createObjectURL(file);
-      a.click();
+  function loadData() {
+    db.ref("fireworks").on("value", snapshot => {
+      const data = snapshot.val() || {};
+      renderFireworkTable(data);
     });
   }
 
