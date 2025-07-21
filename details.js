@@ -55,6 +55,7 @@ function updateTableFromFirestore() {
 
   updateDiscountedTotal();
 }
+document.getElementById('addBtn').addEventListener('click', addFirework);
 
 function addFirework() {
   const name = document.getElementById('name').value.trim();
@@ -97,6 +98,7 @@ function addFirework() {
   document.getElementById('name').value = '';
   document.getElementById('quantity').value = '';
 }
+
 
 function updatePrice(input) {
   const row = input.closest("tr");
