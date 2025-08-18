@@ -225,19 +225,22 @@ td:first-child {
 
 <!-- Customer Info Inputs -->
   <div style="display:flex;">
-<div id="customerInfo" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
-  <label for="customerName">Name:</label>
-  <input type="text" id="customerName" placeholder="Enter your name" style="width: 180px;" />
+<div id="customerInfo" style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+  <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center;">
+    <label for="customerName">Name<span style="color:red;">*</span>:</label>
+    <input type="text" id="customerName" placeholder="Enter name" required style="width: 180px;" />
 
-  <label for="customerPhone">Phone (optional):</label>
-  <input type="tel" id="customerPhone" placeholder="Enter your phone number" style="width: 180px;" />
+    <label for="customerPhone">Phone (optional):</label>
+    <input type="tel" id="customerPhone" placeholder="Enter phone number" style="width: 180px;" />
 
-  <label for="customerAddress">Address:</label>
-  <input type="text" id="customerAddress" placeholder="Enter your address" style="width: 300px;" />
+    <label for="customerPin">Pin Code<span style="color:red;">*</span>:</label>
+    <input type="text" id="customerPin" placeholder="Enter 6-digit pin code" maxlength="6" required style="width: 140px;" oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
+  </div>
 
-  <label for="customerPin">Pin Code:</label>
-  <input type="text" id="customerPin" placeholder="Enter your pin code" style="width: 100px;" />
+  <label for="customerAddress">Address<span style="color:red;">*</span>:</label>
+  <textarea id="customerAddress" rows="2" placeholder="Enter address" required style="width: 100%; max-width: 600px;"></textarea>
 </div>
+
 
 <div class="button-group">
   <button class="whatsapp-button" onclick="sendOrderToWhatsApp()">Send Order via WhatsApp</button>
@@ -406,64 +409,63 @@ td:first-child {
     document.getElementById("grandTotal").textContent = grandTotal.toFixed(2);
   }
 
-  function sendOrderToWhatsApp() {
-    const name = document.getElementById("customerName").value.trim();
-    const phone = document.getElementById("customerPhone").value.trim();
-const address = document.getElementById("customerAddress").value.trim();
-const pinCode = document.getElementById("customerPin").value.trim();
+ function sendOrderToWhatsApp() {
+  const name = document.getElementById("customerName").value.trim();
+  const phone = document.getElementById("customerPhone").value.trim();
+  const address = document.getElementById("customerAddress").value.trim();
+  const pin = document.getElementById("customerPin").value.trim();
 
-if (address) {
-  message += `Address: ${address}\n`;
-}
-if (pinCode) {
-  message += `Pin Code: ${pinCode}\n`;
-}
-message += `\n`;
-
-    if (!name) {
-      alert("Please enter your name before sending the order.");
-      return;
-    }
-
-    const rows = document.querySelectorAll("#productTable tbody tr");
-    let message = `Hi, I'm ${name}, and I'd like to place an order:\n\n`;
-    let originalTotal = 0;
-
-    rows.forEach(row => {
-      const input = row.querySelector("input[type='number']");
-      if (!input) return;
-      const qty = parseInt(input.value);
-      const itemName = input.dataset.name;
-      const originalPrice = parseFloat(input.dataset.original);
-
-      if (qty && qty > 0) {
-        const itemTotal = qty * originalPrice;
-        message += `- ${itemName} × ${qty} = ₹${itemTotal.toFixed(2)}\n`;
-        originalTotal += itemTotal;
-      }
-    });
-
-    if (originalTotal === 0) {
-      alert("Please select at least one product quantity before sending the order.");
-      return;
-    }
-
-    const discountAmount = originalTotal * (currentOffer / 100);
-    const grandTotal = originalTotal - discountAmount;
-
-    message += `\nOriginal Total: ₹${originalTotal.toFixed(2)}`;
-    message += `\nDiscount (${currentOffer}%): ₹${discountAmount.toFixed(2)}`;
-    message += `\nGrand Total: ₹${grandTotal.toFixed(2)}`;
-
-    if (phone) {
-      message += `\nCustomer Phone: ${phone}`;
-    }
- message += `\nThank you`;
-
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappURL = `https://wa.me/918296772217?text=${encodedMessage}`;
-    window.open(whatsappURL, "_blank");
+  if (!name || !address || !pin) {
+    alert("Please fill in all required fields: Name, Address, and Pin Code.");
+    return;
   }
+
+  if (!/^\d{6}$/.test(pin)) {
+    alert("Please enter a valid 6-digit pin code.");
+    return;
+  }
+
+  const rows = document.querySelectorAll("#productTable tbody tr");
+  let message = `Hi, I'm ${name}, and I'd like to place an order:\n\n`;
+  let originalTotal = 0;
+
+  rows.forEach(row => {
+    const input = row.querySelector("input[type='number']");
+    if (!input) return;
+    const qty = parseInt(input.value);
+    const itemName = input.dataset.name;
+    const originalPrice = parseFloat(input.dataset.original);
+
+    if (qty && qty > 0) {
+      const itemTotal = qty * originalPrice;
+      message += `- ${itemName} × ${qty} = ₹${itemTotal.toFixed(2)}\n`;
+      originalTotal += itemTotal;
+    }
+  });
+
+  if (originalTotal === 0) {
+    alert("Please select at least one product before sending the order.");
+    return;
+  }
+
+  const discountAmount = originalTotal * (currentOffer / 100);
+  const grandTotal = originalTotal - discountAmount;
+
+  message += `\nOriginal Total: ₹${originalTotal.toFixed(2)}`;
+  message += `\nDiscount (${currentOffer}%): ₹${discountAmount.toFixed(2)}`;
+  message += `\nGrand Total: ₹${grandTotal.toFixed(2)}`;
+
+  message += `\n\n📍 Address: ${address}\n📮 Pin Code: ${pin}`;
+  if (phone) {
+    message += `\n📞 Phone: ${phone}`;
+  }
+
+  message += `\n\nThank you`;
+
+  const encodedMessage = encodeURIComponent(message);
+  const whatsappURL = `https://wa.me/918296772217?text=${encodedMessage}`;
+  window.open(whatsappURL, "_blank");
+}
 
   window.onload = function () {
     showDaysLeft();
