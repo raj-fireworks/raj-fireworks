@@ -206,6 +206,9 @@ td:first-child {
     transition: all 0.3s ease;
   }
 </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
 </head>
 <body>
 
@@ -266,7 +269,9 @@ td:first-child {
 
 <div class="button-group">
   <button class="whatsapp-button" onclick="sendOrderToWhatsApp()">Send Order via WhatsApp</button>
+  <button class="print-button" onclick="downloadPDF()">📄 Download Product List PDF</button>
 </div>
+
   </div>
 <table id="productTable">
   <thead>
@@ -487,6 +492,44 @@ td:first-child {
   const encodedMessage = encodeURIComponent(message);
   const whatsappURL = `https://wa.me/918296772217?text=${encodedMessage}`;
   window.open(whatsappURL, "_blank");
+}
+function downloadPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  doc.setFontSize(18);
+  doc.text("RAJ Crackers - Product List", 14, 20);
+
+  const rows = [];
+  const headers = [["Product Name", "Original Price (₹)"]];
+
+  const productRows = document.querySelectorAll("#productTable tbody tr");
+
+  productRows.forEach(row => {
+    const input = row.querySelector("input[type='number']");
+    if (!input) return; // skip category headers
+
+    const name = input.dataset.name;
+    const price = parseFloat(input.dataset.original);
+
+    rows.push([name, `₹${price.toFixed(2)}`]);
+  });
+
+  if (rows.length === 0) {
+    alert("No products to export.");
+    return;
+  }
+
+  doc.autoTable({
+    startY: 30,
+    head: headers,
+    body: rows,
+    theme: "grid",
+    headStyles: { fillColor: [217, 83, 79] },
+    styles: { fontSize: 12 },
+  });
+
+  doc.save("RAJ_Crackers_Product_List.pdf");
 }
 
   window.onload = function () {
