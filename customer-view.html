@@ -321,7 +321,7 @@ td:first-child {
         console.log("Loaded products:", data);
 
         try {
-          const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 70 };
+          const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 80 };
           currentOffer = storedOffer.offer;
           document.getElementById("discountPercent").textContent = `${currentOffer}%`;
 
