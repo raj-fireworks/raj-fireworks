@@ -501,7 +501,7 @@ function downloadPDF() {
   doc.text("RAJ Crackers - Product List", 14, 20);
 
   const rows = [];
-  const headers = [["Product Name", "Original Price (₹)"]];
+  const headers = [["Product Name", "Original Price (Rs.)"]];  // Updated here
 
   const productRows = document.querySelectorAll("#productTable tbody tr");
 
@@ -512,7 +512,7 @@ function downloadPDF() {
     const name = input.dataset.name;
     const price = parseFloat(input.dataset.original);
 
-    rows.push([name, `₹${price.toFixed(2)}`]);
+    rows.push([name, `Rs. ${price.toFixed(2)}`]);  // Updated here
   });
 
   if (rows.length === 0) {
