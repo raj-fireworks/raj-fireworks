@@ -225,27 +225,40 @@ td:first-child {
 
 <!-- Customer Info Inputs -->
   <div style="display:flex;">
-<div id="customerInfo" style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+<div id="customerInfo" style="margin-top: 20px; max-width: 800px; margin-left: auto; margin-right: auto;">
   
-  <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center;">
-    <label for="customerName">Name<span style="color:red;">*</span>:</label>
-    <input type="text" id="customerName" placeholder="Enter name" required style="width: 180px;" />
+  <!-- Name -->
+  <div style="margin-bottom: 15px;">
+    <label for="customerName">Name<span style="color: red;">*</span>:</label><br />
+    <input type="text" id="customerName" placeholder="Enter name" required style="width: 100%; padding: 8px; font-size: 14px;" />
   </div>
 
-  <div style="display: flex; flex-direction: column; gap: 5px;">
-    <label for="customerAddress">Address<span style="color:red;">*</span>:</label>
-    <textarea id="customerAddress" rows="2" placeholder="Enter address" required style="width: 100%; max-width: 600px;"></textarea>
+  <!-- Address -->
+  <div style="margin-bottom: 15px;">
+    <label for="customerAddress">Address<span style="color: red;">*</span>:</label><br />
+    <textarea id="customerAddress" placeholder="Enter full address including area and landmark" required rows="3" style="width: 100%; padding: 8px; font-size: 14px; resize: vertical;"></textarea>
   </div>
 
-  <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center;">
-    <label for="customerPin">Pin Code<span style="color:red;">*</span>:</label>
-    <input type="text" id="customerPin" placeholder="Enter 6-digit pin code" maxlength="6" required style="width: 140px;" oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
+  <!-- Pin Code and Phone -->
+  <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center; margin-bottom: 20px;">
+    
+    <div style="flex: 1;">
+      <label for="customerPin">Pin Code<span style="color: red;">*</span>:</label><br />
+      <input type="text" id="customerPin" maxlength="6" placeholder="Enter 6-digit pin code" required 
+             style="width: 100%; padding: 8px; font-size: 14px;" 
+             oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,6)" />
+    </div>
 
-    <label for="customerPhone">Phone (optional):</label>
-    <input type="tel" id="customerPhone" placeholder="Enter phone number" style="width: 180px;" />
+    <div style="flex: 1;">
+      <label for="customerPhone">Phone (optional):</label><br />
+      <input type="tel" id="customerPhone" placeholder="Enter phone number" 
+             style="width: 100%; padding: 8px; font-size: 14px;" />
+    </div>
+    
   </div>
 
 </div>
+
 
 
 
