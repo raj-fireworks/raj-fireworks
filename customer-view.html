@@ -205,6 +205,37 @@ td:first-child {
   .category-row {
     transition: all 0.3s ease;
   }
+ 
+  .thumb-image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    transition: transform 0.2s ease;
+  }
+
+  /* Modal for zoomed image */
+  .image-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .image-modal img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #fff;
+  }
+
 </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
@@ -388,7 +419,11 @@ td:first-child {
         const row = document.createElement("tr");
         row.classList.add("category-row", `category-${index}`);
         row.innerHTML = `
-          <td>${item.name}</td>
+          <td> <span>${item.name}</span>
+    <img src="images/${item.name}.jpg" 
+         alt="${item.name}" 
+         class="thumb-image" 
+         onclick="zoomImage(this)" /></td>
           <td>₹${item.price.toFixed(2)}</td>
           <td><input type="number" min="0" value="0" onchange="calculateTotals()" data-name="${item.name}" data-original="${item.price}" /></td>
           <td class="item-total">₹0.00</td>
@@ -531,12 +566,21 @@ function downloadPDF() {
 
   doc.save("RAJ_Crackers_Product_List.pdf");
 }
+function zoomImage(imgElement) {
+  const modal = document.getElementById("zoomModal");
+  const zoomedImage = document.getElementById("zoomedImage");
+  zoomedImage.src = imgElement.src;
+  modal.style.display = "flex";
+}
 
   window.onload = function () {
     showDaysLeft();
     loadProducts();
   };
 </script>
+<div id="zoomModal" class="image-modal" onclick="this.style.display='none'">
+  <img id="zoomedImage" src="" alt="Zoomed Image" />
+</div>
 
 </body>
 </html>
