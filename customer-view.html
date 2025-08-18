@@ -456,7 +456,7 @@ tr {
     <img src="${item.name}.jpg" 
          alt="${item.name}" 
          class="product-image" 
-        
+        onerror="this.style.display='none'"
          onclick="zoomImage(this)" />
     <span class="product-name">${item.name}</span>
   </div>
