@@ -205,7 +205,40 @@ td:first-child {
   .category-row {
     transition: all 0.3s ease;
   }
- 
+ .product-cell {
+  vertical-align: top;
+}
+
+.product-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.product-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.product-name {
+  font-weight: 500;
+  display: inline-block;
+  max-width: 150px;
+  word-wrap: break-word;
+}
+.product-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+tr {
+  padding: 10px 0;
+}
+
   .thumb-image {
     width: 40px;
     height: 40px;
@@ -419,11 +452,16 @@ td:first-child {
         const row = document.createElement("tr");
         row.classList.add("category-row", `category-${index}`);
         row.innerHTML = `
-          <td> <span>${item.name}</span>
-    <img src="/${item.name}.jpg" 
+          <td class="product-cell">
+  <div class="product-wrapper">
+    <img src="images/${item.image}" 
          alt="${item.name}" 
-         class="thumb-image" 
-         onclick="zoomImage(this)" /></td>
+         class="product-image" 
+         onerror="this.style.display='none'" 
+         onclick="zoomImage(this)" />
+    <span class="product-name">${item.name}</span>
+  </div>
+</td>
           <td>₹${item.price.toFixed(2)}</td>
           <td><input type="number" min="0" value="0" onchange="calculateTotals()" data-name="${item.name}" data-original="${item.price}" /></td>
           <td class="item-total">₹0.00</td>
