@@ -8,9 +8,7 @@
   "5\" Jallikattu": { "price": 275, "category": "One Sound Crakers", "unit": "Pkt", "offerprice": "55" },
   "6\" Lion": { "price": 375, "category": "One Sound Crakers", "unit": "Pkt", "offerprice": "75" },
   "7\" Golden Sparrow": { "price": 400, "category": "One Sound Crakers", "unit": "Pkt", "offerprice": "80" },
-
   "28 Chorsa": { "price": 60, "category": "Thunder Crakers", "unit": "Pkt", "offerprice": "12" },
   "28 Giant": { "price": 100, "category": "Thunder Crakers", "unit": "Pkt", "offerprice": "20" },
   "56 Giant": { "price": 190, "category": "Thunder Crakers", "unit": "Pkt", "offerprice": "38" }
- 
 }
