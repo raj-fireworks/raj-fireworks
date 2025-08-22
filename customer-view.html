@@ -1,680 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>RAJ Crackers - Customer View</title>
-<style>
-  body {
-    font-family: sans-serif;
-    padding: 20px;
-    margin: 0;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAJ Crackers</title>
 
-  /* Make header full width */
-  header, footer {
-    width: 100vw;   /* full viewport width */
-    margin: 0;
-    padding: 0;     /* no horizontal padding */
-    box-sizing: border-box;
-    background-color: #d9534f;
-    color: white;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-  }
+  <!-- Font Awesome for PDF icon -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  />
 
-  /* Container inside header/footer to center content and add side padding */
-  .header-container, .footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-  }
-
-  /* Header left and right */
-  .header-left {
-    max-width: 50%;
-    text-align: left;
-  }
-  .header-left h1 {
-    margin: 0;
-    font-size: 28px;
-  }
-  .header-left .tagline {
-    font-size: 14px;
-    margin-top: 5px;
-    color: #ffe;
-  }
-
-  .header-right {
-    background: #fff3cd;
-    border: 2px solid #ffc107;
-    color: #333;
-    padding: 12px 20px;
-    border-radius: 10px;
-    max-width: 45%;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    text-align: right;
-    font-size: 16px;
-    margin-right: 1rem;
-  }
-
-  /* Blink animations */
-  .blink-text {
-    animation: blink-fast 1s infinite;
-    color: #e60000;
-    font-weight: bold;
-  }
-  .blink-slow {
-    animation: blink-slow 2.5s infinite;
-    color: #d9534f;
-    font-weight: bold;
-  }
-  @keyframes blink-fast {
-    50% {
-      opacity: 0;
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
     }
-  }
-  @keyframes blink-slow {
-    0%, 100% {
-      opacity: 1;
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
     }
-    50% {
-      opacity: 0.3;
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
-  }
 
-  /* Responsive for small screens */
-  @media (max-width: 600px) {
-    .header-container {
-      flex-direction: column;
-      align-items: flex-start;
+    textarea {
+      resize: vertical;
+      height: 80px;
     }
-    .header-left, .header-right {
-      max-width: 100%;
-      text-align: left;
+
+    /* Button container */
+    .form-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
     }
-    .header-right {
-      margin-top: 10px;
+
+    .whatsapp-btn {
+      background-color: #25D366;
+      color: white;
+      font-size: 16px;
+      padding: 10px 20px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
     }
-  }
 
-  /* Footer styles */
-  footer {
-    background-color: #f2f2f2;
-    color: #444;
-  }
-  footer .footer-container {
-    flex-direction: column;
-    text-align: center;
-    font-size: 14px;
-    gap: 10px;
-  }
-  footer .safety {
-    color: #d9534f;
-    font-weight: bold;
-    margin-top: 10px;
-  }
+    .whatsapp-btn:hover {
+      background-color: #1DA851;
+    }
 
-  /* Rest of your page content */
-  #customerInfo {
-    margin-bottom: 20px;
-    margin-top: 20px;
-  }
-  #customerInfo label {
-    margin-right: 8px;
-  }
-  #customerInfo input[type="text"],
-  #customerInfo input[type="tel"] {
-    padding: 8px;
-    margin-right: 20px;
-    width: 200px;
-    display: inline-block;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  th, td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
-  }
-  th:first-child,
-td:first-child {
-  text-align: left;
-}
-  th {
-    background-color: #f2f2f2;
-  }
-  input[type="number"] {
-    width: 60px;
-  }
-  .total-section {
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
-  }
-  .button-group {
-    margin-top: 20px;
-    margin-left: auto;
-  }
-  .button-group button {
-    padding: 12px 20px;
-    font-size: 16px;
-    margin-right: 10px;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-  }
-  .whatsapp-button {
-    background-color: #25D366;
-    color: white;
-  }
-  .print-button {
-    background-color: #007bff;
-    color: white;
-  }
-  .footer-note {
-    margin-top: 20px;
-    color: #888;
-    font-size: 14px;
-  }
-  .offer-days-left {
-    font-size: 16px;
-    margin-top: 10px;
-    color: #555;
-  }
+    .pdf-btn {
+      background-color: #f44336;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: white;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-  /* Collapsible category styles */
-  .category-header {
-    background-color: #f0f0f0;
-    user-select: none;
-    cursor: pointer;
-    font-weight: bold;
-    text-align: left;
-  }
-  .category-header td {
-    padding-left: 15px;
-    font-size: 18px;
-  }
-  .category-row {
-    transition: all 0.3s ease;
-  }
- .product-cell {
-  vertical-align: top;
-}
+    .pdf-btn i {
+      pointer-events: none;
+    }
 
-.product-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+    /* Responsive layout */
+    @media (max-width: 768px) {
+      .form-actions {
+        flex-direction: column;
+        align-items: flex-start;
+      }
 
-.product-image {
-  width: 30px;
-  height: 30px;
-  object-fit: cover;
-
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.product-name {
-  font-weight: 500;
-  display: inline-block;
-  max-width: 150px;
-  word-wrap: break-word;
-}
-.product-image:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 8px rgba(0,0,0,0.2);
-}
-tr {
-  padding: 10px 0;
-}
-
-  .thumb-image {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-    margin-left: 10px;
-    cursor: pointer;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    transition: transform 0.2s ease;
-  }
-
-  /* Modal for zoomed image */
-  .image-modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0; top: 0;
-    width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.8);
-    justify-content: center;
-    align-items: center;
-  }
-
-  .image-modal img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 8px;
-    box-shadow: 0 0 10px #fff;
-  }
-.action-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px;
-  margin-top: 20px;
-  margin-left: 0;
-  justify-content: flex-start; /* or center if you prefer */
-}
-
-/* WhatsApp button style */
-.whatsapp-btn {
-  background-color: #25D366;
-  color: white;
-  font-size: 16px;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.whatsapp-btn:hover {
-  background-color: #1DA851;
-}
-
-/* PDF icon button style */
-.icon-btn {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  padding: 10px 14px;
-  font-size: 18px;
-  border-radius: 6px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.icon-btn i {
-  font-size: 20px;
-}
-
-.icon-btn:hover {
-  background-color: #d7372f;
-}
-
-
-</style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
-
+      .form-actions button {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <div class="header-container">
-    <div class="header-left">
-      <h1>🎇 RAJ Crackers</h1>
-      <div class="tagline">Your Trusted Firework Partner</div>
+  <h1>🎆 RAJ Crackers</h1>
+
+  <form>
+    <label for="name">Name<span style="color:red">*</span>:</label>
+    <input type="text" id="name" name="name" placeholder="Enter name" required />
+
+    <label for="address">Address<span style="color:red">*</span>:</label>
+    <textarea id="address" name="address" placeholder="Enter full address including area and landmark" required></textarea>
+
+    <label for="phone">Phone (optional):</label>
+    <input type="text" id="phone" name="phone" placeholder="Enter phone number" />
+
+    <div class="form-actions">
+      <button type="button" class="whatsapp-btn">Send Order via WhatsApp</button>
+      <button type="button" class="pdf-btn" title="Download PDF">
+        <i class="fas fa-file-pdf"></i>
+      </button>
     </div>
-
-    <div class="header-right">
-      <p><strong>🎁 Offer: Flat <span class="blink-text">80%</span> Discount Applied</strong></p>
-      <p class="days-left blink-slow">🔥 Hurry! Only <span id="daysLeft">115</span> days left for this offer!</p>
-    </div>
-  </div>
-</header>
-
-<!-- Customer Info Inputs -->
-  <div style="display:flex;">
-<div id="customerInfo" style="margin-top: 20px; max-width: 800px; margin-right: auto; margin-bottom: 40px;">
-
-  
-  <!-- Name -->
-  <div style="margin-bottom: 15px;">
-    <label for="customerName">Name<span style="color: red;">*</span>:</label><br />
-    <input type="text" id="customerName" placeholder="Enter name" required style="width: 100%; padding: 8px; font-size: 14px;" />
-  </div>
-
-  <!-- Address -->
-  <div style="margin-bottom: 15px;">
-    <label for="customerAddress">Address<span style="color: red;">*</span>:</label><br />
-    <textarea id="customerAddress" placeholder="Enter full address including area and landmark" required rows="3" style="width: 100%; padding: 8px; font-size: 14px; resize: vertical;"></textarea>
-  </div>
-
- <!-- Pin Code and Phone (optional) -->
-<div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 15px;">
-
-
-  <div style="flex: 1; min-width: 200px;">
-    <label for="customerPhone">Phone (optional):</label><br />
-    <input type="tel" id="customerPhone" placeholder="Enter phone number" 
-           style="width: 100%; padding: 8px; font-size: 14px;" />
-  </div>
-
-</div>
-
-
-</div>
-
-
-
-
-<div class="action-buttons">
-  <button class="whatsapp-btn" onclick="sendOrderViaWhatsApp()">
-    Send Order via WhatsApp
-  </button>
-
-  <button class="icon-btn" title="Download Product List PDF" onclick="downloadProductListPDF()">
-    <i class="fas fa-file-pdf"></i>
-  </button>
-</div>
-
-
-
-  </div>
-<table id="productTable">
-  <thead>
-    <tr>
-      <th>Firework Name</th>
-      <th>Original Price (₹)</th>
-      <th>Quantity</th>
-      <th>Total (₹)</th>
-    </tr>
-  </thead>
-  <tbody></tbody>
-</table>
-
-<div class="total-section">
-  <p>Discount: <strong id="discountPercent">80%</strong></p>
-  <p>Total Original Price: ₹<span id="originalTotal">0.00</span></p>
-  <p>Total Discount Amount: ₹<span id="discountAmount">0.00</span></p>
-  <p><strong>Grand Total (After Discount): ₹<span id="grandTotal">0.00</span></strong></p>
-</div>
-
-<div class="button-group">
-  <button class="whatsapp-button" onclick="sendOrderToWhatsApp()">Send Order via WhatsApp</button>
-</div>
-
-<p class="footer-note">* Offer is fixed and prices shown are after discount. Prices inclusive of taxes.</p>
-
-<footer>
-  <div class="footer-container">
-    <p><strong>RAJ Crackers</strong> — Your Trusted Firework Partner</p>
-    <p>Contact: +91 82967 72217, 99436 81121 | Email: support@rajcrackers.in</p>
-    <p>© 2025 RAJ Crackers. All rights reserved.</p>
-    <p class="safety">🔥 Please celebrate responsibly and follow firework safety rules!</p>
-  </div>
-</footer>
-
-<script>
-  let currentOffer = 80;
-
-  function showDaysLeft() {
-    const offerEndDate = new Date("2025-10-25");
-    const today = new Date();
-    const timeDiff = offerEndDate - today;
-    const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-    const msg = daysLeft > 0 ? `${daysLeft}` : '0';
-    document.getElementById("daysLeft").textContent = msg;
-  }
-
-  function loadProducts() {
-    fetch("products.json")
-      .then(res => res.json())
-      .then(data => {
-        console.log("Loaded products:", data);
-
-        try {
-          const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 80 };
-          currentOffer = storedOffer.offer;
-          document.getElementById("discountPercent").textContent = `${currentOffer}%`;
-
-          const products = Object.entries(data).map(([name, info]) => {
-            if (typeof info === "object" && info !== null) {
-              return {
-                name,
-                price: parseFloat(info.price) || 0,
-                category: info.category || "Uncategorized"
-              };
-            } else {
-              return {
-                name,
-                price: parseFloat(info) || 0,
-                category: "Uncategorized"
-              };
-            }
-          });
-
-          renderProductTable(products);
-
-        } catch (err) {
-          console.error("❌ Error inside .then():", err);
-          document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="4">Failed to process products.</td></tr>`;
-        }
-      })
-      .catch((err) => {
-        console.error("Error loading products.json:", err);
-        document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="4">Failed to load products.</td></tr>`;
-      });
-  }
-
-  function renderProductTable(products) {
-    const tbody = document.querySelector("#productTable tbody");
-    tbody.innerHTML = "";
-
-    if (!products.length) {
-      tbody.innerHTML = `<tr><td colspan="4">No products available.</td></tr>`;
-      return;
-    }
-
-    const categories = {};
-    products.forEach(item => {
-      const cat = item.category || "Uncategorized";
-      if (!categories[cat]) categories[cat] = [];
-      categories[cat].push(item);
-    });
-
-    Object.entries(categories).forEach(([category, items], index) => {
-      const catRow = document.createElement("tr");
-      catRow.classList.add("category-header");
-      catRow.style.cursor = "pointer";
-      catRow.innerHTML = `<td colspan="4" style="text-align:left; background:#f0f0f0; font-weight:bold;">
-        ▼ ${category}
-      </td>`;
-      tbody.appendChild(catRow);
-
-      items.forEach(item => {
-        const row = document.createElement("tr");
-        row.classList.add("category-row", `category-${index}`);
-        row.innerHTML = `
-          <td class="product-cell">
-  <div class="product-wrapper">
-    <img src="${item.name}.jpg" 
-         alt="${item.name}" 
-         class="product-image" 
-        onerror="this.style.display='none'"
-         onclick="zoomImage(this)" />
-    <span class="product-name">${item.name}</span>
-  </div>
-</td>
-          <td>₹${item.price.toFixed(2)}</td>
-          <td><input type="number" min="0" value="0" onchange="calculateTotals()" data-name="${item.name}" data-original="${item.price}" /></td>
-          <td class="item-total">₹0.00</td>
-        `;
-        tbody.appendChild(row);
-      });
-
-      catRow.addEventListener("click", () => {
-        const catRows = document.querySelectorAll(`.category-${index}`);
-        catRows.forEach(r => {
-          r.style.display = r.style.display === "none" ? "" : "none";
-        });
-        catRow.cells[0].textContent = catRow.cells[0].textContent.startsWith("▼")
-          ? catRow.cells[0].textContent.replace("▼", "▶")
-          : catRow.cells[0].textContent.replace("▶", "▼");
-      });
-    });
-  }
-
-  function calculateTotals() {
-    let originalTotal = 0;
-    const rows = document.querySelectorAll("#productTable tbody tr");
-
-    rows.forEach(row => {
-      const qtyInput = row.querySelector("input[type='number']");
-      if (!qtyInput) return;
-
-      const qty = parseInt(qtyInput.value) || 0;
-      const originalPrice = parseFloat(qtyInput.dataset.original) || 0;
-
-      const originalSubtotal = qty * originalPrice;
-      originalTotal += originalSubtotal;
-
-      const totalCell = row.querySelector(".item-total");
-      if (totalCell) {
-        totalCell.textContent = `₹${originalSubtotal.toFixed(2)}`;
-      }
-    });
-
-    const discountAmount = originalTotal * (currentOffer / 100);
-    const grandTotal = originalTotal - discountAmount;
-
-    document.getElementById("originalTotal").textContent = originalTotal.toFixed(2);
-    document.getElementById("discountAmount").textContent = discountAmount.toFixed(2);
-    document.getElementById("grandTotal").textContent = grandTotal.toFixed(2);
-  }
-
- function sendOrderToWhatsApp() {
-  const name = document.getElementById("customerName").value.trim();
-  const phone = document.getElementById("customerPhone").value.trim();
-  const address = document.getElementById("customerAddress").value.trim();
-  const pin = document.getElementById("customerPin").value.trim();
-
-  if (!name || !address || !pin) {
-    alert("Please fill in all required fields: Name, Address, and Pin Code.");
-    return;
-  }
-
-  if (!/^\d{6}$/.test(pin)) {
-    alert("Please enter a valid 6-digit pin code.");
-    return;
-  }
-
-  const rows = document.querySelectorAll("#productTable tbody tr");
-  let message = `Hi, I'm ${name}, and I'd like to place an order:\n\n`;
-  let originalTotal = 0;
-
-  rows.forEach(row => {
-    const input = row.querySelector("input[type='number']");
-    if (!input) return;
-    const qty = parseInt(input.value);
-    const itemName = input.dataset.name;
-    const originalPrice = parseFloat(input.dataset.original);
-
-    if (qty && qty > 0) {
-      const itemTotal = qty * originalPrice;
-      message += `- ${itemName} × ${qty} = ₹${itemTotal.toFixed(2)}\n`;
-      originalTotal += itemTotal;
-    }
-  });
-
-  if (originalTotal === 0) {
-    alert("Please select at least one product before sending the order.");
-    return;
-  }
-
-  const discountAmount = originalTotal * (currentOffer / 100);
-  const grandTotal = originalTotal - discountAmount;
-
-  message += `\nOriginal Total: ₹${originalTotal.toFixed(2)}`;
-  message += `\nDiscount (${currentOffer}%): ₹${discountAmount.toFixed(2)}`;
-  message += `\nGrand Total: ₹${grandTotal.toFixed(2)}`;
-
-  message += `\n\n📍 Address: ${address}\n📮 Pin Code: ${pin}`;
-  if (phone) {
-    message += `\n📞 Phone: ${phone}`;
-  }
-
-  message += `\n\nThank you`;
-
-  const encodedMessage = encodeURIComponent(message);
-  const whatsappURL = `https://wa.me/918296772217?text=${encodedMessage}`;
-  window.open(whatsappURL, "_blank");
-}
-function downloadPDF() {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
-
-  doc.setFontSize(18);
-  doc.text("RAJ Crackers - Product List", 14, 20);
-
-  const rows = [];
-  const headers = [["Product Name", "Original Price (Rs.)"]];  // Updated here
-
-  const productRows = document.querySelectorAll("#productTable tbody tr");
-
-  productRows.forEach(row => {
-    const input = row.querySelector("input[type='number']");
-    if (!input) return; // skip category headers
-
-    const name = input.dataset.name;
-    const price = parseFloat(input.dataset.original);
-
-    rows.push([name, `Rs. ${price.toFixed(2)}`]);  // Updated here
-  });
-
-  if (rows.length === 0) {
-    alert("No products to export.");
-    return;
-  }
-
-  doc.autoTable({
-    startY: 30,
-    head: headers,
-    body: rows,
-    theme: "grid",
-    headStyles: { fillColor: [217, 83, 79] },
-    styles: { fontSize: 12 },
-  });
-
-  doc.save("RAJ_Crackers_Product_List.pdf");
-}
-function downloadProductListPDF() {
-  const pdfURL = 'files/product-list.pdf'; // Update this path
-  const a = document.createElement('a');
-  a.href = pdfURL;
-  a.download = 'AJ_Crackers_Product_List.pdf';
-  a.click();
-}
-
-function zoomImage(imgElement) {
-  const modal = document.getElementById("zoomModal");
-  const zoomedImage = document.getElementById("zoomedImage");
-  zoomedImage.src = imgElement.src;
-  modal.style.display = "flex";
-}
-
-  window.onload = function () {
-    showDaysLeft();
-    loadProducts();
-  };
-</script>
-<div id="zoomModal" class="image-modal" onclick="this.style.display='none'">
-  <img id="zoomedImage" src="" alt="Zoomed Image" />
-</div>
+  </form>
 
 </body>
 </html>
