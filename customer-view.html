@@ -527,17 +527,13 @@ originalTotal += itemTotal;
   const name = document.getElementById("customerName").value.trim();
   const phone = document.getElementById("customerPhone").value.trim();
   const address = document.getElementById("customerAddress").value.trim();
-  const pin = document.getElementById("customerPin").value.trim();
 
-  if (!name || !address || !pin) {
+  if (!name || !address) {
     alert("Please fill in all required fields: Name, Address, and Pin Code.");
     return;
   }
 
-  if (!/^\d{6}$/.test(pin)) {
-    alert("Please enter a valid 6-digit pin code.");
-    return;
-  }
+ 
 
   const rows = document.querySelectorAll("#productTable tbody tr");
   let message = `Hi, I'm ${name}, and I'd like to place an order:\n\n`;
@@ -569,7 +565,7 @@ originalTotal += itemTotal;
   message += `\nDiscount (${currentOffer}%): ₹${discountAmount.toFixed(2)}`;
   message += `\nGrand Total: ₹${grandTotal.toFixed(2)}`;
 
-  message += `\n\n📍 Address: ${address}\n📮 Pin Code: ${pin}`;
+  message += `\n\n📍 Address: ${address};
   if (phone) {
     message += `\n📞 Phone: ${phone}`;
   }
