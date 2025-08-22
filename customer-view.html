@@ -360,11 +360,9 @@ tr {
 </table>
 
 <div class="total-section">
-  <p>Discount: <strong id="discountPercent">80%</strong></p>
-  <p>Total Original Price: ₹<span id="originalTotal">0.00</span></p>
-  <p>Total Discount Amount: ₹<span id="discountAmount">0.00</span></p>
   <p><strong>Grand Total (After Discount): ₹<span id="grandTotal">0.00</span></strong></p>
 </div>
+
 
 <div class="button-group">
   <button class="whatsapp-button" onclick="sendOrderToWhatsApp()">Send Order via WhatsApp</button>
@@ -496,7 +494,8 @@ function loadProducts() {
   });
 }
 function calculateTotals() {
-  let originalTotal = 0;
+  let grandTotal = 0;
+
   const rows = document.querySelectorAll("#productTable tbody tr");
 
   rows.forEach(row => {
@@ -506,19 +505,17 @@ function calculateTotals() {
     const qty = parseInt(qtyInput.value) || 0;
     const offerPrice = parseFloat(qtyInput.dataset.offer) || 0;
     const itemTotal = qty * offerPrice;
-    originalTotal += itemTotal;
 
+    // Update item total
     const totalCell = row.querySelector(".item-total");
     if (totalCell) {
       totalCell.textContent = `₹${itemTotal.toFixed(2)}`;
     }
+
+    grandTotal += itemTotal;
   });
 
-  const discountAmount = originalTotal * (currentOffer / 100);
-  const grandTotal = originalTotal - discountAmount;
-
-  document.getElementById("originalTotal").textContent = originalTotal.toFixed(2);
-  document.getElementById("discountAmount").textContent = discountAmount.toFixed(2);
+  // Update the only total we care about now
   document.getElementById("grandTotal").textContent = grandTotal.toFixed(2);
 }
 
