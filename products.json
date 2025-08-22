@@ -1,14 +1,74 @@
 {
-  "Kuruvai": { "price": 30, "category": "One Sound Crakers", "unit": "Pkt", "offerprice": "6" },
-  "35\" Lakshmi": { "price": 50, "category": "One Sound Crakers", "unit": "Pkt", "offerprice": "10" },
-  "4\" Lakshmi": { "price": 70, "category": "One Sound Crakers", "unit": "Pkt", "offerprice": "14" },
-  "4\" deluxe Lakshmi": { "price": 100, "category": "One Sound Crakers", "unit": "Pkt", "offerprice": "20" },
-  "Gold Lakshmi": { "price": 115, "category": "One Sound Crakers", "unit": "Pkt", "offerprice": "23" },
-  "2 Sound": { "price": 100, "category": "One Sound Crakers", "unit": "Pkt", "offerprice": "20" },
-  "5\" Jallikattu": { "price": 275, "category": "One Sound Crakers", "unit": "Pkt", "offerprice": "55" },
-  "6\" Lion": { "price": 375, "category": "One Sound Crakers", "unit": "Pkt", "offerprice": "75" },
-  "7\" Golden Sparrow": { "price": 400, "category": "One Sound Crakers", "unit": "Pkt", "offerprice": "80" },
-  "24 deluxe": { "price": 200, "category": "Delux Crakers", "unit": "Pkt", "offerprice": "40" },
-  "50 deluxe": { "price": 400, "category": "Delux Crakers", "unit": "Pkt", "offerprice": "80" },
-  "100 deluxe": { "price": 800, "category": "Delux Crakers", "unit": "Pkt", "offerprice": "160" }
+    "Kuruvai": {
+        "price": 30,
+        "category": "One Sound Crakers",
+        "unit": "Pkt",
+        "offerprice": "6"
+    },
+    "35\" Lakshmi": {
+        "price": 50,
+        "category": "One Sound Crakers",
+        "unit": "Pkt",
+        "offerprice": "10"
+    },
+    "4\" Lakshmi": {
+        "price": 70,
+        "category": "One Sound Crakers",
+        "unit": "Pkt",
+        "offerprice": "14"
+    },
+    "4\" deluxe Lakshmi": {
+        "price": 100,
+        "category": "One Sound Crakers",
+        "unit": "Pkt",
+        "offerprice": "20"
+    },
+    "Gold Lakshmi": {
+        "price": 115,
+        "category": "One Sound Crakers",
+        "unit": "Pkt",
+        "offerprice": "23"
+    },
+    "2 Sound": {
+        "price": 100,
+        "category": "One Sound Crakers",
+        "unit": "Pkt",
+        "offerprice": "20"
+    },
+    "5\" Jallikattu": {
+        "price": 275,
+        "category": "One Sound Crakers",
+        "unit": "Pkt",
+        "offerprice": "55"
+    },
+    "6\" Lion": {
+        "price": 375,
+        "category": "One Sound Crakers",
+        "unit": "Pkt",
+        "offerprice": "75"
+    },
+    "7\" Golden Sparrow": {
+        "price": 400,
+        "category": "One Sound Crakers",
+        "unit": "Pkt",
+        "offerprice": "80"
+    },
+    "24 deluxe": {
+        "price": 200,
+        "category": "Delux Crakers",
+        "unit": "Pkt",
+        "offerprice": "40"
+    },
+    "50 deluxe": {
+        "price": 400,
+        "category": "Delux Crakers",
+        "unit": "Pkt",
+        "offerprice": "80"
+    },
+    "100 deluxe": {
+        "price": 800,
+        "category": "Delux Crakers",
+        "unit": "Pkt",
+        "offerprice": "160"
+    }
 }
