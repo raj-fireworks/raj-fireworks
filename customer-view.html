@@ -268,6 +268,21 @@ tr {
     box-shadow: 0 0 10px #fff;
   }
 
+  .print-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .print-button:hover {
+    background-color: #d32f2f;
+  }
+
+
 </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
@@ -332,7 +347,10 @@ tr {
 
 <div class="button-group">
   <button class="whatsapp-button" onclick="sendOrderToWhatsApp()">Send Order via WhatsApp</button>
-  <button class="print-button" onclick="downloadPDF()">📄 Download Product List PDF</button>
+ <button class="print-button" onclick="downloadPDF()" title="Download Product List PDF">
+  📄
+</button>
+
 </div>
 
   </div>
