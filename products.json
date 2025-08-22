@@ -10,5 +10,8 @@
   "7\" Golden Sparrow": { "price": 400, "category": "One Sound Crakers", "unit": "Pkt", "offerprice": "80" },
   "28 Chorsa": { "price": 60, "category": "Thunder Crakers", "unit": "Pkt", "offerprice": "12" },
   "28 Giant": { "price": 100, "category": "Thunder Crakers", "unit": "Pkt", "offerprice": "20" },
-  "56 Giant": { "price": 190, "category": "Thunder Crakers", "unit": "Pkt", "offerprice": "38" }
+  "56 Giant": { "price": 190, "category": "Thunder Crakers", "unit": "Pkt", "offerprice": "38" },
+  "24 deluxe": { "price": 200, "category": "Delux Crakers", "unit": "Pkt", "offerprice": "40" },
+  "50 deluxe": { "price": 400, "category": "Delux Crakers", "unit": "Pkt", "offerprice": "80" },
+  "100 deluxe": { "price": 800, "category": "Delux Crakers", "unit": "Pkt", "offerprice": "160" }
 }
