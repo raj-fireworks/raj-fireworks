@@ -345,10 +345,11 @@ tr {
 
   </div>
 <table id="productTable">
-  <thead>
+<thead>
   <tr>
     <th>Firework Name</th>
     <th>Unit</th>
+    <th>Actual Price (₹)</th> <!-- NEW -->
     <th>Offer Price (₹)</th>
     <th>Quantity</th>
     <th>Total (₹)</th>
@@ -430,98 +431,96 @@ function loadProducts() {
 }
 
   function renderProductTable(products) {
-    const tbody = document.querySelector("#productTable tbody");
-    tbody.innerHTML = "";
+  const tbody = document.querySelector("#productTable tbody");
+  tbody.innerHTML = "";
 
-    if (!products.length) {
-      tbody.innerHTML = `<tr><td colspan="4">No products available.</td></tr>`;
-      return;
-    }
+  if (!products.length) {
+    tbody.innerHTML = `<tr><td colspan="6">No products available.</td></tr>`;
+    return;
+  }
 
-    const categories = {};
-    products.forEach(item => {
-      const cat = item.category || "Uncategorized";
-      if (!categories[cat]) categories[cat] = [];
-      categories[cat].push(item);
-    });
+  const categories = {};
+  products.forEach(item => {
+    const cat = item.category || "Uncategorized";
+    if (!categories[cat]) categories[cat] = [];
+    categories[cat].push(item);
+  });
 
-    Object.entries(categories).forEach(([category, items], index) => {
-      const catRow = document.createElement("tr");
-      catRow.classList.add("category-header");
-      catRow.style.cursor = "pointer";
-      catRow.innerHTML = `<td colspan="4" style="text-align:left; background:#f0f0f0; font-weight:bold;">
-        ▼ ${category}
-      </td>`;
-      tbody.appendChild(catRow);
+  Object.entries(categories).forEach(([category, items], index) => {
+    const catRow = document.createElement("tr");
+    catRow.classList.add("category-header");
+    catRow.style.cursor = "pointer";
+    catRow.innerHTML = `<td colspan="6" style="text-align:left; background:#f0f0f0; font-weight:bold;">
+      ▼ ${category}
+    </td>`;
+    tbody.appendChild(catRow);
 
-      items.forEach(item => {
-        const row = document.createElement("tr");
-        row.classList.add("category-row", `category-${index}`);
+    items.forEach(item => {
+      const row = document.createElement("tr");
+      row.classList.add("category-row", `category-${index}`);
       row.innerHTML = `
-  <td class="product-cell">
-    <div class="product-wrapper">
-      <img src="${item.name}.jpg" 
-           alt="${item.name}" 
-           class="product-image" 
-           onerror="this.style.display='none'"
-           onclick="zoomImage(this)" />
-      <span class="product-name">${item.name}</span>
-    </div>
-  </td>
-  <td>${item.unit || "-"}</td>
-  <td>₹${item.offerprice.toFixed(2)}</td>
-  <td>
-    <input type="number" min="0" value="0" 
-           onchange="calculateTotals()" 
-           data-name="${item.name}" 
-           data-offer="${item.offerprice}" />
-  </td>
-  <td class="item-total">₹0.00</td>
-`;
-
-        tbody.appendChild(row);
-      });
-
-      catRow.addEventListener("click", () => {
-        const catRows = document.querySelectorAll(`.category-${index}`);
-        catRows.forEach(r => {
-          r.style.display = r.style.display === "none" ? "" : "none";
-        });
-        catRow.cells[0].textContent = catRow.cells[0].textContent.startsWith("▼")
-          ? catRow.cells[0].textContent.replace("▼", "▶")
-          : catRow.cells[0].textContent.replace("▶", "▼");
-      });
-    });
-  }
-
-  function calculateTotals() {
-    let originalTotal = 0;
-    const rows = document.querySelectorAll("#productTable tbody tr");
-
-    rows.forEach(row => {
-      const qtyInput = row.querySelector("input[type='number']");
-      if (!qtyInput) return;
-
-      const qty = parseInt(qtyInput.value) || 0;
-     const offerPrice = parseFloat(qtyInput.dataset.offer) || 0;
-const itemTotal = qty * offerPrice;
-originalTotal += itemTotal;
-
-
-      const totalCell = row.querySelector(".item-total");
-      if (totalCell) {
-        totalCell.textContent = `₹${itemTotal.toFixed(2)}`;
-
-      }
+        <td class="product-cell">
+          <div class="product-wrapper">
+            <img src="${item.name}.jpg" 
+                 alt="${item.name}" 
+                 class="product-image" 
+                 onerror="this.style.display='none'"
+                 onclick="zoomImage(this)" />
+            <span class="product-name">${item.name}</span>
+          </div>
+        </td>
+        <td>${item.unit || "-"}</td>
+        <td>₹${item.price.toFixed(2)}</td> <!-- Actual Price -->
+        <td>₹${item.offerprice.toFixed(2)}</td> <!-- Offer Price -->
+        <td>
+          <input type="number" min="0" value="0" 
+                 onchange="calculateTotals()" 
+                 data-name="${item.name}" 
+                 data-offer="${item.offerprice}" />
+        </td>
+        <td class="item-total">₹0.00</td>
+      `;
+      tbody.appendChild(row);
     });
 
-    const discountAmount = originalTotal * (currentOffer / 100);
-    const grandTotal = originalTotal - discountAmount;
+    // Toggle category display
+    catRow.addEventListener("click", () => {
+      const catRows = document.querySelectorAll(`.category-${index}`);
+      catRows.forEach(r => {
+        r.style.display = r.style.display === "none" ? "" : "none";
+      });
+      catRow.cells[0].textContent = catRow.cells[0].textContent.startsWith("▼")
+        ? catRow.cells[0].textContent.replace("▼", "▶")
+        : catRow.cells[0].textContent.replace("▶", "▼");
+    });
+  });
+}
+function calculateTotals() {
+  let originalTotal = 0;
+  const rows = document.querySelectorAll("#productTable tbody tr");
 
-    document.getElementById("originalTotal").textContent = originalTotal.toFixed(2);
-    document.getElementById("discountAmount").textContent = discountAmount.toFixed(2);
-    document.getElementById("grandTotal").textContent = grandTotal.toFixed(2);
-  }
+  rows.forEach(row => {
+    const qtyInput = row.querySelector("input[type='number']");
+    if (!qtyInput) return;
+
+    const qty = parseInt(qtyInput.value) || 0;
+    const offerPrice = parseFloat(qtyInput.dataset.offer) || 0;
+    const itemTotal = qty * offerPrice;
+    originalTotal += itemTotal;
+
+    const totalCell = row.querySelector(".item-total");
+    if (totalCell) {
+      totalCell.textContent = `₹${itemTotal.toFixed(2)}`;
+    }
+  });
+
+  const discountAmount = originalTotal * (currentOffer / 100);
+  const grandTotal = originalTotal - discountAmount;
+
+  document.getElementById("originalTotal").textContent = originalTotal.toFixed(2);
+  document.getElementById("discountAmount").textContent = discountAmount.toFixed(2);
+  document.getElementById("grandTotal").textContent = grandTotal.toFixed(2);
+}
 
  function sendOrderToWhatsApp() {
   const name = document.getElementById("customerName").value.trim();
