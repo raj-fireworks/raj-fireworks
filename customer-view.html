@@ -439,11 +439,14 @@ function loadProducts() {
   }
 
   const categories = {};
-  products.forEach(item => {
-    const cat = item.category || "Uncategorized";
-    if (!categories[cat]) categories[cat] = [];
-    categories[cat].push(item);
-  });
+ const normalizeCategory = cat => cat.trim().toLowerCase();
+
+products.forEach(item => {
+  const cat = normalizeCategory(item.category || "Uncategorized");
+  if (!categories[cat]) categories[cat] = [];
+  categories[cat].push(item);
+});
+
 
   Object.entries(categories).forEach(([category, items], index) => {
     const catRow = document.createElement("tr");
