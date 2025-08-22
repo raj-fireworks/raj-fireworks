@@ -718,5 +718,47 @@
         "category": "Sparklers",
         "unit": "Box",
         "offerprice": "150"
+    },
+    "1\" Chota Fancy": {
+        "price": 200,
+        "category": "Sky Display",
+        "unit": "Box",
+        "offerprice": "40"
+    },
+    "2\" Fancy": {
+        "price": 400,
+        "category": "Sky Display",
+        "unit": "Box",
+        "offerprice": "80"
+    },
+    "2\" Fancy (3pcs)": {
+        "price": 1000,
+        "category": "Sky Display",
+        "unit": "Box",
+        "offerprice": "200"
+    },
+    "3½\" Fancy": {
+        "price": 1150,
+        "category": "Sky Display",
+        "unit": "Box",
+        "offerprice": "230"
+    },
+    "4.\" Fancy": {
+        "price": 1300,
+        "category": "Sky Display",
+        "unit": "Box",
+        "offerprice": "260"
+    },
+    "Niagara Falls": {
+        "price": 1500,
+        "category": "Sky Display",
+        "unit": "Box",
+        "offerprice": "300"
+    },
+    "7 Colors": {
+        "price": 350,
+        "category": "Sky Display",
+        "unit": "Box",
+        "offerprice": "70"
     }
 }
