@@ -401,30 +401,31 @@ function loadProducts() {
       console.log("Loaded products:", data);
 
       try {
+        // Optional: You can keep this if you want to get offer from localStorage
         const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 80 };
         currentOffer = storedOffer.offer;
-        document.getElementById("discountPercent").textContent = `${currentOffer}%`;
+        // Remove this line if you don't have an element with id 'discountPercent'
+        // document.getElementById("discountPercent").textContent = `${currentOffer}%`;
 
-        const products = Object.entries(data).map(([name, info]) => {
-          return {
-            name,
-            price: parseFloat(info.price) || 0,
-            offerprice: parseFloat(info.offerprice) || 0,
-            unit: info.unit || "-",
-            category: info.category || "Uncategorized"
-          };
-        });
+        // Convert and map products
+        const products = Object.entries(data).map(([name, info]) => ({
+          name,
+          price: Number(info.price) || 0,
+          offerprice: Number(info.offerprice) || 0,
+          unit: info.unit || "-",
+          category: info.category || "Uncategorized"
+        }));
 
         renderProductTable(products);
 
       } catch (err) {
-        console.error("❌ Error inside .then():", err);
-        document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="5">Failed to process products.</td></tr>`;
+        console.error("❌ Error processing products:", err);
+        document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="6">Failed to process products.</td></tr>`;
       }
     })
-    .catch((err) => {
+    .catch(err => {
       console.error("Error loading products.json:", err);
-      document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="5">Failed to load products.</td></tr>`;
+      document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="6">Failed to load products.</td></tr>`;
     });
 }
 
