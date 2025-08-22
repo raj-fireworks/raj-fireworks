@@ -460,11 +460,7 @@ function loadProducts() {
       row.innerHTML = `
         <td class="product-cell">
           <div class="product-wrapper">
-            <img src="${item.name}.jpg" 
-                 alt="${item.name}" 
-                 class="product-image" 
-                 onerror="this.style.display='none'"
-                 onclick="zoomImage(this)" />
+           
             <span class="product-name">${item.name}</span>
           </div>
         </td>
@@ -606,12 +602,20 @@ function downloadPDF() {
   doc.save("RAJ_Crackers_Product_List.pdf");
 }
 
-function zoomImage(imgElement) {
-  const modal = document.getElementById("zoomModal");
-  const zoomedImage = document.getElementById("zoomedImage");
-  zoomedImage.src = imgElement.src;
-  modal.style.display = "flex";
+// Show modal
+function zoomImage(src) {
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImg');
+  modal.style.display = 'flex';
+  modalImg.src = src;
 }
+
+// Close modal when clicking outside the image
+document.getElementById('imageModal').addEventListener('click', function(event) {
+  if(event.target === this) {
+    this.style.display = 'none';
+  }
+});
 
   window.onload = function () {
     showDaysLeft();
