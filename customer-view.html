@@ -267,6 +267,50 @@ tr {
     border-radius: 8px;
     box-shadow: 0 0 10px #fff;
   }
+  .action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.whatsapp-btn {
+  background-color: #25D366;
+  color: white;
+  font-size: 16px;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.whatsapp-btn:hover {
+  background-color: #1DA851;
+}
+
+.icon-btn {
+  background-color: #f44336; /* red like PDF */
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  font-size: 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn i {
+  font-size: 20px;
+}
+
+.icon-btn:hover {
+  background-color: #d7372f;
+}
+
 
 </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -324,10 +368,16 @@ tr {
 
 
 
-<div class="button-group">
-  <button class="whatsapp-button" onclick="sendOrderToWhatsApp()">Send Order via WhatsApp</button>
-  <button class="print-button" onclick="downloadPDF()">📄 Download Product List PDF</button>
+<div class="action-buttons">
+  <button class="whatsapp-btn" onclick="sendOrderViaWhatsApp()">
+    Send Order via WhatsApp
+  </button>
+
+  <button class="icon-btn" title="Download Product List PDF" onclick="downloadProductListPDF()">
+    <i class="fas fa-file-pdf"></i>
+  </button>
 </div>
+
 
   </div>
 <table id="productTable">
@@ -597,6 +647,14 @@ function downloadPDF() {
 
   doc.save("RAJ_Crackers_Product_List.pdf");
 }
+function downloadProductListPDF() {
+  const pdfURL = 'files/product-list.pdf'; // Update this path
+  const a = document.createElement('a');
+  a.href = pdfURL;
+  a.download = 'AJ_Crackers_Product_List.pdf';
+  a.click();
+}
+
 function zoomImage(imgElement) {
   const modal = document.getElementById("zoomModal");
   const zoomedImage = document.getElementById("zoomedImage");
