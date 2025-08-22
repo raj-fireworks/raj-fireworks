@@ -497,27 +497,27 @@ function calculateTotals() {
   let grandTotal = 0;
 
   const rows = document.querySelectorAll("#productTable tbody tr");
-
   rows.forEach(row => {
-    const qtyInput = row.querySelector("input[type='number']");
-    if (!qtyInput) return;
-
-    const qty = parseInt(qtyInput.value) || 0;
-    const offerPrice = parseFloat(qtyInput.dataset.offer) || 0;
-    const itemTotal = qty * offerPrice;
-
-    // Update item total
+    const input = row.querySelector("input[type='number']");
     const totalCell = row.querySelector(".item-total");
-    if (totalCell) {
-      totalCell.textContent = `₹${itemTotal.toFixed(2)}`;
-    }
 
-    grandTotal += itemTotal;
+    if (input && totalCell) {
+      const quantity = parseInt(input.value) || 0;
+      const offerPrice = parseFloat(input.dataset.offer) || 0;
+      const itemTotal = quantity * offerPrice;
+
+      totalCell.textContent = `₹${itemTotal.toFixed(2)}`;
+      grandTotal += itemTotal;
+    }
   });
 
-  // Update the only total we care about now
-  document.getElementById("grandTotal").textContent = grandTotal.toFixed(2);
+  // Update grand total display
+  const grandTotalDisplay = document.getElementById("grandTotal");
+  if (grandTotalDisplay) {
+    grandTotalDisplay.textContent = `₹${grandTotal.toFixed(2)}`;
+  }
 }
+
 
  function sendOrderToWhatsApp() {
   const name = document.getElementById("customerName").value.trim();
@@ -554,12 +554,7 @@ function calculateTotals() {
     return;
   }
 
-  const discountAmount = originalTotal * (currentOffer / 100);
-  const grandTotal = originalTotal - discountAmount;
-
-  message += `\nOriginal Total: ₹${originalTotal.toFixed(2)}`;
-  message += `\nDiscount (${currentOffer}%): ₹${discountAmount.toFixed(2)}`;
-  message += `\nGrand Total: ₹${grandTotal.toFixed(2)}`;
+message += `\nGrand Total: ₹${originalTotal.toFixed(2)} (After ${currentOffer}% Discount)`;
 
   message += `\n\n📍 Address: ${address}`;
   if (phone) {
