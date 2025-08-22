@@ -71,5 +71,108 @@
   "parachutes": { "price": 250, "category": "Special Items", "unit": "Box", "offerprice": "50" },
   "Palm blast": { "price": 400, "category": "Special Items", "unit": "Box", "offerprice": "80" },
   "Fire Egg": { "price": 750, "category": "Special Items", "unit": "Box", "offerprice": "150" },
-  "bat & Ball": { "price": 900, "category": "Special Items", "unit": "Box", "offerprice": "180" }
+  "bat & Ball": { "price": 900, "category": "Special Items", "unit": "Box", "offerprice": "180" },
+  
+  "Money bank": {
+    "price": 900,
+    "category": "Kids Special",
+    "unit": "Box",
+    "offerprice": "180"
+  },
+  "men in Black (Ring & Gun)": {
+    "price": 550,
+    "category": "Kids Special",
+    "unit": "Box",
+    "offerprice": "110"
+  },
+  "Colour matches Boom": {
+    "price": 500,
+    "category": "Kids Special",
+    "unit": "Box",
+    "offerprice": "100"
+  },
+  "Colour matches super six": {
+    "price": 450,
+    "category": "Kids Special",
+    "unit": "Box",
+    "offerprice": "90"
+  },
+  "Laptop colour matches": {
+    "price": 950,
+    "category": "Kids Special",
+    "unit": "Box",
+    "offerprice": "190"
+  },
+  "Tri color fountain": {
+    "price": 1000,
+    "category": "Fountain Items",
+    "unit": "Box",
+    "offerprice": "200"
+  },
+  "Fun shower": {
+    "price": 350,
+    "category": "Fountain Items",
+    "unit": "Box",
+    "offerprice": "70"
+  },
+  "Golden globe": {
+    "price": 450,
+    "category": "Fountain Items",
+    "unit": "Box",
+    "offerprice": "90"
+  },
+  "Colour Rain": {
+    "price": 450,
+    "category": "Fountain Items",
+    "unit": "Box",
+    "offerprice": "90"
+  },
+  "Peacock feather": {
+    "price": 450,
+    "category": "Fountain Items",
+    "unit": "Box",
+    "offerprice": "90"
+  },
+  "Tin": {
+    "price": 400,
+    "category": "Fountain Items",
+    "unit": "Box",
+    "offerprice": "80"
+  },
+  "Lollipop": {
+    "price": 550,
+    "category": "Fountain Items",
+    "unit": "Box",
+    "offerprice": "110"
+  },
+  "Stardom": {
+    "price": 525,
+    "category": "Fountain Items",
+    "unit": "Box",
+    "offerprice": "105"
+  },
+  "Popcorn": {
+    "price": 900,
+    "category": "Fountain Items",
+    "unit": "Box",
+    "offerprice": "180"
+  },
+  "Cocktail (5 in 1 fountain)": {
+    "price": 1000,
+    "category": "Fountain Items",
+    "unit": "Box",
+    "offerprice": "200"
+  },
+  "Peacock dance": {
+    "price": 650,
+    "category": "Fountain Items",
+    "unit": "Box",
+    "offerprice": "130"
+  },
+  "Boda Peacock": {
+    "price": 1550,
+    "category": "Fountain Items",
+    "unit": "Box",
+    "offerprice": "310"
+  }
 }
