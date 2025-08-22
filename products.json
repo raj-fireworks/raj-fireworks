@@ -694,5 +694,29 @@
         "category": "Sparklers",
         "unit": "Box",
         "offerprice": "35"
+    },
+    "30cm Red Sparklers": {
+        "price": 225,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "45"
+    },
+    "50cm Electric Sparklers": {
+        "price": 750,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "150"
+    },
+    "50cm Colour Sparklers": {
+        "price": 800,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "160"
+    },
+    "50cm Rotating Sparklers": {
+        "price": 750,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "150"
     }
 }
