@@ -267,14 +267,17 @@ tr {
     border-radius: 8px;
     box-shadow: 0 0 10px #fff;
   }
-  .action-buttons {
+.action-buttons {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 12px;
-  margin-top: 10px;
-  flex-wrap: wrap;
+  margin-top: 20px;
+  margin-left: 0;
+  justify-content: flex-start; /* or center if you prefer */
 }
 
+/* WhatsApp button style */
 .whatsapp-btn {
   background-color: #25D366;
   color: white;
@@ -283,15 +286,16 @@ tr {
   padding: 10px 18px;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
 .whatsapp-btn:hover {
   background-color: #1DA851;
 }
 
+/* PDF icon button style */
 .icon-btn {
-  background-color: #f44336; /* red like PDF */
+  background-color: #f44336;
   color: white;
   border: none;
   padding: 10px 14px;
@@ -377,6 +381,7 @@ tr {
     <i class="fas fa-file-pdf"></i>
   </button>
 </div>
+
 
 
   </div>
