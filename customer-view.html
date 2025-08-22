@@ -610,12 +610,7 @@ function zoomImage(src) {
   modalImg.src = src;
 }
 
-// Close modal when clicking outside the image
-document.getElementById('imageModal').addEventListener('click', function(event) {
-  if(event.target === this) {
-    this.style.display = 'none';
-  }
-});
+
 
   window.onload = function () {
     showDaysLeft();
@@ -623,9 +618,7 @@ document.getElementById('imageModal').addEventListener('click', function(event) 
   };
  
 </script>
-<div id="zoomModal" class="image-modal" onclick="this.style.display='none'">
-  <img id="zoomedImage" src="" alt="Zoomed Image" />
-</div>
+
 
 </body>
 </html>
