@@ -580,5 +580,119 @@
         "category": "Kids Special",
         "unit": "Box",
         "offerprice": "190"
+    },
+    "7cm Electric Sparklers": {
+        "price": 45,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "9"
+    },
+    "7cm Glittering Sparklers": {
+        "price": 50,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "10"
+    },
+    "7cm Green Sparklers": {
+        "price": 60,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "12"
+    },
+    "7cm Red Sparklers": {
+        "price": 70,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "14"
+    },
+    "10cm Electric Sparklers": {
+        "price": 70,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "14"
+    },
+    "10cm Glittering Sparklers": {
+        "price": 75,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "15"
+    },
+    "10cm Green Sparklers": {
+        "price": 85,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "17"
+    },
+    "10cm Red Sparklers": {
+        "price": 90,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "18"
+    },
+    "12cm Electric Sparklers": {
+        "price": 110,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "22"
+    },
+    "12cm Colour Sparklers": {
+        "price": 125,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "25"
+    },
+    "12cm Green Sparklers": {
+        "price": 140,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "28"
+    },
+    "12cm Red Sparklers": {
+        "price": 150,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "30"
+    },
+    "15cm Electric Sparklers": {
+        "price": 175,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "35"
+    },
+    "15cm Colour Sparklers": {
+        "price": 175,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "35"
+    },
+    "15cm Green Sparklers": {
+        "price": 200,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "40"
+    },
+    "15cm Red Sparklers": {
+        "price": 225,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "45"
+    },
+    "15cm Silver drops": {
+        "price": 250,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "50"
+    },
+    "30cm Electric Sparklers": {
+        "price": 175,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "35"
+    },
+    "30cm Colour Sparklers": {
+        "price": 175,
+        "category": "Sparklers",
+        "unit": "Box",
+        "offerprice": "35"
     }
 }
