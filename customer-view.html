@@ -478,10 +478,17 @@ products.forEach(item => {
         <td>₹${item.price.toFixed(2)}</td> <!-- Actual Price -->
         <td>₹${item.offerprice.toFixed(2)}</td> <!-- Offer Price -->
         <td>
-          <input type="number" min="0"   placeholder="Qty"  step="1" value="0" 
-                 onchange="calculateTotals()" 
-                 data-name="${item.name}" 
-                 data-offer="${item.offerprice}" />
+        <input 
+  type="number" 
+  min="0" 
+  step="1" 
+  placeholder="Qty" 
+  onchange="calculateTotals()" 
+  oninput="validateIntegerInput(this)" 
+  data-name="${item.name}" 
+  data-offer="${item.offerprice}" 
+/>
+
         </td>
         <td class="item-total">₹0.00</td>
       `;
@@ -500,6 +507,20 @@ products.forEach(item => {
     });
   });
 }
+function validateIntegerInput(input) {
+  const value = input.value.trim();
+
+  // If input is empty, do nothing
+  if (value === "") return;
+
+  // If decimal or negative number is entered
+  if (!/^\d+$/.test(value)) {
+    alert("Only whole numbers are allowed. Please enter a valid quantity.");
+    input.value = "";
+    input.focus();
+  }
+}
+
 function calculateTotals() {
   let grandTotal = 0;
 
