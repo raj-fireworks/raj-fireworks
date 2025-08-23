@@ -606,17 +606,19 @@ function downloadPDF() {
   doc.text("RAJ Crackers - Product List", 14, 20);
 
   const rows = [];
-  const headers = [["Product Name", "Offer Price (₹)"]];
+  const headers = [["S.No", "Product Name", "Offer Price (₹)"]]; // Added S.No column
 
   const productRows = document.querySelectorAll("#productTable tbody tr");
 
+  let index = 1;
   productRows.forEach(row => {
     const input = row.querySelector("input[type='number']");
     if (!input) return;
 
     const name = input.dataset.name;
     const price = parseFloat(input.dataset.offer);
-    rows.push([name, `₹${price.toFixed(2)}`]);
+    rows.push([index, name, `₹${price.toFixed(2)}`]); // Add index to each row
+    index++;
   });
 
   if (rows.length === 0) {
