@@ -357,7 +357,7 @@ tr {
 <table id="productTable">
 <thead>
   <tr>
-    <th>Firework Name</th>
+    <th>Crackers Name</th>
     <th>Unit</th>
     <th>Actual Price (₹)</th> <!-- NEW -->
     <th>Offer Price (₹)</th>
@@ -563,6 +563,7 @@ function calculateTotals() {
   const rows = document.querySelectorAll("#productTable tbody tr");
   let message = `Hi, I'm ${name}, and I'd like to place an order:\n\n`;
   let originalTotal = 0;
+  let itemCount = 0;
 
   rows.forEach(row => {
     const input = row.querySelector("input[type='number']");
@@ -572,8 +573,9 @@ function calculateTotals() {
     const offerPrice = parseFloat(input.dataset.offer);
 
     if (qty && qty > 0) {
+      itemCount++;
       const itemTotal = qty * offerPrice;
-      message += `- ${itemName} × ${qty} = ₹${itemTotal.toFixed(2)}\n`;
+      message += `${itemCount}. ${itemName} × ${qty} = ₹${itemTotal.toFixed(2)}\n`;
       originalTotal += itemTotal;
     }
   });
