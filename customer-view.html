@@ -530,13 +530,11 @@ function calculateTotals() {
   const name = document.getElementById("customerName").value.trim();
   const phone = document.getElementById("customerPhone").value.trim();
   const address = document.getElementById("customerAddress").value.trim();
-  const pin = document.getElementById("customerPin").value.trim();
 
   if (!name || !address) {
     alert("Please fill in all required fields: Name, Address.");
     return;
   }
-
 
   const rows = document.querySelectorAll("#productTable tbody tr");
   let message = `Hi, I'm ${name}, and I'd like to place an order:\n\n`;
@@ -561,8 +559,7 @@ function calculateTotals() {
     return;
   }
 
-message += `\nGrand Total: ₹${originalTotal.toFixed(2)} (After ${currentOffer}% Discount)`;
-
+  message += `\nGrand Total: ₹${originalTotal.toFixed(2)} (After ${currentOffer}% Discount)`;
   message += `\n\n📍 Address: ${address}`;
   if (phone) {
     message += `\n📞 Phone: ${phone}`;
@@ -574,6 +571,7 @@ message += `\nGrand Total: ₹${originalTotal.toFixed(2)} (After ${currentOffer}
   const whatsappURL = `https://wa.me/918296772217?text=${encodedMessage}`;
   window.open(whatsappURL, "_blank");
 }
+
 function downloadPDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
