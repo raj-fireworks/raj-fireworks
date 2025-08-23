@@ -335,9 +335,9 @@ tr {
 
   <div style="flex: 1; min-width: 200px;">
     <label for="customerPhone">Phone (optional):</label><br />
-   
-		   <input type="tel" id="customerPhone" placeholder="Enter phone number" 
-       onkeypress="return /[0-9]/.test(event.key)" />
+   <input type="tel" id="customerPhone" placeholder="Enter phone number" 
+              maxlength="10"
+              onkeypress="return /[0-9]/.test(event.key) && this.value.length < 10" />
 
   </div>
 
