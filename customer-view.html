@@ -617,7 +617,8 @@ function downloadPDF() {
 
     const name = input.dataset.name;
     const price = parseFloat(input.dataset.offer);
-    rows.push([index, name, `₹${price.toFixed(2)}`]); // Add index to each row
+    rows.push([index + 1, name, "₹" + Number(price).toFixed(2)]);
+ // Add index to each row
     index++;
   });
 
