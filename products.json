@@ -760,5 +760,60 @@
         "category": "Sky Display",
         "unit": "Box",
         "offerprice": "70"
-    }
+    },
+  "12 shot": {
+    "price": 550,
+    "category": "Repeating Shots",
+    "unit": "Box",
+    "offerprice": "110"
+  },
+  "25 shot": {
+    "price": 1000,
+    "category": "Repeating Shots",
+    "unit": "Box",
+    "offerprice": "200"
+  },
+  "30 shot multi color": {
+    "price": 1500,
+    "category": "Repeating Shots",
+    "unit": "Box",
+    "offerprice": "300"
+  },
+  "60 shot multi color": {
+    "price": 3000,
+    "category": "Repeating Shots",
+    "unit": "Box",
+    "offerprice": "600"
+  },
+  "120 shot multi color": {
+    "price": 6000,
+    "category": "Repeating Shots",
+    "unit": "Box",
+    "offerprice": "1200"
+  },
+  "240 shot multi color": {
+    "price": 12000,
+    "category": "Repeating Shots",
+    "unit": "Box",
+    "offerprice": "2400"
+  },
+  "30 Item": {
+    "price": 450,
+    "category": "Gift Box",
+    "unit": "Box",
+    "offerprice": "450"
+  },
+  "40 Item": {
+    "price": 600,
+    "category": "Gift Box",
+    "unit": "Box",
+    "offerprice": "600"
+  },
+  "50 Item": {
+    "price": 800,
+    "category": "Gift Box",
+    "unit": "Box",
+    "offerprice": "800"
+  }
+
 }
