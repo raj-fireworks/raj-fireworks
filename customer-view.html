@@ -319,7 +319,8 @@ tr {
   <!-- Name -->
   <div style="margin-bottom: 15px;">
     <label for="customerName">Name<span style="color: red;">*</span>:</label><br />
-    <input type="text" id="customerName" placeholder="Enter name" required style="width: 100%; padding: 8px; font-size: 14px;" />
+<input type="text" id="customerName" placeholder="Enter name" 
+       onkeypress="return /[a-zA-Z\s]/.test(event.key)" />
   </div>
 
   <!-- Address -->
@@ -334,8 +335,10 @@ tr {
 
   <div style="flex: 1; min-width: 200px;">
     <label for="customerPhone">Phone (optional):</label><br />
-    <input type="tel" id="customerPhone" placeholder="Enter phone number" 
-           style="width: 100%; padding: 8px; font-size: 14px;" />
+   
+		   <input type="tel" id="customerPhone" placeholder="Enter phone number" 
+       onkeypress="return /[0-9]/.test(event.key)" />
+
   </div>
 
 </div>
