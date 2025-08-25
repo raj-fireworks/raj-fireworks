@@ -449,7 +449,7 @@ function loadProducts() {
   }
 
   const categories = {};
- const normalizeCategory = cat => cat.trim().toLowerCase();
+ const normalizeCategory = cat => cat.trim();
 
 products.forEach(item => {
   const cat = normalizeCategory(item.category || "Uncategorized");
