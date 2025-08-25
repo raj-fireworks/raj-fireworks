@@ -801,19 +801,19 @@
     "price": 500,
     "category": "Gift Box",
     "unit": "Pack",
-    "offerprice": null
+    "offerprice": 500
   },
   "40 Item": {
     "price": 650,
     "category": "Gift Box",
     "unit": "Pack",
-    "offerprice": null
+    "offerprice": 650
   },
   "50 Item": {
     "price": 850,
     "category": "Gift Box",
     "unit": "Pack",
-    "offerprice": null
+    "offerprice": 850
   }
 
 }
