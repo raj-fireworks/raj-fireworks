@@ -439,7 +439,7 @@ function loadProducts() {
     });
 }
 
-  function renderProductTable(products) {
+function renderProductTable(products) {
   const tbody = document.querySelector("#productTable tbody");
   tbody.innerHTML = "";
 
@@ -449,14 +449,13 @@ function loadProducts() {
   }
 
   const categories = {};
- const normalizeCategory = cat => cat.trim();
+  const normalizeCategory = cat => cat.trim();
 
-products.forEach(item => {
-  const cat = normalizeCategory(item.category || "Uncategorized");
-  if (!categories[cat]) categories[cat] = [];
-  categories[cat].push(item);
-});
-
+  products.forEach(item => {
+    const cat = normalizeCategory(item.category || "Uncategorized");
+    if (!categories[cat]) categories[cat] = [];
+    categories[cat].push(item);
+  });
 
   Object.entries(categories).forEach(([category, items], index) => {
     const catRow = document.createElement("tr");
@@ -470,35 +469,44 @@ products.forEach(item => {
     items.forEach(item => {
       const row = document.createElement("tr");
       row.classList.add("category-row", `category-${index}`);
+
+      // Construct image path from product name
+      const imageName = encodeURIComponent(item.name) + ".jpg";
+      const imagePath = `images/${imageName}`;
+
       row.innerHTML = `
         <td class="product-cell">
           <div class="product-wrapper">
-           
+            <img 
+              class="product-image"
+              src="${imagePath}" 
+              alt="${item.name}" 
+              onerror="this.style.display='none';"
+            />
             <span class="product-name">${item.name}</span>
           </div>
         </td>
         <td>${item.unit || "-"}</td>
-        <td>₹${item.price.toFixed(2)}</td> <!-- Actual Price -->
-        <td>₹${item.offerprice.toFixed(2)}</td> <!-- Offer Price -->
+        <td>₹${item.price.toFixed(2)}</td>
+        <td>₹${item.offerprice.toFixed(2)}</td>
         <td>
-        <input 
-  type="number" 
-  min="0" 
-  step="1" 
-  placeholder="Qty" 
-  onchange="calculateTotals()" 
-  oninput="validateIntegerInput(this)" 
-  data-name="${item.name}" 
-  data-offer="${item.offerprice}" 
-/>
-
+          <input 
+            type="number" 
+            min="0" 
+            step="1" 
+            placeholder="Qty" 
+            onchange="calculateTotals()" 
+            oninput="validateIntegerInput(this)" 
+            data-name="${item.name}" 
+            data-offer="${item.offerprice}" 
+          />
         </td>
         <td class="item-total">₹0.00</td>
       `;
       tbody.appendChild(row);
     });
 
-    // Toggle category display
+    // Toggle category rows
     catRow.addEventListener("click", () => {
       const catRows = document.querySelectorAll(`.category-${index}`);
       catRows.forEach(r => {
@@ -510,6 +518,7 @@ products.forEach(item => {
     });
   });
 }
+
 function validateIntegerInput(input) {
   const value = input.value.trim();
 
