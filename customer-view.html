@@ -478,11 +478,13 @@ function renderProductTable(products) {
         <td class="product-cell">
           <div class="product-wrapper">
             <img 
-              class="product-image"
-              src="${imagePath}" 
-              alt="${item.name}" 
-              onerror="this.style.display='none';"
-            />
+  class="product-image"
+  src="${imagePath}" 
+  alt="${item.name}" 
+  onerror="this.style.display='none';"
+  onclick="zoomImage('${imagePath}')"
+/>
+
             <span class="product-name">${item.name}</span>
           </div>
         </td>
@@ -517,6 +519,13 @@ function renderProductTable(products) {
         : catRow.cells[0].textContent.replace("▶", "▼");
     });
   });
+}
+function zoomImage(src) {
+  const modal = document.getElementById("imageModal");
+  const zoomedImg = document.getElementById("zoomedImage");
+
+  zoomedImg.src = src;
+  modal.style.display = "flex";
 }
 
 function validateIntegerInput(input) {
@@ -657,6 +666,10 @@ function downloadPDF() {
   };
  
 </script>
+<!-- Image Zoom Modal -->
+<div id="imageModal" class="image-modal" onclick="this.style.display='none'">
+  <img id="zoomedImage" src="" alt="Zoomed Image" />
+</div>
 
 
 </body>
