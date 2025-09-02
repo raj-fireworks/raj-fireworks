@@ -256,27 +256,35 @@ tr {
     transition: transform 0.2s ease;
   }
 
-  /* Modal for zoomed image */
-  .image-modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0; top: 0;
-    width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.8);
-    justify-content: center;
-    align-items: center;
-  }
+.image-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  /* remove display:flex here */
+}
 
- .image-modal img {
-  max-width: 95vw;
-  max-height: 95vh;
+
+.image-modal img {
+  max-width: 90vw;
+  max-height: 90vh;
   width: auto;
   height: auto;
+  object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 0 10px #fff;
-  object-fit: contain;
+  cursor: zoom-out;
 }
+
 
 
   .print-button {
@@ -533,6 +541,14 @@ function zoomImage(src) {
   modal.style.display = "flex";
 }
 
+function closeModal(event) {
+  // Close modal only if the click target is the modal background, not the image
+  if (event.target.id === "imageModal") {
+    event.target.style.display = "none";
+  }
+}
+
+
 function validateIntegerInput(input) {
   const value = input.value.trim();
 
@@ -672,9 +688,10 @@ function downloadPDF() {
  
 </script>
 <!-- Image Zoom Modal -->
-<div id="imageModal" class="image-modal" onclick="this.style.display='none'">
-  <img id="zoomedImage" src="" alt="Zoomed Image" />
+<div id="imageModal" class="image-modal" onclick="closeModal(event)">
+  <img id="zoomedImage" src="" alt="Zoomed Image" onclick="event.stopPropagation()" />
 </div>
+
 
 
 </body>
