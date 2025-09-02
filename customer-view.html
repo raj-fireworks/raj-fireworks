@@ -11,96 +11,161 @@
     margin: 0;
   }
 
-  /* Make header full width */
-  header, footer {
-    width: 100vw;   /* full viewport width */
-    margin: 0;
-    padding: 0;     /* no horizontal padding */
-    box-sizing: border-box;
-    background-color: #d9534f;
-    color: white;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+ /* Base styles for header */
+header, footer {
+  width: 100vw;  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #d9534f;
+  color: white;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+/* Container inside header/footer to center content and add side padding */
+.header-container, .footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+/* Left side header */
+.header-left {
+  max-width: 50%;
+  text-align: left;
+}
+.header-left h1 {
+  margin: 0;
+  font-size: 28px;
+}
+.header-left .tagline {
+  font-size: 14px;
+  margin-top: 5px;
+  color: #ffe;
+}
+
+/* Right side header */
+.header-right {
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+  color: #333;
+  padding: 12px 20px;
+  border-radius: 10px;
+  max-width: 45%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-align: right;
+  font-size: 16px;
+  margin-right: 1rem;
+}
+
+/* Blink animations */
+.blink-text {
+  animation: blink-fast 1s infinite;
+  color: #e60000;
+  font-weight: bold;
+}
+.blink-slow {
+  animation: blink-slow 2.5s infinite;
+  color: #d9534f;
+  font-weight: bold;
+}
+@keyframes blink-fast {
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes blink-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Responsive styling for mobile view */
+@media (max-width: 600px) {
+  .header-container {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  /* Container inside header/footer to center content and add side padding */
-  .header-container, .footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-  }
-
-  /* Header left and right */
-  .header-left {
-    max-width: 50%;
+  .header-left,
+  .header-right {
+    max-width: 100%;
     text-align: left;
-  }
-  .header-left h1 {
-    margin: 0;
-    font-size: 28px;
-  }
-  .header-left .tagline {
-    font-size: 14px;
-    margin-top: 5px;
-    color: #ffe;
   }
 
   .header-right {
-    background: #fff3cd;
-    border: 2px solid #ffc107;
-    color: #333;
-    padding: 12px 20px;
-    border-radius: 10px;
-    max-width: 45%;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    text-align: right;
-    font-size: 16px;
-    margin-right: 1rem;
+    margin-top: 15px;
+    margin-right: 0;
+    font-size: 14px;
+    padding: 10px 15px;
   }
 
-  /* Blink animations */
-  .blink-text {
-    animation: blink-fast 1s infinite;
-    color: #e60000;
-    font-weight: bold;
-  }
-  .blink-slow {
-    animation: blink-slow 2.5s infinite;
-    color: #d9534f;
-    font-weight: bold;
-  }
-  @keyframes blink-fast {
-    50% {
-      opacity: 0;
-    }
-  }
-  @keyframes blink-slow {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.3;
-    }
+  .header-left h1 {
+    font-size: 24px;
   }
 
-  /* Responsive for small screens */
-  @media (max-width: 600px) {
-    .header-container {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .header-left, .header-right {
-      max-width: 100%;
-      text-align: left;
-    }
-    .header-right {
-      margin-top: 10px;
-    }
+  .header-left .tagline {
+    font-size: 12px;
   }
+}
+@media (max-width: 600px) {
+  /* Stack the form and buttons */
+  div[style*="display:flex"][style*="align-items:flex-start"] {
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+
+  #customerInfo {
+    max-width: 100% !important;
+    margin-right: 0 !important;
+    width: 100%;
+  }
+
+  /* Full width inputs */
+  #customerInfo input[type="text"],
+  #customerInfo input[type="tel"],
+  #customerInfo textarea {
+    width: 100% !important;
+    max-width: 100%;
+  }
+
+  /* Table wrapper for horizontal scroll */
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Smaller table padding and font */
+  th, td {
+    padding: 6px 8px;
+    font-size: 14px;
+  }
+
+  /* Buttons smaller */
+  .button-group button {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+
+  /* Adjust WhatsApp button margin */
+  .whatsapp-button {
+    margin-left: 0 !important;
+  }
+
+  /* Make button group flex nicely */
+  .button-group {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
 
   /* Footer styles */
   footer {
@@ -316,18 +381,21 @@ tr {
 <body>
 
 <header>
-  <div class="header-container">
+  <div class="header-container" role="banner">
     <div class="header-left">
       <h1>🎇 RAJ Crackers</h1>
-      <div class="tagline">Your Trusted Firework Partner</div>
+      <p class="tagline" aria-label="Tagline">Your Trusted Firework Partner</p>
     </div>
 
-    <div class="header-right">
-      <p><strong>🎁 Offer: Flat <span class="blink-text">80%</span> Discount Applied</strong></p>
-      <p class="days-left blink-slow">🔥 Hurry! Only <span id="daysLeft">115</span> days left for this offer!</p>
+    <div class="header-right" role="region" aria-live="polite" aria-atomic="true" aria-relevant="text">
+      <p><strong>🎁 Offer: Flat <span class="blink-text" aria-label="Discount percentage">80%</span> Discount Applied</strong></p>
+      <p class="days-left blink-slow" aria-live="polite" aria-atomic="true">
+        🔥 Hurry! Only <span id="daysLeft" aria-label="Days left for offer">53</span> days left for this offer!
+      </p>
     </div>
   </div>
 </header>
+
 
 <!-- Customer Info Inputs -->
   <div style="display:flex;align-items:flex-start;gap:1rem;">
