@@ -470,9 +470,10 @@ function renderProductTable(products) {
       const row = document.createElement("tr");
       row.classList.add("category-row", `category-${index}`);
 
-      // Construct image path from product name
-      const imageName = encodeURIComponent(item.name) + ".jpeg";
-      const imagePath = `images/${imageName}`;
+// Construct image path from product name
+const safeFileName = item.name.replace(/[^a-zA-Z0-9\s]/g, "").replace(/\s+/g, "_");
+const imageName = safeFileName + ".jpeg";
+const imagePath = `images/${imageName}`;
 
       row.innerHTML = `
         <td class="product-cell">
