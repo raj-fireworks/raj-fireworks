@@ -5,133 +5,374 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>RAJ Crackers - Customer View</title>
 <style>
-  /* Header container */
+  body {
+    font-family: sans-serif;
+    padding: 20px;
+    margin: 0;
+  }
+
+ /* Base styles for header */
+header, footer {
+  width: 100vw;  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #d9534f;
+  color: white;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+/* Container inside header/footer to center content and add side padding */
+.header-container, .footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+/* Left side header */
+.header-left {
+  max-width: 50%;
+  text-align: left;
+}
+.header-left h1 {
+  margin: 0;
+  font-size: 28px;
+}
+.header-left .tagline {
+  font-size: 14px;
+  margin-top: 5px;
+  color: #ffe;
+}
+
+/* Right side header */
+.header-right {
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+  color: #333;
+  padding: 12px 20px;
+  border-radius: 10px;
+  max-width: 45%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-align: right;
+  font-size: 16px;
+  margin-right: 1rem;
+}
+
+/* Blink animations */
+.blink-text {
+  animation: blink-fast 1s infinite;
+  color: #e60000;
+  font-weight: bold;
+}
+.blink-slow {
+  animation: blink-slow 2.5s infinite;
+  color: #d9534f;
+  font-weight: bold;
+}
+@keyframes blink-fast {
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes blink-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Responsive styling for mobile view */
+@media (max-width: 600px) {
   .header-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 10px 20px; /* Reduced padding */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  /* Header left - smaller max width */
-  .header-left {
-    max-width: 55%;
-    text-align: left;
-    margin: 0;
-  }
-
-  /* Header left h1 and tagline */
-  .header-left h1 {
-    margin: 0;
-    font-size: 28px;
-    line-height: 1.1;
-  }
-  .header-left .tagline {
-    font-size: 14px;
-    margin-top: 3px;
-    color: #ffe;
-    line-height: 1.2;
-  }
-
-  /* Header right box */
+  .header-left,
   .header-right {
-    background: #fff3cd;
-    border: 2px solid #ffc107;
-    color: #333;
-    padding: 10px 15px;
-    border-radius: 10px;
-    max-width: 40%;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    text-align: right;
-    font-size: 15px;
-    margin: 0;
-    white-space: nowrap;
-    flex-shrink: 0;
+    max-width: 100%;
+    text-align: left;
   }
 
-  /* Customer info container */
+  .header-right {
+    margin-top: 15px;
+    margin-right: 0;
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+
+  .header-left h1 {
+    font-size: 24px;
+  }
+
+  .header-left .tagline {
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px) {
+  /* Stack the form and buttons */
+  div[style*="display:flex"][style*="align-items:flex-start"] {
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+
   #customerInfo {
-    margin: 0 auto;
-    max-width: 800px;
+    max-width: 100% !important;
+    margin-right: 0 !important;
     width: 100%;
   }
 
-  /* Customer info wrapper for form fields */
-  #customerInfo > div {
-    margin-bottom: 12px;
-  }
-
-  /* Input fields */
+  /* Full width inputs */
   #customerInfo input[type="text"],
   #customerInfo input[type="tel"],
   #customerInfo textarea {
-    padding: 8px;
-    width: 100%;
-    max-width: 400px;
-    box-sizing: border-box;
-    margin: 0;
-    display: block;
+    width: 100% !important;
+    max-width: 100%;
   }
 
-  /* Pin and phone container flex */
-  #customerInfo > div:last-child {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
+  /* Table wrapper for horizontal scroll */
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
-  /* Phone and pin input inside flex */
-  #customerInfo > div:last-child > div {
-    flex: 1 1 200px;
-    max-width: 300px;
+  /* Smaller table padding and font */
+  th, td {
+    padding: 6px 8px;
+    font-size: 14px;
   }
 
-  /* Button group */
+  /* Buttons smaller */
+  .button-group button {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+
+  /* Adjust WhatsApp button margin */
+  .whatsapp-button {
+    margin-left: 0 !important;
+  }
+
+  /* Make button group flex nicely */
   .button-group {
-    margin-left: 0;
-    margin-top: 15px;
-    display: flex;
-    gap: 10px;
     flex-wrap: wrap;
+    gap: 10px;
+  }
+}
+
+  /* Footer styles */
+  footer {
+    background-color: #f2f2f2;
+    color: #444;
+  }
+  footer .footer-container {
+    flex-direction: column;
+    text-align: center;
+    font-size: 14px;
+    gap: 10px;
+  }
+  footer .safety {
+    color: #d9534f;
+    font-weight: bold;
+    margin-top: 10px;
   }
 
-  /* Responsive */
+  /* Rest of your page content */
+  #customerInfo {
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+  #customerInfo label {
+    margin-right: 8px;
+  }
+  #customerInfo input[type="text"],
+  #customerInfo input[type="tel"] {
+    padding: 8px;
+    margin-right: 20px;
+    width: 200px;
+    display: inline-block;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  th:first-child,
+td:first-child {
+  text-align: left;
+}
+  th {
+    background-color: #f2f2f2;
+  }
+  input[type="number"] {
+    width: 60px;
+  }
+  .total-section {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .button-group {
+    margin-top: 20px;
+    margin-left: auto;
+  }
+  .button-group button {
+    padding: 12px 20px;
+    font-size: 16px;
+    margin-right: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+  }
+  .whatsapp-button {
+    background-color: #25D366;
+    color: white;
+	margin-left: 15px;
+  }
   @media (max-width: 600px) {
-    .header-container {
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 10px 15px;
-    }
-
-    .header-left, .header-right {
-      max-width: 100%;
-      text-align: left;
-    }
-
-    .header-right {
-      margin-top: 10px;
-      font-size: 14px;
-      white-space: normal;
-    }
-
-    #customerInfo > div:last-child {
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    #customerInfo input[type="text"],
-    #customerInfo input[type="tel"],
-    #customerInfo textarea {
-      max-width: 100%;
-    }
-
-    .button-group {
-      justify-content: flex-start;
-    }
+  .whatsapp-button {
+    margin-left: 20px;
   }
+}
+
+  .print-button {
+    background-color: #007bff;
+    color: white;
+  }
+  .footer-note {
+    margin-top: 20px;
+    color: #888;
+    font-size: 14px;
+  }
+  .offer-days-left {
+    font-size: 16px;
+    margin-top: 10px;
+    color: #555;
+  }
+
+  /* Collapsible category styles */
+  .category-header {
+    background-color: #f0f0f0;
+    user-select: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: left;
+  }
+  .category-header td {
+    padding-left: 15px;
+    font-size: 18px;
+  }
+  .category-row {
+    transition: all 0.3s ease;
+  }
+ .product-cell {
+  vertical-align: top;
+}
+
+.product-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.product-image {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.product-name {
+  font-weight: 500;
+  display: inline-block;
+  max-width: 150px;
+  word-wrap: break-word;
+}
+.product-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+tr {
+  padding: 10px 0;
+}
+
+  .thumb-image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    transition: transform 0.2s ease;
+  }
+
+.image-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  /* remove display:flex here */
+}
+#zoomedImage {
+  max-width: 90vw;  /* max width 90% of viewport */
+  max-height: 90vh; /* max height 90% of viewport */
+  border-radius: 8px; /* optional styling */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+
+.image-modal img {
+  max-width: 90vw;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #fff;
+  cursor: zoom-out;
+}
+
+
+
+  .print-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .print-button:hover {
+    background-color: #d32f2f;
+  }
+
+
 </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
