@@ -464,6 +464,7 @@ tr {
   font-size: 14px;
   font-family: Arial, sans-serif;
   flex-wrap: wrap;
+  width: 100%;
   box-sizing: border-box;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -516,30 +517,38 @@ tr {
 
 
 <!-- Customer Info Inputs -->
- <!-- Customer Info Card -->
-<div class="form-container">
-  <div id="customerInfo" style="background: #fcf9f9; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); padding: 30px; max-width: 600px; margin: 30px auto;">
+  <div  class="form-container">
+<div id="customerInfo" style="margin-top: 20px; max-width: 800px; margin-right: auto; margin-bottom: 40px;">
 
-    <h2 style="text-align: center; font-weight: bold; margin-bottom: 30px;">Customer Information</h2>
-
-    <!-- Name -->
-    <div style="margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;">
-      <label for="customerName" style="font-weight: bold; width: 150px;">Customer Name:</label><br>
-      <input type="text" id="customerName" placeholder="Enter Your Name...." onkeypress="return /[a-zA-Z\s]/.test(event.key)" style="width:150px;flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);" />
-    </div>
-
-    <!-- Phone -->
-    <div style="margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;">
-      <label for="customerPhone" style="font-weight: bold; width: 150px;">Customer Number:</label><br>
-      <input type="tel" id="customerPhone" placeholder="Enter Your Contact Number...." maxlength="10" onkeypress="return /[0-9]/.test(event.key) && this.value.length < 10" style="width:150px; flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);" />
-    </div>
-
-    <!-- Address -->
-    <div style="margin-bottom: 20px; display: flex; align-items: flex-start; justify-content: space-between;">
-      <label for="customerAddress" style="font-weight: bold; width: 150px; margin-top: 10px;">Customer Address:</label><br>
-      <textarea id="customerAddress" placeholder="Enter Your Address...." rows="3" style="width:150px;flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 6px; resize: vertical; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);"></textarea>
-    </div>
+  
+  <!-- Name -->
+  <div style="margin-bottom: 15px;">
+    <label for="customerName">Name<span style="color: red;">*</span>:</label><br />
+<input type="text" id="customerName" placeholder="Enter name" 
+       onkeypress="return /[a-zA-Z\s]/.test(event.key)" />
   </div>
+
+  <!-- Address -->
+  <div style="margin-bottom: 15px;">
+    <label for="customerAddress">Address<span style="color: red;">*</span>:</label><br />
+    <textarea id="customerAddress" placeholder="Enter full address including area and landmark" required rows="3" style="width: 100%; padding: 8px; font-size: 14px; resize: vertical;"></textarea>
+  </div>
+
+ <!-- Pin Code and Phone (optional) -->
+<div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 15px;">
+
+
+  <div style="flex: 1; min-width: 200px;">
+    <label for="customerPhone">Phone (optional):</label><br />
+   <input type="tel" id="customerPhone" placeholder="Enter phone number" 
+              maxlength="10"
+              onkeypress="return /[0-9]/.test(event.key) && this.value.length < 10" />
+
+  </div>
+
+</div>
+
+
 </div>
 
 
