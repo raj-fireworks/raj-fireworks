@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <title>RAJ Crackers - Customer View</title>
 <style>
   body {
@@ -451,6 +452,34 @@ tr {
 	margin-bottom: 15px;
   }
 }
+/* Contact Info Bar */
+.contact-info-bar {
+  background-color: #000;
+  color: #fff;
+  padding: 8px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  flex-wrap: wrap;
+}
+
+.contact-info-bar i {
+  color: yellow;
+  margin-right: 8px;
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 600px) {
+  .contact-info-bar {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+    padding: 10px;
+  }
+}
 
 
 </style>
@@ -466,6 +495,12 @@ tr {
       <h1>🎇 RAJ Crackers</h1>
       <p class="tagline" aria-label="Tagline">Your Trusted Firework Partner</p>
     </div>
+	<!-- Contact Info Bar -->
+	<div class="contact-info-bar">
+	  <span><i class="fas fa-location-dot"></i> Sivakasi</span>
+	  <span><i class="fas fa-phone"></i> 8296772217</span>
+	  <span><i class="fas fa-envelope"></i> rajcrackers.sivakasi@gmail.com</span>
+	</div>
 
     <div class="header-right" role="region" aria-live="polite" aria-atomic="true" aria-relevant="text">
       <p><strong>🎁 Offer: Flat <span class="blink-text" aria-label="Discount percentage">80%</span> Discount Applied</strong></p>
