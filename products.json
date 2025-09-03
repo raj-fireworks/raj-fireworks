@@ -473,6 +473,48 @@
     "unit": "Pack",
     "offerprice": 90
   },
+  "1 Chota Fancy": {
+    "price": 200,
+    "category": "Sky Display",
+    "unit": "Box",
+    "offerprice": "40"
+  },
+  "2 Fancy": {
+    "price": 400,
+    "category": "Sky Display",
+    "unit": "Box",
+    "offerprice": "80"
+  },
+  "2 Fancy 3pcs": {
+    "price": 1100,
+    "category": "Sky Display",
+    "unit": "Box",
+    "offerprice": "220"
+  },
+  "3½ Fancy": {
+    "price": 1150,
+    "category": "Sky Display",
+    "unit": "Box",
+    "offerprice": "230"
+  },
+  "4 Fancy": {
+    "price": 1300,
+    "category": "Sky Display",
+    "unit": "Box",
+    "offerprice": "260"
+  },
+  "Niagara Falls": {
+    "price": 1500,
+    "category": "Sky Display",
+    "unit": "Box",
+    "offerprice": "300"
+  },
+  "7 Colors": {
+    "price": 1550,
+    "category": "Sky Display",
+    "unit": "Box",
+    "offerprice": "360"
+  },
   "12 shot": {
     "price": 650,
     "category": "Repeating Rockers Shot",
