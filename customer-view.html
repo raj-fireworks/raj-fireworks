@@ -522,14 +522,14 @@ tr {
   
   <!-- Name -->
   <div style="margin-bottom: 15px;">
-    <label for="customerName">Name<span style="color: red;">*</span>:</label><br />
+    <label for="customerName">Name<span style="color: red;">*</span>:</label>
 <input type="text" id="customerName" placeholder="Enter name" 
        onkeypress="return /[a-zA-Z\s]/.test(event.key)" />
   </div>
 
   <!-- Address -->
   <div style="margin-bottom: 15px;">
-    <label for="customerAddress">Address<span style="color: red;">*</span>:</label><br />
+    <label for="customerAddress">Address<span style="color: red;">*</span>:</label>
     <textarea id="customerAddress" placeholder="Enter full address including area and landmark" required rows="3" style="width: 100%; padding: 8px; font-size: 14px; resize: vertical;"></textarea>
   </div>
 
@@ -538,7 +538,7 @@ tr {
 
 
   <div style="flex: 1; min-width: 200px;">
-    <label for="customerPhone">Phone (optional):</label><br />
+    <label for="customerPhone">Phone (optional):</label>
    <input type="tel" id="customerPhone" placeholder="Enter phone number" 
               maxlength="10"
               onkeypress="return /[0-9]/.test(event.key) && this.value.length < 10" />
