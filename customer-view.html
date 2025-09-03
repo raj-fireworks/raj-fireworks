@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<title>RAJ Crackers - Customer View</title>
+<title>RAJ Fireworks - Customer View</title>
 <style>
   body {
     font-family: sans-serif;
@@ -484,6 +484,28 @@ tr {
   }
 }
 
+@media (max-width: 600px) {
+  table thead th {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  table thead th:nth-child(1) { width: 120px; } /* Crackers Name */
+  table thead th:nth-child(2) { width: 40px; }  /* Unit */
+  table thead th:nth-child(3),
+  table thead th:nth-child(4) { width: 60px; }  /* Actual & Offer Price */
+  table thead th:nth-child(5) { width: 40px; }  /* Quantity */
+  table thead th:nth-child(6) { width: 60px; }  /* Total */
+
+  table {
+    table-layout: auto !important;
+    font-size: 12px;
+  }
+
+  td, th {
+    word-break: break-word;
+  }
+}
 
 </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
