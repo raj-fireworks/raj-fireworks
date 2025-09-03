@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<title>RAJ Fireworks - Customer View</title>
+<title>RAJ Crackers - Customer View</title>
 <style>
   body {
     font-family: sans-serif;
@@ -31,9 +30,9 @@ header {
 }
 
 .header-container {
-  max-width: 100%;
+  max-width: 1200px;
   width: 100%;
- 
+  margin: 0 auto;
   padding: 15px 20px;
   display: flex;
   justify-content: space-between;
@@ -53,9 +52,9 @@ header, footer {
 
 /* Container inside header/footer to center content and add side padding */
 .header-container, .footer-container {
-  max-width: 100%;
+  max-width: 1200px;
   width: 100%; /* ✅ Prevent overflow */
-  
+  margin: 0 auto;
   padding: 15px 20px;
   display: flex;
   justify-content: space-between;
@@ -91,7 +90,7 @@ header, footer {
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   text-align: right;
   font-size: 16px;
-  
+  margin-right: 1rem;
 }
 
 /* Blink animations */
@@ -165,7 +164,7 @@ header, footer {
   #customerInfo input[type="text"],
   #customerInfo input[type="tel"],
   #customerInfo textarea {
-    width: 300px !important;
+    width: 380px !important;
     max-width: 100%;
   }
 
@@ -269,13 +268,13 @@ td:first-child {
     width: 60px;
   }
   .total-section {
-    margin: 20px;
+    margin-top: 20px;
     font-size: 18px;
     font-weight: bold;
   }
   .button-group {
     margin-top: 20px;
-    margin-left: 20px;
+    margin-left: auto;
   }
   .button-group button {
     padding: 12px 20px;
@@ -306,7 +305,7 @@ td:first-child {
     color: white;
   }
   .footer-note {
-    margin: 20px;
+    margin-top: 20px;
     color: #888;
     font-size: 14px;
   }
@@ -452,60 +451,7 @@ tr {
 	margin-bottom: 15px;
   }
 }
-/* Contact Info Bar */
-.contact-info-bar {
-  background-color: #2C3E50;
-  color: #fff;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  font-size: 14px;
-  font-family: Arial, sans-serif;
-  flex-wrap: wrap;
-  box-sizing: border-box;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
 
-
-.contact-info-bar i {
-  color: yellow;
-  margin-right: 8px;
-}
-
-/* Responsive for smaller screens */
-@media (max-width: 600px) {
-  .contact-info-bar {
-    flex-direction: column;
-    text-align: center;
-    gap: 8px;
-    padding: 10px;
-  }
-}
-
-@media (max-width: 600px) {
-  table thead th {
-    font-size: 12px;
-    padding: 6px;
-  }
-
-  table thead th:nth-child(1) { width: 120px; } /* Crackers Name */
-  table thead th:nth-child(2) { width: 40px; }  /* Unit */
-  table thead th:nth-child(3),
-  table thead th:nth-child(4) { width: 60px; }  /* Actual & Offer Price */
-  table thead th:nth-child(5) { width: 40px; }  /* Quantity */
-  table thead th:nth-child(6) { width: 60px; }  /* Total */
-
-  table {
-    table-layout: auto !important;
-    font-size: 12px;
-  }
-
-  td, th {
-    word-break: break-word;
-  }
-}
 
 </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -520,12 +466,6 @@ tr {
       <h1>🎇 RAJ Crackers</h1>
       <p class="tagline" aria-label="Tagline">Your Trusted Firework Partner</p>
     </div>
-	<!-- Contact Info Bar -->
-	<div class="contact-info-bar">
-	  <span><i class="fas fa-location-dot"></i> Sivakasi</span>
-	  <span><i class="fas fa-phone"></i> 8296772217</span>
-	  <span><i class="fas fa-envelope"></i> rajcrackers.sivakasi@gmail.com</span>
-	</div>
 
     <div class="header-right" role="region" aria-live="polite" aria-atomic="true" aria-relevant="text">
       <p><strong>🎁 Offer: Flat <span class="blink-text" aria-label="Discount percentage">80%</span> Discount Applied</strong></p>
@@ -552,7 +492,7 @@ tr {
   <!-- Address -->
   <div style="margin-bottom: 15px;">
     <label for="customerAddress">Address<span style="color: red;">*</span>:</label><br />
-    <textarea id="customerAddress" placeholder="Enter full address including area and landmark" required rows="3" style="width: 200px; padding: 8px; font-size: 14px; resize: vertical;"></textarea>
+    <textarea id="customerAddress" placeholder="Enter full address including area and landmark" required rows="3" style="width: 100%; padding: 8px; font-size: 14px; resize: vertical;"></textarea>
   </div>
 
  <!-- Pin Code and Phone (optional) -->
@@ -583,12 +523,12 @@ tr {
 <table id="productTable">
 <thead>
   <tr>
-    <th style="width:200px;">Crackers Name</th>
-    <th style="width:50px;">Unit</th>
-    <th style="width:70px;">Actual Price (₹)</th> <!-- NEW -->
-    <th style="width:70px;">Offer Price (₹)</th>
-    <th style="width:50px;">Quantity</th>
-    <th style="width:70px;">Total (₹)</th>
+    <th>Crackers Name</th>
+    <th>Unit</th>
+    <th>Actual Price (₹)</th> <!-- NEW -->
+    <th>Offer Price (₹)</th>
+    <th>Quantity</th>
+    <th>Total (₹)</th>
   </tr>
 </thead>
 
@@ -697,8 +637,13 @@ function renderProductTable(products) {
       row.classList.add("category-row", `category-${index}`);
 
 // Construct image path from product name
-const safeFileName = item.name.replace(/[^a-zA-Z0-9\s]/g, "");  // Keep spaces
-const imageName = safeFileName + ".jpeg";
+// Clean unwanted characters: remove (), &, ., ", etc.
+const cleanName = item.name
+  .replace(/[().&"]/g, "")      // Remove specific unwanted characters
+  .replace(/[^a-zA-Z0-9\s]/g, "") // Optionally remove other special chars
+  .trim();
+
+const imageName = cleanName + ".jpeg";
 const imagePath = `images/${encodeURIComponent(imageName)}`;
 
 
