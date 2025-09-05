@@ -4,6 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <title>RAJ Crackers - Customer View</title>
 <style>
   body {
@@ -807,54 +809,71 @@ function calculateTotals() {
   }
 }
 
+  async function sendOrderToWhatsApp() {
+    const name = document.getElementById("customerName").value.trim();
+    const phone = document.getElementById("customerPhone").value.trim();
+    const address = document.getElementById("customerAddress").value.trim();
 
- function sendOrderToWhatsApp() {
-  const name = document.getElementById("customerName").value.trim();
-  const phone = document.getElementById("customerPhone").value.trim();
-  const address = document.getElementById("customerAddress").value.trim();
-
-  if (!name || !address) {
-    alert("Please fill in all required fields: Name, Address.");
-    return;
-  }
-
-  const rows = document.querySelectorAll("#productTable tbody tr");
-  let message = `Hi, I'm ${name}, and I'd like to place an order:\n\n`;
-  let originalTotal = 0;
-  let itemCount = 0;
-
-  rows.forEach(row => {
-    const input = row.querySelector("input[type='number']");
-    if (!input) return;
-    const qty = parseInt(input.value);
-    const itemName = input.dataset.name;
-    const offerPrice = parseFloat(input.dataset.offer);
-
-    if (qty && qty > 0) {
-      itemCount++;
-      const itemTotal = qty * offerPrice;
-      message += `${itemCount}. ${itemName} × ${qty} = ₹${itemTotal.toFixed(2)}\n`;
-      originalTotal += itemTotal;
+    if (!name || !address) {
+      alert("Please fill in all required fields: Name, Address.");
+      return;
     }
-  });
 
-  if (originalTotal === 0) {
-    alert("Please select at least one product before sending the order.");
-    return;
+    const rows = document.querySelectorAll("#productTable tbody tr");
+    let message = `Hi, I'm ${name}, and I'd like to place an order:\n\n`;
+    let pdfContent = `Rajcrackers Order Summary\n------------------------\nCustomer: ${name}\nPhone: ${phone}\nAddress: ${address}\n\nOrder Details:\n`;
+
+    let originalTotal = 0;
+    let itemCount = 0;
+
+    rows.forEach(row => {
+      const input = row.querySelector("input[type='number']");
+      if (!input) return;
+      const qty = parseInt(input.value);
+      const itemName = input.dataset.name;
+      const offerPrice = parseFloat(input.dataset.offer);
+
+      if (qty && qty > 0) {
+        itemCount++;
+        const itemTotal = qty * offerPrice;
+        message += `${itemCount}. ${itemName} × ${qty} = ₹${itemTotal.toFixed(2)}\n`;
+        pdfContent += `${itemCount}. ${itemName} × ${qty} = ₹${itemTotal.toFixed(2)}\n`;
+        originalTotal += itemTotal;
+      }
+    });
+
+    if (originalTotal === 0) {
+      alert("Please select at least one product before sending the order.");
+      return;
+    }
+
+    const discount = typeof currentOffer !== 'undefined' ? currentOffer : 0;
+
+    message += `\nGrand Total: ₹${originalTotal.toFixed(2)} (After ${discount}% Discount)`;
+    message += `\n\n📍 Address: ${address}`;
+    if (phone) {
+      message += `\n📞 Phone: ${phone}`;
+    }
+    message += `\n\nThank you`;
+
+    pdfContent += `\n\nGrand Total: ₹${originalTotal.toFixed(2)} (After ${discount}% Discount)\n`;
+    pdfContent += `\nAddress: ${address}\n`;
+    pdfContent += `Phone: ${phone}\n`;
+    pdfContent += `\nThank you for your order!\n`;
+
+    // Generate PDF using jsPDF
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    doc.setFontSize(12);
+    doc.text(pdfContent, 10, 10);
+    const filename = `Rajcrackers_Order_${name.replace(/\s/g, "_")}.pdf`;
+    doc.save(filename);
+
+    // Open WhatsApp with encoded text message
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/918296772217?text=${encodedMessage}`;
+    window.open(whatsappURL, "_blank");
   }
-
-  message += `\nGrand Total: ₹${originalTotal.toFixed(2)} (After ${currentOffer}% Discount)`;
-  message += `\n\n📍 Address: ${address}`;
-  if (phone) {
-    message += `\n📞 Phone: ${phone}`;
-  }
-
-  message += `\n\nThank you`;
-
-  const encodedMessage = encodeURIComponent(message);
-  const whatsappURL = `https://wa.me/918296772217?text=${encodedMessage}`;
-  window.open(whatsappURL, "_blank");
-}
 
 function downloadPDF() {
   const { jsPDF } = window.jspdf;
