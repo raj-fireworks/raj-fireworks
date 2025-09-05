@@ -5,19 +5,19 @@
         "unit": "Pkt",
         "offerprice": "6"
     },
-    "3½\" Lakshmi": {
+    "3½ Lakshmi": {
         "price": 50,
         "category": "One Sound Crackers",
         "unit": "Pkt",
         "offerprice": "10"
     },
-    "4\" Lakshmi": {
+    "4 Lakshmi": {
         "price": 70,
         "category": "One Sound Crackers",
         "unit": "Pkt",
         "offerprice": "14"
     },
-    "4\" deluxe Lakshmi": {
+    "4 deluxe Lakshmi": {
         "price": 100,
         "category": "One Sound Crackers",
         "unit": "Pkt",
@@ -35,19 +35,19 @@
         "unit": "Pkt",
         "offerprice": "20"
     },
-    "5\" Jallikattu": {
+    "5 Jallikattu": {
         "price": 275,
         "category": "One Sound Crackers",
         "unit": "Pkt",
         "offerprice": "55"
     },
-    "6\" Lion": {
+    "6 Lion": {
         "price": 375,
         "category": "One Sound Crackers",
         "unit": "Pkt",
         "offerprice": "75"
     },
-    "7\" Golden Sparrow": {
+    "7 Golden Sparrow": {
         "price": 400,
         "category": "One Sound Crackers",
         "unit": "Pkt",
@@ -191,13 +191,13 @@
         "unit": "Box",
         "offerprice": "160"
     },
-    "1.5\" Twinkling Stars": {
+    "1.5 Twinkling Stars": {
         "price": 90,
         "category": "Ropes & Candles",
         "unit": "Box",
         "offerprice": "18"
     },
-    "4\" Twinkling Stars": {
+    "4 Twinkling Stars": {
         "price": 300,
         "category": "Ropes & Candles",
         "unit": "Box",
