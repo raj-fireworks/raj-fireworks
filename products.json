@@ -263,7 +263,7 @@
         "unit": "Box",
         "offerprice": "40"
     },
-    "Rio wheel (purple color)": {
+    "Wire Chakkar": {
         "price": 1200,
         "category": "Round Chakra",
         "unit": "Box",
@@ -598,12 +598,6 @@
     "category": "Magic Night Fountains",
     "unit": "Pack",
     "offerprice": 130
-  },
-  "Popcorn": {
-    "price": 1200,
-    "category": "Magic Night Fountains",
-    "unit": "Pack",
-    "offerprice": 240
   },
   "Cocktail (5 in 1 fountain)": {
     "price": 1200,
