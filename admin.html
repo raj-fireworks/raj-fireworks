@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AJ Crackers - Admin Bill Page</title>
+  <title>RAJ Crackers - Admin Bill Page</title>
   <style>
     body { font-family: sans-serif; padding: 20px; margin: 0; }
     h1 { color: #d9534f; }
@@ -84,7 +84,7 @@
 <body onload="initializeAdminPage()">
   <div class="container">
     <div>
-      <h1>🧾 AJ Crackers — Admin Bill Page</h1>
+      <h1>🧾 RAJ Crackers — Admin Bill Page</h1>
 
       <div class="form-row">
         <div class="form-group">
@@ -341,7 +341,7 @@ function printChecklist() {
 
           const doc = new jsPDF();
           doc.setFontSize(16);
-          doc.text('AJ Crackers - Customer Bill', 14, 20);
+          doc.text('RAJ Crackers - Customer Bill', 14, 20);
           doc.setFontSize(12);
           doc.text(`Name: ${name}`, 14, 30);
           doc.text(`Address: ${address}`, 14, 38);
@@ -359,7 +359,7 @@ function printChecklist() {
           doc.setFontSize(13);
           doc.text(`Grand Total (After ${currentOffer}% Discount): ${grandTotal.toFixed(2)}`, 14, finalY);
           doc.setFontSize(10);
-          doc.text('Thank you for shopping with AJ Crackers!', 14, finalY + 8);
+          doc.text('Thank you for shopping with RAJ Crackers!', 14, finalY + 8);
 
           doc.save(`Bill_${name.replace(/\s+/g, '_')}.pdf`);
         }
@@ -368,3 +368,4 @@ function printChecklist() {
   </div>
 </body>
 </html>
+
