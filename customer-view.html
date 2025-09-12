@@ -650,16 +650,6 @@ tr {
 </footer>
 
 <script>
-  let currentOffer = 80;
-
-  function showDaysLeft() {
-    const offerEndDate = new Date("2025-10-25");
-    const today = new Date();
-    const timeDiff = offerEndDate - today;
-    const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-    const msg = daysLeft > 0 ? `${daysLeft}` : '0';
-    document.getElementById("daysLeft").textContent = msg;
-  }
 
 function loadProducts() {
   fetch("products.json")
