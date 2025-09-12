@@ -3,349 +3,368 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Admin - AJ Crackers</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
-  <meta name="description" content="Aj Crackers - Admin Firework Management" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-  <!-- SheetJS for Excel Export -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
-</head>
+  <title>AJ Crackers - Admin Bill Page</title>
   <style>
-    .pdf-btn {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 12px;
-  font-size: 18px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-@media (max-width: 600px) {
-  .pdf-btn {
-    width: 100%;
-  }
-}
+    body { font-family: sans-serif; padding: 20px; margin: 0; }
+    h1 { color: #d9534f; }
+    input, textarea { padding: 8px; font-size: 14px; margin-bottom: 10px; width: 100%; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 10px; }
+    th { background-color: #f9f9f9; text-align: center; }
+    td:first-child { text-align: left; }
+    .button {
+      background-color: #f44336;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .button:hover { background-color: #d32f2f; }
+    .category-header { background-color: #f0f0f0; cursor: pointer; font-weight: bold; text-align: left; }
+    .category-header td { padding-left: 15px; font-size: 18px; }
+    .category-row { transition: all 0.3s ease; }
+    .item-total, th:last-child, td:last-child { text-align: center; }
 
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .container > div {
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      flex: 1;
+    }
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="tel"],
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    input[type="number"] {
+      width: 80px;
+    }
+
+    table input[type="number"] {
+      width: 60px;
+    }
+
+    @media (max-width: 768px) {
+      .form-row {
+        flex-direction: column;
+      }
+    }
   </style>
-<body>
 
-<header class="site-header">
-  <div class="brand-name">
-    <span class="raj">AJ</span>
-    <span class="crackers">Crackers</span>
-    <div class="tagline">Your Trusted Firework Partner</div>
-  </div>
-  <div class="header-right">
-    <button onclick="logoutAdmin()" style="margin-top: 20px;">Logout Admin</button>
-    <a href="details.html" title="Back to Billing" class="icon-link"><i class="fas fa-arrow-left"></i></a>
-  </div>
-</header>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+</head>
 
-<h2 class="page-title">Admin Panel: Add or Update Firework</h2>
+<body onload="initializeAdminPage()">
+  <div class="container">
+    <div>
+      <h1>🧾 AJ Crackers — Admin Bill Page</h1>
 
-<form id="fireworkForm" onsubmit="event.preventDefault(); addOrUpdateFirework();" style="width:700px;">
-  <label for="fireworkName">Firework Name:<span class="required">*</span></label>
-  <input list="fireworkNamesList" id="fireworkName" class="input-field" autocomplete="off" style="border:1px solid #000;" placeholder="Select or type firework name" required />
-  <datalist id="fireworkNamesList"></datalist>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Name *</label>
+          <input type="text" id="customerName" placeholder="Enter customer name">
+        </div>
+        <div class="form-group">
+          <label>Address *</label>
+          <textarea id="customerAddress" rows="3" placeholder="Enter address"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Phone (optional)</label>
+          <input type="tel" id="customerPhone" placeholder="Enter phone number" maxlength="10"
+            onkeypress="return /[0-9]/.test(event.key) && this.value.length < 10">
+        </div>
+      </div>
 
-  <label for="fireworkPrice">Price (₹):<span class="required">*</span></label>
-  <input type="number" id="fireworkPrice" class="input-field" min="1" style="border:1px solid #000;" placeholder="Enter price" required />
-
-  <div class="button-group-right">
-    <button type="submit">Add </button>
-  </div>
-</form>
-
-<div id="adminMessage" class="success-message"></div>
-<label for="offerPercent">Offer Percentage (%):</label>
-<input type="number" id="offerPercent" value="70" min="1" max="99" style="width:100px;" />
-<button type="button" onclick="saveOffer()" style="    margin-left: auto;
-    margin-right: auto;width:fit-content;">Save Offer</button>
-
-<table id="fireworkTable" border="1" style="width: 700px; border-collapse: collapse; margin-top: 20px;">
-  <thead>
-    <tr>
-      <th style="text-align:left; padding: 8px;">Firework Name</th>
-      <th style="text-align:left; padding: 8px;">Price (₹)</th>
-      <th style="text-align:center; padding: 8px;">Actions</th>
-    </tr>
-  </thead>
-  <tbody id="fireworkTableBody"></tbody>
-</table>
-
-<div class="button-group-right" style="margin-top: 20px;display:flex;justify-content:flex-end;">
-  <button class="pdf-btn" title="Download Product List PDF" onclick="downloadProductListPDF()">
-  <i class="fas fa-file-pdf"></i>
-</button>
-    <button onclick="generateCustomerLink()">Generate Customer Link</button>
-<button onclick="downloadProductsJson()">Export as JSON</button>
-
+      <table id="productTable">
+        <thead>
+          <tr>
+            <th>Crackers Name</th>
+            <th>Unit</th>
+            <th>Actual Price (Rs.)</th>
+            <th>Offer Price (Rs.)</th>
+            <th>Quantity</th>
+            <th>Total (Rs.)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+<div id="grandTotalContainer" style="margin-top: 20px; font-size: 18px; font-weight: bold; text-align: right;">
+  Grand Total: Rs.0.00
 </div>
 
-<footer class="site-footer">
-  <div class="footer-content">
-    <p><strong>AJ Crackers</strong> — Your Trusted Firework Partner</p>
-    <p>Contact: +91 82967 72217, 99436 81121, 82481 03661 | Email: support@rajcrackers.in</p>
-    <p class="footer-note">© 2025 AJ Crackers. All rights reserved.</p>
-    <p class="footer-safety">🔥 Please celebrate responsibly and follow all firework safety regulations.</p>
+      <button class="button" onclick="printBill()">🧾 Print Bill</button>
+      <button class="button" style="background-color:#5cb85c; margin-left: 10px;" onclick="printChecklist()">📋 Print Checklist</button>
+      <button class="button" style="background-color:#5bc0de; margin-left: 10px;" onclick="downloadCustomerInfo()">📥 Download Customer Info</button>
+
+      <script>
+        const { jsPDF } = window.jspdf;
+        let currentOffer = 80;
+
+        function initializeAdminPage() {
+          loadProducts();
+        }
+
+        function loadProducts() {
+          fetch('productsadmin.json')
+            .then(res => res.json())
+            .then(data => {
+              const products = Object.entries(data).map(([name, info]) => ({
+                name,
+                unit: info.unit || '-',
+                price: Number(info.price) || 0,
+                offerprice: Number(info.offerprice) || 0,
+                category: info.category || 'Uncategorized'
+              }));
+              renderAdminTable(products);
+            })
+            .catch(err => {
+              console.error('Error loading products:', err);
+              document.querySelector('#productTable tbody').innerHTML =
+                '<tr><td colspan="6">Failed to load products.</td></tr>';
+            });
+        }
+
+        function renderAdminTable(products) {
+          const tbody = document.querySelector('#productTable tbody');
+          tbody.innerHTML = '';
+
+          const categories = {};
+          products.forEach(p => {
+           const key = toTitleCase(p.category.trim() || 'Uncategorized');
+            categories[key] = categories[key] || [];
+            categories[key].push(p);
+          });
+
+          let categoryIndex = 0;
+
+          Object.entries(categories).forEach(([category, items]) => {
+            const catId = `cat-${categoryIndex}`;
+            const catRow = document.createElement('tr');
+            catRow.className = 'category-header';
+            catRow.innerHTML = `<td colspan="6" style="cursor:pointer;text-align:left;">▼ ${category}</td>`;
+            tbody.appendChild(catRow);
+
+            items.forEach(item => {
+              const row = document.createElement('tr');
+              row.className = `category-row ${catId}`;
+              row.innerHTML = `
+                <td>${item.name}</td>
+                <td>${item.unit}</td>
+                <td>Rs.${item.price.toFixed(2)}</td>
+                <td>Rs.${item.offerprice.toFixed(2)}</td>
+                <td><input type="number" min="0" step="1" placeholder="Qty" onchange="updateTotals()" oninput="validateIntegerInput(this)"
+                           data-name="${item.name}" data-price="${item.offerprice}"></td>
+                <td class="item-total">Rs.0.00</td>`;
+              tbody.appendChild(row);
+            });
+
+            catRow.addEventListener('click', () => {
+              const rows = document.querySelectorAll(`.${catId}`);
+              const isVisible = rows[0]?.style.display !== 'none';
+              rows.forEach(r => r.style.display = isVisible ? 'none' : '');
+              catRow.cells[0].innerText = `${isVisible ? '▶' : '▼'} ${category}`;
+            });
+
+            categoryIndex++;
+          });
+        }
+function toTitleCase(str) {
+  return str.replace(/\w\S*/g, function (txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
+}
+
+        function validateIntegerInput(input) {
+          if (input.value && !/^\d+$/.test(input.value)) {
+            alert('Please enter a whole number.');
+            input.value = '';
+            input.focus();
+          }
+        }
+
+       function updateTotals() {
+  let grandTotal = 0;
+
+  document.querySelectorAll('#productTable tbody tr').forEach(row => {
+    const input = row.querySelector('input[type="number"]');
+    const totalCell = row.querySelector('.item-total');
+    if (!input) return;
+
+    const qty = parseInt(input.value) || 0;
+    const price = parseFloat(input.dataset.price) || 0;
+    const total = qty * price;
+    grandTotal += total;
+
+    totalCell.textContent = `Rs.${total.toFixed(2)}`;
+  });
+
+  // ✅ Update the grand total at the bottom
+  document.getElementById('grandTotalContainer').textContent = `Grand Total: Rs.${grandTotal.toFixed(2)}`;
+}
+
+
+        function downloadCustomerInfo() {
+          const today = new Date().toISOString().slice(0, 10);
+          const name = document.getElementById('customerName').value.trim();
+          const address = document.getElementById('customerAddress').value.trim();
+          const phone = document.getElementById('customerPhone').value.trim();
+
+
+          let customers = JSON.parse(localStorage.getItem('customerInfo')) || [];
+          customers.push({ date: today, name, address, phone });
+          localStorage.setItem('customerInfo', JSON.stringify(customers));
+
+          let content = `Date,Name,Address,Phone\n`;
+          customers.forEach(c => {
+            const safeDate = `="${c.date}"`;
+            const safePhone = c.phone ? `="${c.phone}"` : '';
+            const safeName = `"${c.name.replace(/"/g, '""')}"`;
+            const safeAddress = `"${c.address.replace(/"/g, '""')}"`;
+            content += `${safeDate},${safeName},${safeAddress},${safePhone}\n`;
+          });
+
+          const blob = new Blob([content], { type: 'text/csv' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `CustomerInfo_${today}.csv`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }
+function printChecklist() {
+  const name = document.getElementById('customerName').value.trim();
+  const address = document.getElementById('customerAddress').value.trim();
+  if (!name || !address) {
+    alert('Name and Address are required.');
+    return;
+  }
+  const phone = document.getElementById('customerPhone').value.trim();
+
+  const rows = [];
+  let count = 0;
+
+  document.querySelectorAll('#productTable tbody tr').forEach(row => {
+    const input = row.querySelector('input[type="number"]');
+    if (!input) return;
+    const qty = parseInt(input.value) || 0;
+    if (qty <= 0) return;
+    const pname = input.dataset.name;
+    count++;
+    rows.push([count, pname, qty]);
+  });
+
+  if (!rows.length) {
+    alert('Please enter at least one product quantity.');
+    return;
+  }
+
+  const doc = new jsPDF();
+  doc.setFontSize(16);
+  doc.text('Packing Checklist', 14, 20);
+  doc.setFontSize(12);
+  doc.text(`Name: ${name}`, 14, 30);
+  doc.text(`Address: ${address}`, 14, 38);
+  if (phone) doc.text(`Phone: ${phone}`, 14, 46);
+
+  doc.autoTable({
+    startY: 55,
+    head: [['S.No', 'Product', 'Qty']],
+    body: rows,
+    theme: 'grid',
+    headStyles: { fillColor: [92, 184, 92] }, // green header
+  });
+
+  const finalY = doc.lastAutoTable.finalY + 10;
+  doc.setFontSize(10);
+  doc.text('Use this checklist for packing the order.', 14, finalY);
+
+  doc.save(`Checklist_${name.replace(/\s+/g, '_')}.pdf`);
+}
+
+        function printBill() {
+          const name = document.getElementById('customerName').value.trim();
+          const address = document.getElementById('customerAddress').value.trim();
+          if (!name || !address) {
+            alert('Name and Address are required.');
+            return;
+          }
+          const phone = document.getElementById('customerPhone').value.trim();
+
+          const rows = [];
+          let count = 0, grandTotal = 0;
+          document.querySelectorAll('#productTable tbody tr').forEach(row => {
+            const input = row.querySelector('input[type="number"]');
+            if (!input) return;
+            const qty = parseInt(input.value) || 0;
+            if (qty <= 0) return;
+            const pname = input.dataset.name;
+            const price = parseFloat(input.dataset.price);
+            const total = qty * price;
+            count++;
+            grandTotal += total;
+            rows.push([count, pname, qty, `${price.toFixed(2)}`, `${total.toFixed(2)}`]);
+          });
+
+          if (!rows.length) {
+            alert('Please enter at least one product quantity.');
+            return;
+          }
+
+          const doc = new jsPDF();
+          doc.setFontSize(16);
+          doc.text('AJ Crackers - Customer Bill', 14, 20);
+          doc.setFontSize(12);
+          doc.text(`Name: ${name}`, 14, 30);
+          doc.text(`Address: ${address}`, 14, 38);
+          if (phone) doc.text(`Phone: ${phone}`, 14, 46);
+
+          doc.autoTable({
+            startY: 55,
+            head: [['S.No', 'Product', 'Qty', 'Rate', 'Total']],
+            body: rows,
+            theme: 'grid',
+            headStyles: { fillColor: [217, 83, 79] },
+          });
+
+          const finalY = doc.lastAutoTable.finalY + 10;
+          doc.setFontSize(13);
+          doc.text(`Grand Total (After ${currentOffer}% Discount): ${grandTotal.toFixed(2)}`, 14, finalY);
+          doc.setFontSize(10);
+          doc.text('Thank you for shopping with AJ Crackers!', 14, finalY + 8);
+
+          doc.save(`Bill_${name.replace(/\s+/g, '_')}.pdf`);
+        }
+      </script>
+    </div>
   </div>
-</footer>
-
-<script>
-const ADMIN_PASSWORD = "PRVidhyuth@36";
-
-function isAdminAuthenticated() {
-  return sessionStorage.getItem("isAdminAuthenticated") === "true";
-}
-
-function promptAdminPassword() {
-  const enteredPassword = prompt("Enter admin password to update firework prices:");
-  if (enteredPassword === ADMIN_PASSWORD) {
-    sessionStorage.setItem("isAdminAuthenticated", "true");
-    return true;
-  } else {
-    alert("Incorrect password. Access denied.");
-    return false;
-  }
-}
-
-function logoutAdmin() {
-  sessionStorage.removeItem("isAdminAuthenticated");
-  alert("You have been logged out.");
-  location.reload();
-}
-function saveOffer() {
-  const offer = parseInt(document.getElementById("offerPercent").value);
-  if (isNaN(offer) || offer < 1 || offer > 99) {
-    alert("Enter a valid offer percentage (1–99).");
-    return;
-  }
-
-  const offerData = {
-    offer: offer,
-    validTill: "2025-07-15" // you can later make this editable too
-  };
-
-  // Save locally
-  localStorage.setItem("fireworkOffer", JSON.stringify(offerData));
-  alert(`✅ Offer set to ${offer}%`);
-}
-function downloadProductsJson() {
-  const data = JSON.parse(localStorage.getItem("fireworkPrices") || "{}");
-
-  const file = new Blob([JSON.stringify(data, null, 2)], {
-    type: "application/json"
-  });
-
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(file);
-  a.download = "products.json";
-  a.click();
-}
-
-function addOrUpdateFirework() {
-  if (!isAdminAuthenticated()) {
-    if (!promptAdminPassword()) return;
-  }
-
-  const name = document.getElementById("fireworkName").value.trim();
-  const price = parseFloat(document.getElementById("fireworkPrice").value);
-
-  if (!name || isNaN(price) || price <= 0) {
-    alert("Please enter a valid name and price.");
-    return;
-  }
-
-  let fireworkPrices = JSON.parse(localStorage.getItem("fireworkPrices")) || {};
-
-  if (fireworkPrices.hasOwnProperty(name)) {
-    if (fireworkPrices[name] !== price) {
-      const confirmUpdate = confirm(`"${name}" exists with ₹${fireworkPrices[name]}. Update to ₹${price}?`);
-      if (!confirmUpdate) {
-        document.getElementById("adminMessage").textContent = "Update canceled.";
-        return;
-      }
-    } else {
-      document.getElementById("adminMessage").textContent = `ℹ️ "${name}" with price ₹${price} is already available.`;
-      return;
-    }
-  }
-
-  fireworkPrices[name] = price;
-  localStorage.setItem("fireworkPrices", JSON.stringify(fireworkPrices));
-
-  document.getElementById("adminMessage").textContent = `✅ "${name}" set at ₹${price}.`;
-  document.getElementById("fireworkName").value = "";
-  document.getElementById("fireworkPrice").value = "";
-  populateFireworkAutocomplete();
-  renderFireworkTable();
-}
-
-function populateFireworkAutocomplete() {
-  const datalist = document.getElementById("fireworkNamesList");
-  datalist.innerHTML = "";
-  const stored = JSON.parse(localStorage.getItem("fireworkPrices")) || {};
-  Object.keys(stored).forEach(name => {
-    const option = document.createElement("option");
-    option.value = name;
-    datalist.appendChild(option);
-  });
-}
-
-function renderFireworkTable() {
-  const tbody = document.getElementById("fireworkTableBody");
-  tbody.innerHTML = "";
-
-  const fireworkPrices = JSON.parse(localStorage.getItem("fireworkPrices")) || {};
-  const sortedNames = Object.keys(fireworkPrices).sort();
-
-  if (sortedNames.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="3" style="padding:8px;">No fireworks added yet.</td></tr>`;
-    return;
-  }
-
-  sortedNames.forEach(name => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td style="padding: 8px;" data-name="${name}">${name}</td>
-      <td style="padding: 8px;" data-price="${name}">₹${fireworkPrices[name]}</td>
-      <td style="padding: 8px; text-align: center;" data-actions="${name}">
-        <button onclick="editInline('${name}')">Edit</button>
-        <button onclick="deleteFirework('${name}')">Delete</button>
-      </td>
-    `;
-    tbody.appendChild(row);
-  });
-}
-
-function editInline(name) {
-  const fireworkPrices = JSON.parse(localStorage.getItem("fireworkPrices")) || {};
-  const price = fireworkPrices[name];
-
-  const nameCell = document.querySelector(`[data-name="${name}"]`);
-  const priceCell = document.querySelector(`[data-price="${name}"]`);
-  const actionCell = document.querySelector(`[data-actions="${name}"]`);
-
-  nameCell.innerHTML = `<input type="text" id="editName" value="${name}" style="width: 100%;">`;
-  priceCell.innerHTML = `<input type="number" id="editPrice" value="${price}" style="width: 100%;">`;
-  actionCell.innerHTML = `
-    <button onclick="saveInline('${name}')">Save</button>
-    <button onclick="renderFireworkTable()">Cancel</button>
-  `;
-}
-
-function saveInline(originalName) {
-  const newName = document.getElementById("editName").value.trim();
-  const newPrice = parseFloat(document.getElementById("editPrice").value);
-
-  if (!newName || isNaN(newPrice) || newPrice <= 0) {
-    alert("Please enter valid name and price.");
-    return;
-  }
-
-  let fireworkPrices = JSON.parse(localStorage.getItem("fireworkPrices")) || {};
-
-  // Handle renaming: if new name already exists and it's not the same one
-  if (newName !== originalName && fireworkPrices[newName]) {
-    alert(`"${newName}" already exists. Use a different name.`);
-    return;
-  }
-
-  // Remove old if renamed
-  if (newName !== originalName) {
-    delete fireworkPrices[originalName];
-  }
-
-  fireworkPrices[newName] = newPrice;
-  localStorage.setItem("fireworkPrices", JSON.stringify(fireworkPrices));
-
-  document.getElementById("adminMessage").textContent = `✅ "${newName}" saved with ₹${newPrice}.`;
-  renderFireworkTable();
-  populateFireworkAutocomplete();
-}
-
-
-
-function deleteFirework(name) {
-  const confirmDelete = confirm(`Are you sure you want to delete "${name}"?`);
-  if (!confirmDelete) return;
-
-  let fireworkPrices = JSON.parse(localStorage.getItem("fireworkPrices")) || {};
-  delete fireworkPrices[name];
-  localStorage.setItem("fireworkPrices", JSON.stringify(fireworkPrices));
-
-  document.getElementById("adminMessage").textContent = `❌ "${name}" has been removed.`;
-  renderFireworkTable();
-  populateFireworkAutocomplete();
-}
-
-function exportToExcel() {
-  const fireworkPrices = JSON.parse(localStorage.getItem("fireworkPrices")) || {};
-  const data = Object.keys(fireworkPrices).map(name => ({
-    "Firework Name": name,
-    "Price (₹)": fireworkPrices[name]
-  }));
-
-  if (data.length === 0) {
-    alert("No fireworks to export.");
-    return;
-  }
-
-  const worksheet = XLSX.utils.json_to_sheet(data);
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Price List");
-
-  XLSX.writeFile(workbook, "AJ_Crackers_Price_List.xlsx");
-}
-
-function updateClock() {
-  const now = new Date();
-  const clock = document.getElementById("liveClock");
-  if (clock) clock.textContent = now.toLocaleString();
-}
-function generateCustomerLink() {
-  const customerURL = "https://karthika43.github.io/raj-fireworks/customer-view.html";
-
-  // Remove old link if exists
-  const oldLink = document.getElementById("customerLinkDisplay");
-  if (oldLink) oldLink.remove();
-
-  // Create link section
-  const div = document.createElement("div");
-  div.id = "customerLinkDisplay";
-  div.style.marginTop = "20px";
-  div.style.padding = "10px";
-  div.style.border = "1px solid #aaa";
-  div.style.background = "#f9f9f9";
-
-  div.innerHTML = `
-    <p><strong>Share this link with the customer:</strong></p>
-    <a href="${customerURL}" target="_blank" style="color:blue; font-weight:bold;">
-      👉 Open Customer Order Page
-    </a>
-    <p style="margin-top:10px;">
-      <button onclick="copyToClipboard('${customerURL}')">Copy Link</button>
-    </p>
-  `;
-
-  document.body.appendChild(div);
-}
-
-// Helper to copy URL
-function copyToClipboard(text) {
-  navigator.clipboard.writeText(text)
-    .then(() => alert("Link copied to clipboard!"))
-    .catch(() => alert("Failed to copy link."));
-}
-
-setInterval(updateClock, 1000);
-updateClock();
-populateFireworkAutocomplete();
-renderFireworkTable();
-</script>
-
 </body>
 </html>
-
