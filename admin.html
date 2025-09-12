@@ -132,7 +132,7 @@
         }
 
         function loadProducts() {
-          fetch('productsadmin.json')
+          fetch('products.json')
             .then(res => res.json())
             .then(data => {
               const products = Object.entries(data).map(([name, info]) => ({
@@ -368,4 +368,5 @@ function printChecklist() {
   </div>
 </body>
 </html>
+
 
