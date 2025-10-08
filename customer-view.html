@@ -658,7 +658,7 @@ function loadProducts() {
 
       try {
         // Optional: You can keep this if you want to get offer from localStorage
-        const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 80 };
+        const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 75 };
         currentOffer = storedOffer.offer;
         // Remove this line if you don't have an element with id 'discountPercent'
         // document.getElementById("discountPercent").textContent = `${currentOffer}%`;
