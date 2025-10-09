@@ -123,7 +123,7 @@
         "price": 1500,
         "category": "Wala",
         "unit": "Box",
-        "offerprice": "450"
+        "offerprice": "376"
     },
     "5000 wala": {
         "price": 3750,
@@ -375,19 +375,19 @@
         "price": 50,
         "category": "90's Dream",
         "unit": "Box",
-        "offerprice": "12.5"
+        "offerprice": "12.50"
     },
     "Zee Boom bag": {
         "price": 50,
         "category": "90's Dream",
         "unit": "Box",
-        "offerprice": "12.5"
+        "offerprice": "12.50"
     },
     "Magic pops": {
         "price": 50,
         "category": "90's Dream",
         "unit": "Box",
-        "offerprice": "12.5"
+        "offerprice": "12.50"
     },
     "Kit kat": {
         "price": 100,
