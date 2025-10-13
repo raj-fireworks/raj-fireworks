@@ -42,19 +42,6 @@
         "unit": "Pkt",
         "offerprice": "94"
     },
-  
-    "28 Chorsa": {
-        "price": 60,
-        "category": "Thunder Crackers",
-        "unit": "Pkt",
-        "offerprice": "15"
-    },
-    "28 Giant": {
-        "price": 100,
-        "category": "Thunder Crackers",
-        "unit": "Pkt",
-        "offerprice": "25"
-    },
     "56 Giant": {
         "price": 190,
         "category": "Thunder Crackers",
