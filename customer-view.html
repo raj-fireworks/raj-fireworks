@@ -652,7 +652,7 @@ tr {
 </footer>
 
 <script>
-
+const TRANSPORT_CHARGE = 850;
 function loadProducts() {
   fetch("products.json")
     .then(res => res.json())
@@ -687,6 +687,12 @@ function loadProducts() {
       document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="6">Failed to load products.</td></tr>`;
     });
 }
+window.onload = function () {
+  loadProducts();
+  // Initialize totals/transport in UI
+  document.getElementById("transportCharge").textContent = TRANSPORT_CHARGE.toFixed(2);
+  calculateTotals();
+};
 
 function renderProductTable(products) {
   const tbody = document.querySelector("#productTable tbody");
