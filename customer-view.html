@@ -627,8 +627,11 @@ tr {
 </table>
 
 <div class="total-section">
-  <p><strong>Grand Total (After Discount): ₹<span id="grandTotal">0.00</span></strong></p>
+  <p>Products Total: ₹<span id="grandTotal">0.00</span></p>
+  <p>Transport Charge: ₹<span id="transportCharge">850.00</span></p>
+  <p><strong>Payable Total: ₹<span id="payableTotal">0.00</span></strong></p>
 </div>
+
 
 
 <div class="button-group" style="display:flex;gap:15px;">
@@ -800,6 +803,7 @@ function validateIntegerInput(input) {
 
 function calculateTotals() {
   let grandTotal = 0;
+  let selectedCount = 0;
 
   const rows = document.querySelectorAll("#productTable tbody tr");
   rows.forEach(row => {
@@ -811,17 +815,34 @@ function calculateTotals() {
       const offerPrice = parseFloat(input.dataset.offer) || 0;
       const itemTotal = quantity * offerPrice;
 
+      if (quantity > 0) selectedCount++;
+
       totalCell.textContent = `₹${itemTotal.toFixed(2)}`;
       grandTotal += itemTotal;
     }
   });
 
-  // Update grand total display
+  // Update product total
   const grandTotalDisplay = document.getElementById("grandTotal");
   if (grandTotalDisplay) {
-    grandTotalDisplay.textContent = `₹${grandTotal.toFixed(2)}`;
+    grandTotalDisplay.textContent = `${grandTotal.toFixed(2)}`;
+  }
+
+  // Always show transport charge in UI
+  const transportDisplay = document.getElementById("transportCharge");
+  if (transportDisplay) {
+    transportDisplay.textContent = `${TRANSPORT_CHARGE.toFixed(2)}`;
+  }
+
+  // If no items selected, payable is 0; else add transport charge
+  const payable = selectedCount > 0 ? grandTotal + TRANSPORT_CHARGE : 0;
+
+  const payableDisplay = document.getElementById("payableTotal");
+  if (payableDisplay) {
+    payableDisplay.textContent = `${payable.toFixed(2)}`;
   }
 }
+
 
   async function sendOrderToWhatsApp() {
     const name = document.getElementById("customerName").value.trim();
@@ -854,19 +875,29 @@ function calculateTotals() {
       }
     });
 
-    if (originalTotal === 0) {
-      alert("Please select at least one product before sending the order.");
-      return;
-    }
+// After building items and originalTotal...
+if (originalTotal === 0) {
+  alert("Please select at least one product before sending the order.");
+  return;
+}
 
-    const discount = typeof currentOffer !== 'undefined' ? currentOffer : 0;
+// Add transport charge and final total
+const finalPayable = originalTotal + TRANSPORT_CHARGE;
 
-    message += `\nGrand Total: ₹${originalTotal.toFixed(2)} (After ${discount}% Discount)`;
-    message += `\n\n📍 Address: ${address}`;
-    if (phone) {
-      message += `\n📞 Phone: ${phone}`;
-    }
-    message += `\n\nThank you`;
+// Keep your existing discount line if you want; otherwise you can remove it.
+// Here I keep your currentOffer display for continuity:
+const discount = typeof currentOffer !== 'undefined' ? currentOffer : 0;
+
+message += `\nProducts Total: ₹${originalTotal.toFixed(2)}`;
+message += `\nTransport Charge: ₹${TRANSPORT_CHARGE.toFixed(2)}`;
+message += `\n-----------------------------`;
+message += `\nPayable Total: ₹${finalPayable.toFixed(2)}`;
+
+message += `\n\n📍 Address: ${address}`;
+if (phone) {
+  message += `\n📞 Phone: ${phone}`;
+}
+message += `\n\nThank you`;
 
   
     // Open WhatsApp with encoded text message
