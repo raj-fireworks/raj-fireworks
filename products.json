@@ -115,18 +115,7 @@
         "unit": "Box",
         "offerprice": "376"
     },
-    "5000 wala": {
-        "price": 3750,
-        "category": "Wala",
-        "unit": "Box",
-        "offerprice": "938"
-    },
-    "10000 wala": {
-        "price": 7500,
-        "category": "Wala",
-        "unit": "Box",
-        "offerprice": "1875"
-    },
+   
     "Bullet Bomb": {
         "price": 100,
         "category": "Crackling Bombs",
