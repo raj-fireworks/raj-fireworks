@@ -17,12 +17,7 @@
         "unit": "Pkt",
         "offerprice": "17.5"
     },
-    "4 deluxe Lakshmi": {
-        "price": 100,
-        "category": "One Sound Crackers",
-        "unit": "Pkt",
-        "offerprice": "25"
-    },
+    
     "Gold Lakshmi": {
         "price": 115,
         "category": "One Sound Crackers",
@@ -47,12 +42,7 @@
         "unit": "Pkt",
         "offerprice": "94"
     },
-    "7 Golden Sparrow": {
-        "price": 400,
-        "category": "One Sound Crackers",
-        "unit": "Pkt",
-        "offerprice": "100"
-    },
+  
     "28 Chorsa": {
         "price": 60,
         "category": "Thunder Crackers",
@@ -167,12 +157,7 @@
         "unit": "Box",
         "offerprice": "225"
     },
-    "555 Bomb": {
-        "price": 450,
-        "category": "Crackling Bombs",
-        "unit": "Box",
-        "offerprice": "112"
-    },
+    
     "Paper bomb 1/4 kg": {
         "price": 200,
         "category": "Crackling Bombs",
@@ -185,12 +170,7 @@
         "unit": "Box",
         "offerprice": "100"
     },
-    "Paper Bomb 1 kg": {
-        "price": 800,
-        "category": "Crackling Bombs",
-        "unit": "Box",
-        "offerprice": "200"
-    },
+    
     "Twinkling Stars": {
         "price": 90,
         "category": "Ropes & Candles",
@@ -227,29 +207,12 @@
         "unit": "Box",
         "offerprice": "138"
     },
-    "Jil Jil": {
-        "price": 150,
-        "category": "Ropes & Candles",
-        "unit": "Box",
-        "offerprice": "38"
-    },
+   
     "Chakkar Big": {
         "price": 200,
         "category": "Round Chakra",
         "unit": "Box",
         "offerprice": "50"
-    },
-    "Chakkar Special": {
-        "price": 350,
-        "category": "Round Chakra",
-        "unit": "Box",
-        "offerprice": "88"
-    },
-    "Chakkar Deluxe": {
-        "price": 650,
-        "category": "Round Chakra",
-        "unit": "Box",
-        "offerprice": "163"
     },
     "Spinner Super deluxe": {
         "price": 1200,
@@ -257,78 +220,36 @@
         "unit": "Box",
         "offerprice": "300"
     },
-    "Disco wheel": {
-        "price": 200,
-        "category": "Round Chakra",
-        "unit": "Box",
-        "offerprice": "50"
-    },
+    
     "Wire Chakkar": {
         "price": 1200,
         "category": "Round Chakra",
         "unit": "Box",
         "offerprice": "300"
     },
-    "Lotus wheel": {
-        "price": 650,
-        "category": "Round Chakra",
-        "unit": "Box",
-        "offerprice": "165"
-    },
-    "Flowerpots Big": {
-        "price": 240,
-        "category": "Digital Flower Pots",
-        "unit": "Box",
-        "offerprice": "60"
-    },
-    "Flowerpots Special": {
-        "price": 300,
-        "category": "Digital Flower Pots",
-        "unit": "Box",
-        "offerprice": "75"
-    },
+    
+   
     "Flowerpot ashoka": {
         "price": 425,
         "category": "Digital Flower Pots",
         "unit": "Box",
         "offerprice": "107"
     },
-    "Color koti": {
-        "price": 1000,
-        "category": "Digital Flower Pots",
-        "unit": "Box",
-        "offerprice": "250"
-    },
+    
     "F.P. deluxe (5 pcs)": {
         "price": 1000,
         "category": "Digital Flower Pots",
         "unit": "Box",
         "offerprice": "250"
     },
-    "F.P. deluxe (2pcs)": {
-        "price": 550,
-        "category": "Digital Flower Pots",
-        "unit": "Box",
-        "offerprice": "138"
-    },
-    "colour koti dlx": {
-        "price": 1500,
-        "category": "Digital Flower Pots",
-        "unit": "Box",
-        "offerprice": "375"
-    },
+    
     "Baby Rocket": {
         "price": 200,
         "category": "Runner Rocket",
         "unit": "Box",
         "offerprice": "50"
     },
-    "Rocket Bomb": {
-        "price": 250,
-        "category": "Runner Rocket",
-        "unit": "Box",
-        "offerprice": "63"
-    },
+    
     "Lunik Rocket": {
         "price": 550,
         "category": "Runner Rocket",
@@ -347,12 +268,7 @@
         "unit": "Box",
         "offerprice": "225"
     },
-    "Siren": {
-        "price": 1000,
-        "category": "Whistle Crackers",
-        "unit": "Box",
-        "offerprice": "250"
-    },
+   
     "Whistling dixie wheel": {
         "price": 650,
         "category": "Whistle Crackers",
@@ -371,12 +287,7 @@
         "unit": "Box",
         "offerprice": "1000"
     },
-    "Electric Stone": {
-        "price": 50,
-        "category": "90's Dream",
-        "unit": "Box",
-        "offerprice": "12.50"
-    },
+    
     "Zee Boom bag": {
         "price": 50,
         "category": "90's Dream",
@@ -431,18 +342,7 @@
     "unit": "Pack",
     "offerprice": 225
   },
-  "Bat & Ball": {
-    "price": 900,
-    "category": "Kids Special",
-    "unit": "Pack",
-    "offerprice": 225
-  },
-  "Money bank": {
-    "price": 900,
-    "category": "Kids Special",
-    "unit": "Pack",
-    "offerprice": 225
-  },
+  
   "Men in Black (Ring & Gun)": {
     "price": 750,
     "category": "Kids Special",
@@ -461,18 +361,7 @@
     "unit": "Pack",
     "offerprice": 112
   },
-  "Laptop colour matches (950)": {
-    "price": 950,
-    "category": "Kids Special",
-    "unit": "Pack",
-    "offerprice": 238
-  },
-  "Laptop colour matches (450)": {
-    "price": 450,
-    "category": "Kids Special",
-    "unit": "Pack",
-    "offerprice": 113
-  },
+  
   "1 Chota Fancy": {
     "price": 200,
     "category": "Sky Display",
@@ -503,66 +392,22 @@
     "unit": "Box",
     "offerprice": "325"
   },
-  "Niagara Falls": {
-    "price": 1500,
-    "category": "Sky Display",
-    "unit": "Box",
-    "offerprice": "375"
-  },
-  "5 Fancy": {
-    "price": 2000,
-    "category": "Sky Display",
-    "unit": "Box",
-    "offerprice": "500"
-  },
+  
+
   "12 shot": {
     "price": 650,
     "category": "Repeating Rockers Shot",
     "unit": "Box",
     "offerprice": 163
   },
-  "25 shot": {
-    "price": 1300,
-    "category": "Repeating Rockers Shot",
-    "unit": "Box",
-    "offerprice": 325
-  },
-  "30 shot multi color": {
-    "price": 1700,
-    "category": "Repeating Rockers Shot",
-    "unit": "Box",
-    "offerprice": 425
-  },
+ 
   "60 shot multi color": {
     "price": 3400,
     "category": "Repeating Rockers Shot",
     "unit": "Box",
     "offerprice": 850
   },
-  "120 shot multi color": {
-    "price": 6800,
-    "category": "Repeating Rockers Shot",
-    "unit": "Box",
-    "offerprice": 1700
-  },
-  "240 shot multi color": {
-    "price": 13600,
-    "category": "Repeating Rockers Shot",
-    "unit": "Box",
-    "offerprice": 3400
-  },
-  "Tri color fountain": {
-    "price": 1400,
-    "category": "Magic Night Fountains",
-    "unit": "Pack",
-    "offerprice": 350
-  },
-  "Fun shower": {
-    "price": 700,
-    "category": "Magic Night Fountains",
-    "unit": "Pack",
-    "offerprice": 175
-  },
+ 
   "Golden globe": {
     "price": 650,
     "category": "Magic Night Fountains",
@@ -587,12 +432,7 @@
     "unit": "Pack",
     "offerprice": 125
   },
-  "Lollipop": {
-    "price": 700,
-    "category": "Magic Night Fountains",
-    "unit": "Pack",
-    "offerprice": 175
-  },
+ 
   "Stardom": {
     "price": 650,
     "category": "Magic Night Fountains",
@@ -617,24 +457,14 @@
     "unit": "Pack",
     "offerprice": 450
   },
-  "Butterfly": {
-    "price": 350,
-    "category": "Magic Night Fountains",
-    "unit": "Pack",
-    "offerprice": 88
-  },
+ 
   "Spinner": {
     "price": 650,
     "category": "Magic Night Fountains",
     "unit": "Pack",
     "offerprice": 160
   },
-  "Helicopter": {
-    "price": 350,
-    "category": "Magic Night Fountains",
-    "unit": "Pack",
-    "offerprice": 88
-  },
+  
   "Colour smoke": {
     "price": 750,
     "category": "Magic Night Fountains",
@@ -647,12 +477,7 @@
     "unit": "Pack",
     "offerprice": 300
   },
-  "Photo flash": {
-    "price": 200,
-    "category": "Magic Night Fountains",
-    "unit": "Pack",
-    "offerprice": 50
-  },
+  
   "Twix": {
     "price": 1000,
     "category": "Magic Night Fountains",
@@ -677,17 +502,29 @@
     "unit": "Pack",
     "offerprice": 250
   },
-  "Five colours fountain": {
-    "price": 1800,
+  "gaity": {
+    "price": 900,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 450
+    "offerprice": 225
   },
-  "Snow white fountain": {
-    "price": 1600,
+  "Hypersonic": {
+    "price": 700,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 400
+    "offerprice": 175
+  },
+     "Cyclinder Bomb": {
+    "price": 900,
+    "category": "Magic Night Fountains",
+    "unit": "Pack",
+    "offerprice": 225
+  },
+       "Gittar(limited stocks)": {
+    "price": 1000,
+    "category": "Magic Night Fountains",
+    "unit": "Pack",
+    "offerprice": 250
   },
   "7cm Electric Sparklers": {
     "price": 45,
