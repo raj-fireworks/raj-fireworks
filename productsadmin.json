@@ -369,7 +369,7 @@
         "price": 4000,
         "category": "Whistle Crackers",
         "unit": "Box",
-        "offerprice": "800"
+        "offerprice": "1450"
     },
     "Electric Stone": {
         "price": 50,
@@ -501,7 +501,7 @@
     "price": 1300,
     "category": "Sky Display",
     "unit": "Box",
-    "offerprice": "260"
+    "offerprice": "380"
   },
   "Niagara Falls": {
     "price": 1500,
@@ -531,13 +531,13 @@
     "price": 1700,
     "category": "Repeating Rockers Shot",
     "unit": "Box",
-    "offerprice": 340
+    "offerprice": 360
   },
   "60 shot multi color": {
     "price": 3400,
     "category": "Repeating Rockers Shot",
     "unit": "Box",
-    "offerprice": 680
+    "offerprice": 720
   },
   "120 shot multi color": {
     "price": 11625,
@@ -663,7 +663,13 @@
     "price": 900,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 180
+    "offerprice": 300
+  },
+    "Penton 5pcs": {
+    "price": 1000,
+    "category": "Magic Night Fountains",
+    "unit": "Pack",
+    "offerprice": 400
   },
   "Fox Star": {
     "price": 800,
