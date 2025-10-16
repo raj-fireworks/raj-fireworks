@@ -652,20 +652,16 @@ tr {
 </footer>
 
 <script>
+const TRANSPORT_CHARGE = 850;
+
 function loadProducts() {
   fetch("products.json")
     .then(res => res.json())
     .then(data => {
-      console.log("Loaded products:", data);
-
       try {
-        // Optional: You can keep this if you want to get offer from localStorage
         const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 75 };
         currentOffer = storedOffer.offer;
-        // Remove this line if you don't have an element with id 'discountPercent'
-        // document.getElementById("discountPercent").textContent = `${currentOffer}%`;
 
-        // Convert and map products
         const products = Object.entries(data).map(([name, info]) => ({
           name,
           price: Number(info.price) || 0,
@@ -675,7 +671,6 @@ function loadProducts() {
         }));
 
         renderProductTable(products);
-
       } catch (err) {
         console.error("❌ Error processing products:", err);
         document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="6">Failed to process products.</td></tr>`;
@@ -686,12 +681,6 @@ function loadProducts() {
       document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="6">Failed to load products.</td></tr>`;
     });
 }
-window.onload = function () {
-  loadProducts();
-  // Initialize totals/transport in UI
-  document.getElementById("transportCharge").textContent = TRANSPORT_CHARGE.toFixed(2);
-  calculateTotals();
-};
 
 function renderProductTable(products) {
   const tbody = document.querySelector("#productTable tbody");
@@ -715,32 +704,21 @@ function renderProductTable(products) {
     const catRow = document.createElement("tr");
     catRow.classList.add("category-header");
     catRow.style.cursor = "pointer";
-    catRow.innerHTML = `<td colspan="6" style="text-align:left; background:#f0f0f0; font-weight:bold;">
-      ▼ ${category}
-    </td>`;
+    catRow.innerHTML = `<td colspan="6" style="text-align:left; background:#f0f0f0; font-weight:bold;">▼ ${category}</td>`;
     tbody.appendChild(catRow);
 
     items.forEach(item => {
       const row = document.createElement("tr");
       row.classList.add("category-row", `category-${index}`);
 
-// Construct image path from product name
-const safeFileName = item.name.replace(/[^a-zA-Z0-9\s]/g, "");  // Keep spaces
-const imageName = safeFileName + ".jpeg";
-const imagePath = `images/${encodeURIComponent(imageName)}`;
-
+      const safeFileName = item.name.replace(/[^a-zA-Z0-9\s]/g, "");
+      const imageName = safeFileName + ".jpeg";
+      const imagePath = `images/${encodeURIComponent(imageName)}`;
 
       row.innerHTML = `
         <td class="product-cell">
           <div class="product-wrapper">
-            <img 
-  class="product-image"
-  src="${imagePath}" 
-  alt="${item.name}" 
-  onerror="this.style.display='none';"
-  onclick="zoomImage('${imagePath}')"
-/>
-
+            <img class="product-image" src="${imagePath}" alt="${item.name}" onerror="this.style.display='none';" onclick="zoomImage('${imagePath}')"/>
             <span class="product-name">${item.name}</span>
           </div>
         </td>
@@ -748,64 +726,73 @@ const imagePath = `images/${encodeURIComponent(imageName)}`;
         <td>₹${item.price.toFixed(2)}</td>
         <td>₹${item.offerprice.toFixed(2)}</td>
         <td>
-          <input 
-            type="number" 
-            min="0" 
-            step="1" 
-            placeholder="Qty" 
-            onchange="calculateTotals()" 
-            oninput="validateIntegerInput(this)" 
-            data-name="${item.name}" 
-            data-offer="${item.offerprice}" 
-          />
+          <input type="number" min="0" step="1" placeholder="Qty"
+                 onchange="calculateTotals()" oninput="validateIntegerInput(this)"
+                 data-name="${item.name}" data-offer="${item.offerprice}" />
         </td>
         <td class="item-total">₹0.00</td>
       `;
       tbody.appendChild(row);
     });
 
-    // Toggle category rows
     catRow.addEventListener("click", () => {
       const catRows = document.querySelectorAll(`.category-${index}`);
-      catRows.forEach(r => {
-        r.style.display = r.style.display === "none" ? "" : "none";
-      });
+      catRows.forEach(r => { r.style.display = r.style.display === "none" ? "" : "none"; });
       catRow.cells[0].textContent = catRow.cells[0].textContent.startsWith("▼")
         ? catRow.cells[0].textContent.replace("▼", "▶")
         : catRow.cells[0].textContent.replace("▶", "▼");
     });
   });
 }
+
 function zoomImage(src) {
   const modal = document.getElementById("imageModal");
   const zoomedImg = document.getElementById("zoomedImage");
-
   zoomedImg.src = src;
   modal.style.display = "flex";
 }
 
 function closeModal(event) {
-  // Close modal only if the click target is the modal background, not the image
-  if (event.target.id === "imageModal") {
-    event.target.style.display = "none";
-  }
+  if (event.target.id === "imageModal") event.target.style.display = "none";
 }
-
 
 function validateIntegerInput(input) {
   const value = input.value.trim();
-
-  // If input is empty, do nothing
   if (value === "") return;
-
-  // If decimal or negative number is entered
   if (!/^\d+$/.test(value)) {
     alert("Only whole numbers are allowed. Please enter a valid quantity.");
     input.value = "";
     input.focus();
   }
 }
-const TRANSPORT_CHARGE = 850;
+
+function calculateTotals() {
+  let grandTotal = 0;
+  let selectedCount = 0;
+
+  const rows = document.querySelectorAll("#productTable tbody tr");
+  rows.forEach(row => {
+    const input = row.querySelector("input[type='number']");
+    const totalCell = row.querySelector(".item-total");
+    if (input && totalCell) {
+      const quantity = parseInt(input.value) || 0;
+      const offerPrice = parseFloat(input.dataset.offer) || 0;
+      const itemTotal = quantity * offerPrice;
+
+      if (quantity > 0) selectedCount++;
+      totalCell.textContent = `₹${itemTotal.toFixed(2)}`;
+      grandTotal += itemTotal;
+    }
+  });
+
+  document.getElementById("grandTotal").textContent = grandTotal.toFixed(2);
+  document.getElementById("transportCharge").textContent = TRANSPORT_CHARGE.toFixed(2);
+
+  const payable = selectedCount > 0 ? grandTotal + TRANSPORT_CHARGE : 0;
+  document.getElementById("payableTotal").textContent = payable.toFixed(2);
+}
+
+/* -------- Order link helpers (for WhatsApp) -------- */
 
 function buildOrderPayload(name, phone, address) {
   const rows = document.querySelectorAll("#productTable tbody tr");
@@ -841,68 +828,13 @@ function buildOrderPayload(name, phone, address) {
 }
 
 function makeSummaryLink(orderObj) {
-  // base path for order.html in the SAME folder as this page
   const basePath = location.origin + location.pathname.replace(/[^/]+$/, '');
   const json = JSON.stringify(orderObj);
-  // encode UTF-8 safely -> base64
-  const b64 = btoa(unescape(encodeURIComponent(json)));
+  const b64 = btoa(unescape(encodeURIComponent(json))); // UTF-8 safe base64
   return `${basePath}order.html?o=${b64}`;
 }
 
-function calculateTotals() {
-  let grandTotal = 0;
-  let selectedCount = 0;
-
-  const rows = document.querySelectorAll("#productTable tbody tr");
-  rows.forEach(row => {
-    const input = row.querySelector("input[type='number']");
-    const totalCell = row.querySelector(".item-total");
-
-    if (input && totalCell) {
-      const quantity = parseInt(input.value) || 0;
-      const offerPrice = parseFloat(input.dataset.offer) || 0;
-      const itemTotal = quantity * offerPrice;
-
-      if (quantity > 0) selectedCount++;
-
-      totalCell.textContent = `₹${itemTotal.toFixed(2)}`;
-      grandTotal += itemTotal;
-    }
-  });
-
-  // Update product total
-  const grandTotalDisplay = document.getElementById("grandTotal");
-  if (grandTotalDisplay) {
-    grandTotalDisplay.textContent = `${grandTotal.toFixed(2)}`;
-  }
-
-  // Always show transport charge in UI
-  const transportDisplay = document.getElementById("transportCharge");
-  if (transportDisplay) {
-    transportDisplay.textContent = `${TRANSPORT_CHARGE.toFixed(2)}`;
-  }
-
-  // If no items selected, payable is 0; else add transport charge
-  const payable = selectedCount > 0 ? grandTotal + TRANSPORT_CHARGE : 0;
-
-  const payableDisplay = document.getElementById("payableTotal");
-  if (payableDisplay) {
-    payableDisplay.textContent = `${payable.toFixed(2)}`;
-  }
-}
-
-
- 
-
-function downloadPDF() {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
-
-  doc.setFontSize(18);
-  doc.text("AJ Crackers - Product List", 14, 20);
-
-  const rows = [];
-  const headers = [["S.No", "Product Name", "Offer Price (Rs.)"]]; // Added S.No column
+/* -------- WhatsApp (top-level, not nested) -------- */
 async function sendOrderToWhatsApp() {
   const name = document.getElementById("customerName").value.trim();
   const phone = document.getElementById("customerPhone").value.trim();
@@ -914,16 +846,13 @@ async function sendOrderToWhatsApp() {
   }
 
   const order = buildOrderPayload(name, phone, address);
-
   if (!order.items.length) {
     alert("Please select at least one product before sending the order.");
     return;
   }
 
-  // Build summary link
   const summaryLink = makeSummaryLink(order);
 
-  // Build WhatsApp message
   let i = 0;
   let message = `Hi, I'm ${name}, and I'd like to place an order:\n\n`;
   order.items.forEach(it => {
@@ -939,24 +868,32 @@ async function sendOrderToWhatsApp() {
   message += `\n\n📍 Address: ${order.address}`;
   if (order.phone) message += `\n📞 Phone: ${order.phone}`;
 
-  // 👉 Add the clickable summary link
   message += `\n\nView full summary: ${summaryLink}`;
 
   const encodedMessage = encodeURIComponent(message);
   const whatsappURL = `https://wa.me/918296772217?text=${encodedMessage}`;
   window.open(whatsappURL, "_blank");
 }
-  const productRows = document.querySelectorAll("#productTable tbody tr");
 
+/* -------- PDF export -------- */
+function downloadPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  doc.setFontSize(18);
+  doc.text("AJ Crackers - Product List", 14, 20);
+
+  const rows = [];
+  const headers = [["S.No", "Product Name", "Offer Price (Rs.)"]];
+
+  const productRows = document.querySelectorAll("#productTable tbody tr");
   let index = 1;
   productRows.forEach(row => {
     const input = row.querySelector("input[type='number']");
     if (!input) return;
-
     const name = input.dataset.name;
     const price = parseFloat(input.dataset.offer);
-    rows.push([index + 1, name, "Rs." + Number(price).toFixed(2)]);
- // Add index to each row
+    rows.push([index, name, "Rs." + Number(price).toFixed(2)]);
     index++;
   });
 
@@ -977,13 +914,12 @@ async function sendOrderToWhatsApp() {
   doc.save("AJ_Crackers_Product_List.pdf");
 }
 
-
-
-
-  window.onload = function () {
-    loadProducts();
-  };
- 
+/* -------- onload (single place) -------- */
+window.onload = function () {
+  loadProducts();
+  document.getElementById("transportCharge").textContent = TRANSPORT_CHARGE.toFixed(2);
+  calculateTotals();
+};
 </script>
 <!-- Image Zoom Modal -->
 <div id="imageModal" class="image-modal" onclick="closeModal(event)">
