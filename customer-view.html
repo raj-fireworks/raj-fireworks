@@ -806,6 +806,49 @@ function validateIntegerInput(input) {
     input.focus();
   }
 }
+const TRANSPORT_CHARGE = 850;
+
+function buildOrderPayload(name, phone, address) {
+  const rows = document.querySelectorAll("#productTable tbody tr");
+  const items = [];
+  let productsTotal = 0;
+
+  rows.forEach(row => {
+    const input = row.querySelector("input[type='number']");
+    if (!input) return;
+    const qty = parseInt(input.value);
+    if (!qty || qty <= 0) return;
+
+    const itemName = input.dataset.name;
+    const offerPrice = parseFloat(input.dataset.offer) || 0;
+    const itemTotal = qty * offerPrice;
+
+    items.push({ name: itemName, qty, price: offerPrice, total: itemTotal });
+    productsTotal += itemTotal;
+  });
+
+  return {
+    name,
+    phone,
+    address,
+    date: new Date().toLocaleString(),
+    items,
+    totals: {
+      productsTotal,
+      transport: TRANSPORT_CHARGE,
+      payable: items.length ? (productsTotal + TRANSPORT_CHARGE) : 0
+    }
+  };
+}
+
+function makeSummaryLink(orderObj) {
+  // base path for order.html in the SAME folder as this page
+  const basePath = location.origin + location.pathname.replace(/[^/]+$/, '');
+  const json = JSON.stringify(orderObj);
+  // encode UTF-8 safely -> base64
+  const b64 = btoa(unescape(encodeURIComponent(json)));
+  return `${basePath}order.html?o=${b64}`;
+}
 
 function calculateTotals() {
   let grandTotal = 0;
@@ -850,67 +893,7 @@ function calculateTotals() {
 }
 
 
-  async function sendOrderToWhatsApp() {
-    const name = document.getElementById("customerName").value.trim();
-    const phone = document.getElementById("customerPhone").value.trim();
-    const address = document.getElementById("customerAddress").value.trim();
-
-    if (!name || !address) {
-      alert("Please fill in all required fields: Name, Address.");
-      return;
-    }
-
-    const rows = document.querySelectorAll("#productTable tbody tr");
-    let message = `Hi, I'm ${name}, and I'd like to place an order:\n\n`;
-
-    let originalTotal = 0;
-    let itemCount = 0;
-
-    rows.forEach(row => {
-      const input = row.querySelector("input[type='number']");
-      if (!input) return;
-      const qty = parseInt(input.value);
-      const itemName = input.dataset.name;
-      const offerPrice = parseFloat(input.dataset.offer);
-
-      if (qty && qty > 0) {
-        itemCount++;
-        const itemTotal = qty * offerPrice;
-        message += `${itemCount}. ${itemName} × ${qty} = ₹${itemTotal.toFixed(2)}\n`;
-        originalTotal += itemTotal;
-      }
-    });
-
-// After building items and originalTotal...
-if (originalTotal === 0) {
-  alert("Please select at least one product before sending the order.");
-  return;
-}
-
-// Add transport charge and final total
-const finalPayable = originalTotal + TRANSPORT_CHARGE;
-
-// Keep your existing discount line if you want; otherwise you can remove it.
-// Here I keep your currentOffer display for continuity:
-const discount = typeof currentOffer !== 'undefined' ? currentOffer : 0;
-
-message += `\nProducts Total: ₹${originalTotal.toFixed(2)}`;
-message += `\nTransport Charge: ₹${TRANSPORT_CHARGE.toFixed(2)}`;
-message += `\n-----------------------------`;
-message += `\nPayable Total: ₹${finalPayable.toFixed(2)}`;
-
-message += `\n\n📍 Address: ${address}`;
-if (phone) {
-  message += `\n📞 Phone: ${phone}`;
-}
-message += `\n\nThank you`;
-
-  
-    // Open WhatsApp with encoded text message
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappURL = `https://wa.me/918296772217?text=${encodedMessage}`;
-    window.open(whatsappURL, "_blank");
-  }
+ 
 
 function downloadPDF() {
   const { jsPDF } = window.jspdf;
@@ -921,7 +904,49 @@ function downloadPDF() {
 
   const rows = [];
   const headers = [["S.No", "Product Name", "Offer Price (Rs.)"]]; // Added S.No column
+async function sendOrderToWhatsApp() {
+  const name = document.getElementById("customerName").value.trim();
+  const phone = document.getElementById("customerPhone").value.trim();
+  const address = document.getElementById("customerAddress").value.trim();
 
+  if (!name || !address) {
+    alert("Please fill in all required fields: Name, Address.");
+    return;
+  }
+
+  const order = buildOrderPayload(name, phone, address);
+
+  if (!order.items.length) {
+    alert("Please select at least one product before sending the order.");
+    return;
+  }
+
+  // Build summary link
+  const summaryLink = makeSummaryLink(order);
+
+  // Build WhatsApp message
+  let i = 0;
+  let message = `Hi, I'm ${name}, and I'd like to place an order:\n\n`;
+  order.items.forEach(it => {
+    i++;
+    message += `${i}. ${it.name} × ${it.qty} = ₹${it.total.toFixed(2)}\n`;
+  });
+
+  message += `\nProducts Total: ₹${order.totals.productsTotal.toFixed(2)}`;
+  message += `\nTransport Charge: ₹${order.totals.transport.toFixed(2)}`;
+  message += `\n-----------------------------`;
+  message += `\nPayable Total: ₹${order.totals.payable.toFixed(2)}`;
+
+  message += `\n\n📍 Address: ${order.address}`;
+  if (order.phone) message += `\n📞 Phone: ${order.phone}`;
+
+  // 👉 Add the clickable summary link
+  message += `\n\nView full summary: ${summaryLink}`;
+
+  const encodedMessage = encodeURIComponent(message);
+  const whatsappURL = `https://wa.me/918296772217?text=${encodedMessage}`;
+  window.open(whatsappURL, "_blank");
+}
   const productRows = document.querySelectorAll("#productTable tbody tr");
 
   let index = 1;
