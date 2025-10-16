@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Order Summary – AJ Crackers</title>
+<style>
+  body { font-family: system-ui, Arial, sans-serif; margin: 16px; }
+  .card { max-width: 900px; margin: 0 auto; background:#fff; border:1px solid #eee; border-radius:10px; padding:20px; box-shadow:0 4px 10px rgba(0,0,0,.05); }
+  h1 { margin: 0 0 12px; font-size: 22px; }
+  .meta { color:#444; line-height: 1.6; margin-bottom: 16px; }
+  table { width:100%; border-collapse: collapse; margin-top:10px; }
+  th, td { border:1px solid #ddd; padding:10px; text-align:center; }
+  th:first-child, td:first-child { text-align:left; }
+  th { background:#f7f7f7; }
+  .totals { margin-top: 16px; font-size: 16px; }
+  .totals p { margin: 6px 0; }
+  .total-strong { font-weight: 700; font-size: 18px; }
+  .actions { margin-top: 16px; display:flex; gap:10px; }
+  button { padding:10px 14px; border:none; border-radius:6px; cursor:pointer; }
+  .print { background:#f44336; color:#fff; }
+  .copy { background:#2c3e50; color:#fff; }
+  .muted { color:#777; font-size: 12px; margin-top: 8px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Order Summary</h1>
+    <div id="who" class="meta"></div>
+
+    <table id="items">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Product</th>
+          <th>Qty</th>
+          <th>Offer Price (₹)</th>
+          <th>Total (₹)</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div class="totals" id="totals"></div>
+
+    <div class="actions">
+      <button class="print" onclick="window.print()">Print / Save PDF</button>
+      <button class="copy" onclick="copyLink()">Copy Link</button>
+    </div>
+    <div class="muted">Tip: Share this link with your customer or team for reference.</div>
+  </div>
+
+<script>
+function decodeOrder() {
+  const p = new URLSearchParams(location.search);
+  const raw = p.get('o');
+  if (!raw) return null;
+  try {
+    const json = decodeURIComponent(escape(window.atob(raw))); // base64 -> UTF-8 string
+    return JSON.parse(json);
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+}
+
+function number(n){ return (Number(n)||0).toFixed(2); }
+
+function render(order) {
+  const who = document.getElementById('who');
+  const tbody = document.querySelector('#items tbody');
+  const totals = document.getElementById('totals');
+
+  if (!order || !order.items || !order.items.length) {
+    who.innerHTML = "<strong>Invalid or empty order.</strong>";
+    return;
+  }
+
+  who.innerHTML = `
+    <div><strong>Name:</strong> ${order.name || '-'}</div>
+    ${order.phone ? `<div><strong>Phone:</strong> ${order.phone}</div>` : ''}
+    <div><strong>Address:</strong> ${order.address || '-'}</div>
+    <div><strong>Date:</strong> ${order.date || '-'}</div>
+  `;
+
+  tbody.innerHTML = order.items.map((it, i) => `
+    <tr>
+      <td>${i+1}</td>
+      <td>${it.name}</td>
+      <td>${it.qty}</td>
+      <td>₹${number(it.price)}</td>
+      <td>₹${number(it.total)}</td>
+    </tr>
+  `).join('');
+
+  const pt = order.totals?.productsTotal || 0;
+  const tc = order.totals?.transport || 0;
+  const pay = order.totals?.payable || (pt + tc);
+
+  totals.innerHTML = `
+    <p>Products Total: ₹<strong>${number(pt)}</strong></p>
+    <p>Transport Charge: ₹<strong>${number(tc)}</strong></p>
+    <p class="total-strong">Payable Total: ₹<strong>${number(pay)}</strong></p>
+  `;
+}
+
+function copyLink() {
+  navigator.clipboard.writeText(location.href)
+    .then(()=>alert('Link copied!'))
+    .catch(()=>alert('Could not copy link.'));
+}
+
+const order = decodeOrder();
+render(order);
+</script>
+</body>
+</html>
