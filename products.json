@@ -842,22 +842,22 @@
     "offerprice": 192
   },
   "30 Item": {
-    "price": 575,
+    "price": 500,
     "category": "Gift Box",
     "unit": "Pack",
-    "offerprice": 575
+    "offerprice": 500
   },
   "40 Item": {
-    "price": 725,
+    "price": 700,
     "category": "Gift Box",
     "unit": "Pack",
-    "offerprice": 725
+    "offerprice": 700
   },
   "50 Item": {
-    "price": 950,
+    "price": 900,
     "category": "Gift Box",
     "unit": "Pack",
-    "offerprice": 950
+    "offerprice": 900
   }
 
 }
