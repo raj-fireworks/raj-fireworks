@@ -1147,21 +1147,14 @@ function buildOrderPayload(name, phone, address) {
   };
 }
 
-async function makeSummaryLink(orderObj) {
-  const orderId = 'AJ' + Date.now().toString(36).toUpperCase();
+function makeSummaryLink(orderObj) {
+  const json = JSON.stringify(orderObj);
 
-  await fetch(
-    `YOUR_DATABASE_URL/orders/${encodeURIComponent(orderId)}.json`,
-    {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(orderObj)
-    }
+  const encoded = btoa(
+    unescape(encodeURIComponent(json))
   );
 
-  return `${window.location.origin}/raj-fireworks/order.html?id=${orderId}`;
+  return `${window.location.origin}/raj-fireworks/order.html?o=${encodeURIComponent(encoded)}`;
 }
 
 /* -------- WhatsApp (top-level, not nested) -------- */
@@ -1198,7 +1191,7 @@ if (order.phone) {
   message += `\n📞 Phone: ${order.phone}`;
 }
 
-message += `\n\nView your bill: ${summaryLink}`;
+message += `\n\n📄 View your bill: ${summaryLink}`;
 
 message += `\n\n🚚 Transport charges are not included in the payable total. Parcels will be sent on a TO-PAY basis, and transport charges must be paid directly to the transporter/transport office. Charges may vary based on location, parcel weight, number of boxes, and transport rates.`;
 
