@@ -197,7 +197,32 @@ header, footer {
     padding: 10px 14px;
     font-size: 14px;
   }
+.transport-note {
+  margin: 30px auto 20px;
+  padding: 20px 24px;
+  max-width: 1000px;
+  border: 2px solid #f0ad4e;
+  border-radius: 12px;
+  background: #fff8e8;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  line-height: 1.6;
+  font-size: 15px;
+}
 
+.transport-note-title {
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #b45309;
+}
+
+.transport-note p {
+  margin: 8px 0;
+}
+
+.transport-note strong {
+  font-weight: 700;
+}
   /* Adjust WhatsApp button margin */
   .whatsapp-button {
     margin-left: 0 !important;
@@ -924,7 +949,31 @@ window.onload = function () {
 <div id="imageModal" class="image-modal" onclick="closeModal(event)">
   <img id="zoomedImage" src="" alt="Zoomed Image" onclick="event.stopPropagation()" />
 </div>
+<!-- Transport Charges Note -->
+<div class="transport-note">
+  <div class="transport-note-title">
+    🚚 IMPORTANT – TRANSPORT CHARGES
+  </div>
 
+  <p>
+    <strong>Transport charges are NOT included in the product price or payable total.</strong>
+  </p>
+
+  <p>
+    All parcels will be sent on a <strong>TO-PAY basis</strong> through the
+    available transport service.
+  </p>
+
+  <p>
+    ✅ <strong>Transport charges must be paid directly by the customer to the
+    transport office / transporter at the time of parcel collection or delivery.</strong>
+  </p>
+
+  <p>
+    ✅ Transport charges may vary depending on
+    <strong>location, parcel weight, number of boxes, and transport company rates.</strong>
+  </p>
+</div>
 
 
 </body>
