@@ -51,36 +51,20 @@
   </div>
 
 <script>
-async function loadOrder() {
-  const params = new URLSearchParams(window.location.search);
-  const orderId = params.get('id');
-
-  if (!orderId) {
-    render(null);
-    return;
-  }
-
+function decodeOrder() {
+  const p = new URLSearchParams(location.search);
+  const raw = p.get('o');
+  if (!raw) return null;
   try {
-    const response = await fetch(
-      `YOUR_DATABASE_URL/orders/${encodeURIComponent(orderId)}.json`
-    );
-
-    if (!response.ok) {
-      throw new Error('Failed to load order');
-    }
-
-    const order = await response.json();
-
-    render(order);
-  } catch (error) {
-    console.error('Failed to load order:', error);
-    render(null);
+    const json = decodeURIComponent(escape(window.atob(raw))); // base64 -> UTF-8 string
+    return JSON.parse(json);
+  } catch (e) {
+    console.error(e);
+    return null;
   }
 }
 
-function number(n) {
-  return (Number(n) || 0).toFixed(2);
-}
+function number(n){ return (Number(n)||0).toFixed(2); }
 
 function render(order) {
   const who = document.getElementById('who');
@@ -101,7 +85,7 @@ function render(order) {
 
   tbody.innerHTML = order.items.map((it, i) => `
     <tr>
-      <td>${i + 1}</td>
+      <td>${i+1}</td>
       <td>${it.name}</td>
       <td>${it.qty}</td>
       <td>₹${number(it.price)}</td>
@@ -111,24 +95,23 @@ function render(order) {
 
   const pt = order.totals?.productsTotal || 0;
   const tc = order.totals?.transport || 0;
-
-  // Transport is NOT included in payable total
-  const pay = pt;
+  const pay = order.totals?.payable || (pt + tc);
 
   totals.innerHTML = `
     <p>Products Total: ₹<strong>${number(pt)}</strong></p>
+    <p>Transport Charge: ₹<strong>${number(tc)}</strong></p>
     <p class="total-strong">Payable Total: ₹<strong>${number(pay)}</strong></p>
-    <p>🚚 Transport charges are not included. Sent on TO-PAY basis.</p>
   `;
 }
 
 function copyLink() {
   navigator.clipboard.writeText(location.href)
-    .then(() => alert('Link copied!'))
-    .catch(() => alert('Could not copy link.'));
+    .then(()=>alert('Link copied!'))
+    .catch(()=>alert('Could not copy link.'));
 }
 
-loadOrder();
+const order = decodeOrder();
+render(order);
 </script>
 </body>
 </html>
