@@ -52,18 +52,26 @@
 
 <script>
 function decodeOrder() {
-  const p = new URLSearchParams(location.search);
-  const raw = p.get('o');
-  if (!raw) return null;
+  const params = new URLSearchParams(window.location.search);
+  const orderId = params.get('id');
+
+  if (!orderId) {
+    return null;
+  }
+
   try {
-    const json = decodeURIComponent(escape(window.atob(raw))); // base64 -> UTF-8 string
-    return JSON.parse(json);
+    const storedOrder = localStorage.getItem(`order_${orderId}`);
+
+    if (!storedOrder) {
+      return null;
+    }
+
+    return JSON.parse(storedOrder);
   } catch (e) {
-    console.error(e);
+    console.error('Failed to load order:', e);
     return null;
   }
 }
-
 function number(n){ return (Number(n)||0).toFixed(2); }
 
 function render(order) {
