@@ -198,32 +198,129 @@ header, footer {
     font-size: 14px;
   }
 .transport-note {
-  margin: 30px auto 20px;
-  padding: 20px 24px;
-  max-width: 1000px;
-  border: 2px solid #f0ad4e;
-  border-radius: 12px;
-  background: #fff8e8;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-  line-height: 1.6;
-  font-size: 15px;
+  width: calc(100% - 24px);
+  margin: 16px auto 20px;
+  padding: 8px 14px 10px;
+  box-sizing: border-box;
+
+  background: #fffaf0;
+  border: 1px solid #f5b642;
+  border-radius: 5px;
+
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+
+  color: #222;
+  font-size: 12px;
+  line-height: 1.35;
 }
 
-.transport-note-title {
-  margin-bottom: 12px;
-  font-size: 18px;
+.transport-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding-bottom: 7px;
+  border-bottom: 1px dashed #f5b642;
+}
+
+.transport-icon {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #f5b642;
+  border-radius: 50%;
+
+  background: #fff3d6;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.transport-title {
+  font-size: 14px;
   font-weight: 700;
-  color: #b45309;
+  color: #a85408;
 }
 
-.transport-note p {
-  margin: 8px 0;
+.transport-content {
+  padding-top: 2px;
 }
 
-.transport-note strong {
+.transport-row {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  align-items: center;
+
+  min-height: 30px;
+  padding: 3px 0;
+
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.transport-row:last-child {
+  border-bottom: none;
+}
+
+.transport-symbol {
+  width: 22px;
+  height: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: 2px;
+
+  border: 1.5px solid #f59e0b;
+  border-radius: 50%;
+
+  color: #f59e0b;
+  font-size: 13px;
   font-weight: 700;
 }
-  /* Adjust WhatsApp button margin */
+
+.transport-check {
+  border-color: #22a95a;
+  color: #22a95a;
+}
+
+.transport-row strong {
+  font-weight: 700;
+  color: #111;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .transport-note {
+    width: calc(100% - 16px);
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+
+  .transport-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 19px;
+  }
+
+  .transport-title {
+    font-size: 12px;
+  }
+
+  .transport-row {
+    grid-template-columns: 28px 1fr;
+    min-height: 28px;
+  }
+
+  .transport-symbol {
+    width: 20px;
+    height: 20px;
+  }
+}
+	/* Adjust WhatsApp button margin */
   .whatsapp-button {
     margin-left: 0 !important;
   }
@@ -667,7 +764,49 @@ tr {
 </div>
 
 <p class="footer-note">* Offer is fixed and prices shown are after discount. Prices inclusive of taxes.</p>
+<div class="transport-note">
+  <div class="transport-header">
+    <div class="transport-icon">🚚</div>
+    <div class="transport-title">IMPORTANT – TRANSPORT CHARGES</div>
+  </div>
 
+  <div class="transport-content">
+
+    <div class="transport-row">
+      <div class="transport-symbol">!</div>
+      <div>
+        Transport charges are <strong>NOT</strong> included in the product price
+        or payable total.
+      </div>
+    </div>
+
+    <div class="transport-row">
+      <div class="transport-symbol">📦</div>
+      <div>
+        All parcels will be sent on a <strong>TO-PAY</strong> basis through the
+        available transport service.
+      </div>
+    </div>
+
+    <div class="transport-row">
+      <div class="transport-symbol transport-check">✓</div>
+      <div>
+        Transport charges <strong>must be paid directly</strong> by the customer
+        to the transport office / transporter at the time of parcel collection
+        or delivery.
+      </div>
+    </div>
+
+    <div class="transport-row">
+      <div class="transport-symbol transport-check">✓</div>
+      <div>
+        Transport charges may vary depending on
+        <strong>location, parcel weight, number of boxes, and transport company rates.</strong>
+      </div>
+    </div>
+
+  </div>
+</div>
 <footer>
   <div class="footer-container">
     <p><strong>AJ Crackers</strong> — Your Trusted Firework Partner</p>
@@ -894,7 +1033,7 @@ async function sendOrderToWhatsApp() {
   if (order.phone) message += `\n📞 Phone: ${order.phone}`;
 
   message += `\n\nView full summary: ${summaryLink}`;
-
+	message += `\n\n🚚 Transport charges are not included in the payable total. Parcels will be sent on a TO-PAY basis, and transport charges must be paid directly to the transporter/transport office. Charges may vary based on location, parcel weight, number of boxes, and transport rates.`;
   const encodedMessage = encodeURIComponent(message);
   const whatsappURL = `https://wa.me/918296772217?text=${encodedMessage}`;
   window.open(whatsappURL, "_blank");
@@ -949,31 +1088,7 @@ window.onload = function () {
 <div id="imageModal" class="image-modal" onclick="closeModal(event)">
   <img id="zoomedImage" src="" alt="Zoomed Image" onclick="event.stopPropagation()" />
 </div>
-<!-- Transport Charges Note -->
-<div class="transport-note">
-  <div class="transport-note-title">
-    🚚 IMPORTANT – TRANSPORT CHARGES
-  </div>
 
-  <p>
-    <strong>Transport charges are NOT included in the product price or payable total.</strong>
-  </p>
-
-  <p>
-    All parcels will be sent on a <strong>TO-PAY basis</strong> through the
-    available transport service.
-  </p>
-
-  <p>
-    ✅ <strong>Transport charges must be paid directly by the customer to the
-    transport office / transporter at the time of parcel collection or delivery.</strong>
-  </p>
-
-  <p>
-    ✅ Transport charges may vary depending on
-    <strong>location, parcel weight, number of boxes, and transport company rates.</strong>
-  </p>
-</div>
 
 
 </body>
