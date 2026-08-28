@@ -1147,12 +1147,21 @@ function buildOrderPayload(name, phone, address) {
   };
 }
 
-function makeSummaryLink(orderObj) {
-  const basePath = location.origin + location.pathname.replace(/[^/]+$/, '');
-const orderId = 'AJ' + Date.now().toString(36).toUpperCase();
-	const summaryLink =
-  `${window.location.origin}/raj-fireworks/order.html?id=${orderId}`;
-	return summaryLink;
+async function makeSummaryLink(orderObj) {
+  const orderId = 'AJ' + Date.now().toString(36).toUpperCase();
+
+  await fetch(
+    `YOUR_DATABASE_URL/orders/${encodeURIComponent(orderId)}.json`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(orderObj)
+    }
+  );
+
+  return `${window.location.origin}/raj-fireworks/order.html?id=${orderId}`;
 }
 
 /* -------- WhatsApp (top-level, not nested) -------- */
@@ -1171,28 +1180,33 @@ async function sendOrderToWhatsApp() {
     alert("Please select at least one product before sending the order.");
     return;
   }
+const summaryLink = await makeSummaryLink(order);
 
-  const summaryLink = makeSummaryLink(order);
-const billUrl =
-  `https://raj-fireworks.github.io/raj-fireworks/order.html?id=${orderId}`;
-  let i = 0;
-  let message = `Hi, I'm ${name}, and I'd like to place an order:\n\n`;
-  order.items.forEach(it => {
-    i++;
-    message += `${i}. ${it.name} × ${it.qty} = ₹${it.total.toFixed(2)}\n`;
-  });
+let i = 0;
+let message = `Hi, I'm ${name}, and I'd like to place an order:\n\n`;
 
-  message += `\Payable Total: ₹${order.totals.productsTotal.toFixed(2)}`;
+order.items.forEach(it => {
+  i++;
+  message += `${i}. ${it.name} × ${it.qty} = ₹${it.total.toFixed(2)}\n`;
+});
 
-  message += `\n\n📍 Address: ${order.address}`;
-  if (order.phone) message += `\n📞 Phone: ${order.phone}`;
+message += `\nPayable Total: ₹${order.totals.productsTotal.toFixed(2)}`;
 
-  message += `\n\nView your bill: ${billUrl}`;
+message += `\n\n📍 Address: ${order.address}`;
 
-	message += `\n\n🚚 Transport charges are not included in the payable total. Parcels will be sent on a TO-PAY basis, and transport charges must be paid directly to the transporter/transport office. Charges may vary based on location, parcel weight, number of boxes, and transport rates.`;
-  const encodedMessage = encodeURIComponent(message);
-  const whatsappURL = `https://wa.me/918296772217?text=${encodedMessage}`;
-  window.open(whatsappURL, "_blank");
+if (order.phone) {
+  message += `\n📞 Phone: ${order.phone}`;
+}
+
+message += `\n\nView your bill: ${summaryLink}`;
+
+message += `\n\n🚚 Transport charges are not included in the payable total. Parcels will be sent on a TO-PAY basis, and transport charges must be paid directly to the transporter/transport office. Charges may vary based on location, parcel weight, number of boxes, and transport rates.`;
+
+const encodedMessage = encodeURIComponent(message);
+const whatsappURL =
+  `https://wa.me/918296772217?text=${encodedMessage}`;
+
+window.open(whatsappURL, "_blank");
 }
 
 /* -------- PDF export -------- */
