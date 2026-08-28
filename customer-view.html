@@ -629,7 +629,6 @@ tr {
 
 <div class="total-section">
   <p>Products Total: ₹<span id="grandTotal">0.00</span></p>
-  <p>Transport Charge: ₹<span id="transportCharge">850.00</span></p>
   <p><strong>Payable Total: ₹<span id="payableTotal">0.00</span></strong></p>
 </div>
 
@@ -788,9 +787,8 @@ function calculateTotals() {
   });
 
   document.getElementById("grandTotal").textContent = grandTotal.toFixed(2);
-  document.getElementById("transportCharge").textContent = TRANSPORT_CHARGE.toFixed(2);
 
-  const payable = selectedCount > 0 ? grandTotal + TRANSPORT_CHARGE : 0;
+  const payable = selectedCount > 0 ? grandTotal : 0;
   document.getElementById("payableTotal").textContent = payable.toFixed(2);
 }
 
@@ -919,7 +917,6 @@ function downloadPDF() {
 /* -------- onload (single place) -------- */
 window.onload = function () {
   loadProducts();
-  document.getElementById("transportCharge").textContent = TRANSPORT_CHARGE.toFixed(2);
   calculateTotals();
 };
 </script>
