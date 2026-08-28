@@ -663,9 +663,9 @@ function loadProducts() {
         const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 75 };
         currentOffer = storedOffer.offer;
 
-      const products = Object.entries(data).map(([name, info]) => ({
+     const products = Object.entries(data).map(([name, info]) => ({
   name,
-  tamilName: tamilNames[name] || "",
+  tamilName: info.tamilName || "",
   price: Number(info.price) || 0,
   offerprice: Number(info.offerprice) || 0,
   unit: info.unit || "-",
