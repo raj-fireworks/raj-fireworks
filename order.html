@@ -98,9 +98,7 @@ function render(order) {
   const pay = order.totals?.payable || (pt + tc);
 
   totals.innerHTML = `
-    <p>Products Total: ₹<strong>${number(pt)}</strong></p>
-    <p>Transport Charge: ₹<strong>${number(tc)}</strong></p>
-    <p class="total-strong">Payable Total: ₹<strong>${number(pay)}</strong></p>
+    <p>Payable Total: ₹<strong>${number(pt)}</strong></p>
   `;
 }
 
