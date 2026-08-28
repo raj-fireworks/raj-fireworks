@@ -198,45 +198,39 @@ header, footer {
     font-size: 14px;
   }
 .transport-note {
-  width: calc(100% - 24px);
-  margin: 16px auto 20px;
-  padding: 8px 14px 10px;
+  width: calc(100% - 40px);
+  margin: 25px auto 30px;
+  padding: 10px 18px;
   box-sizing: border-box;
-
   background: #fffaf0;
   border: 1px solid #f5b642;
-  border-radius: 5px;
-
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   color: #222;
+  font-family: Arial, sans-serif;
   font-size: 12px;
-  line-height: 1.35;
+  line-height: 1.4;
 }
 
 .transport-header {
   display: flex;
   align-items: center;
   gap: 10px;
-
   padding-bottom: 7px;
   border-bottom: 1px dashed #f5b642;
 }
 
 .transport-icon {
-  width: 40px;
-  height: 40px;
-
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
-
   border: 1px solid #f5b642;
   border-radius: 50%;
-
   background: #fff3d6;
-  font-size: 22px;
-  flex-shrink: 0;
+  font-size: 21px;
 }
 
 .transport-title {
@@ -246,17 +240,15 @@ header, footer {
 }
 
 .transport-content {
-  padding-top: 2px;
+  width: 100%;
 }
 
 .transport-row {
-  display: grid;
-  grid-template-columns: 34px 1fr;
+  display: flex;
   align-items: center;
-
+  gap: 12px;
   min-height: 30px;
-  padding: 3px 0;
-
+  padding: 4px 0;
   border-bottom: 1px solid #e5e5e5;
 }
 
@@ -267,16 +259,12 @@ header, footer {
 .transport-symbol {
   width: 22px;
   height: 22px;
-
+  min-width: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  margin-left: 2px;
-
   border: 1.5px solid #f59e0b;
   border-radius: 50%;
-
   color: #f59e0b;
   font-size: 13px;
   font-weight: 700;
@@ -290,6 +278,22 @@ header, footer {
 .transport-row strong {
   font-weight: 700;
   color: #111;
+}
+
+@media (max-width: 600px) {
+  .transport-note {
+    width: calc(100% - 20px);
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+
+  .transport-title {
+    font-size: 12px;
+  }
+
+  .transport-row {
+    gap: 8px;
+  }
 }
 
 /* Mobile */
@@ -765,9 +769,12 @@ tr {
 
 <p class="footer-note">* Offer is fixed and prices shown are after discount. Prices inclusive of taxes.</p>
 <div class="transport-note">
+
   <div class="transport-header">
     <div class="transport-icon">🚚</div>
-    <div class="transport-title">IMPORTANT – TRANSPORT CHARGES</div>
+    <div class="transport-title">
+      IMPORTANT – TRANSPORT CHARGES
+    </div>
   </div>
 
   <div class="transport-content">
@@ -775,25 +782,25 @@ tr {
     <div class="transport-row">
       <div class="transport-symbol">!</div>
       <div>
-        Transport charges are <strong>NOT</strong> included in the product price
-        or payable total.
+        Transport charges are <strong>NOT</strong> included in the product
+        price or payable total.
       </div>
     </div>
 
     <div class="transport-row">
       <div class="transport-symbol">📦</div>
       <div>
-        All parcels will be sent on a <strong>TO-PAY</strong> basis through the
-        available transport service.
+        All parcels will be sent on a <strong>TO-PAY</strong> basis through
+        the available transport service.
       </div>
     </div>
 
     <div class="transport-row">
       <div class="transport-symbol transport-check">✓</div>
       <div>
-        Transport charges <strong>must be paid directly</strong> by the customer
-        to the transport office / transporter at the time of parcel collection
-        or delivery.
+        Transport charges <strong>must be paid directly</strong> by the
+        customer to the transport office / transporter at the time of
+        parcel collection or delivery.
       </div>
     </div>
 
@@ -801,13 +808,15 @@ tr {
       <div class="transport-symbol transport-check">✓</div>
       <div>
         Transport charges may vary depending on
-        <strong>location, parcel weight, number of boxes, and transport company rates.</strong>
+        <strong>location, parcel weight, number of boxes, and transport
+        company rates.</strong>
       </div>
     </div>
 
   </div>
+
 </div>
-<footer>
+	<footer>
   <div class="footer-container">
     <p><strong>AJ Crackers</strong> — Your Trusted Firework Partner</p>
     <p>Contact: +91 82967 72217, 97914 44235, 99436 81121 | Email: support@ajcrackers.in</p>
