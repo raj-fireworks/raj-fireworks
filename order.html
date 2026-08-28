@@ -61,7 +61,6 @@ async function loadOrder() {
   }
 
   try {
-    // Get the order from your online database
     const response = await fetch(
       `YOUR_DATABASE_URL/orders/${encodeURIComponent(orderId)}.json`
     );
@@ -70,13 +69,18 @@ async function loadOrder() {
       throw new Error('Failed to load order');
     }
 
-   loadOrder();
+    const order = await response.json();
+
+    render(order);
   } catch (error) {
     console.error('Failed to load order:', error);
     render(null);
   }
 }
-function number(n){ return (Number(n)||0).toFixed(2); }
+
+function number(n) {
+  return (Number(n) || 0).toFixed(2);
+}
 
 function render(order) {
   const who = document.getElementById('who');
@@ -97,7 +101,7 @@ function render(order) {
 
   tbody.innerHTML = order.items.map((it, i) => `
     <tr>
-      <td>${i+1}</td>
+      <td>${i + 1}</td>
       <td>${it.name}</td>
       <td>${it.qty}</td>
       <td>₹${number(it.price)}</td>
@@ -107,23 +111,24 @@ function render(order) {
 
   const pt = order.totals?.productsTotal || 0;
   const tc = order.totals?.transport || 0;
-  const pay = order.totals?.payable || (pt + tc);
+
+  // Transport is NOT included in payable total
+  const pay = pt;
 
   totals.innerHTML = `
     <p>Products Total: ₹<strong>${number(pt)}</strong></p>
-    <p>Transport Charge: ₹<strong>${number(tc)}</strong></p>
     <p class="total-strong">Payable Total: ₹<strong>${number(pay)}</strong></p>
+    <p>🚚 Transport charges are not included. Sent on TO-PAY basis.</p>
   `;
 }
 
 function copyLink() {
   navigator.clipboard.writeText(location.href)
-    .then(()=>alert('Link copied!'))
-    .catch(()=>alert('Could not copy link.'));
+    .then(() => alert('Link copied!'))
+    .catch(() => alert('Could not copy link.'));
 }
 
-const order = decodeOrder();
-render(order);
+loadOrder();
 </script>
 </body>
 </html>
