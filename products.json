@@ -1,863 +1,996 @@
 {
-    "Kuruvi": {
-        "price": 36,
-        "category": "One Sound Crackers",
-        "unit": "Pkt",
-        "offerprice": "7"
-    },
-    "31/2 Lakshmi": {
-        "price": 66,
-        "category": "One Sound Crackers",
-        "unit": "Pkt",
-        "offerprice": "13"
-    },
-    "4 Lakshmi": {
-        "price": 90,
-        "category": "One Sound Crackers",
-        "unit": "Pkt",
-        "offerprice": "18"
-    },
-    "4 Deluxe Lakshmi": {
-        "price": 132,
-        "category": "One Sound Crackers",
-        "unit": "Pkt",
-        "offerprice": "26"
-    },
-    "Gold Lakshmi": {
-        "price": 138,
-        "category": "One Sound Crackers",
-        "unit": "Pkt",
-        "offerprice": "28"
-    },
-    "2 Sound": {
-        "price": 120,
-        "category": "One Sound Crackers",
-        "unit": "Pkt",
-        "offerprice": "24"
-    },
-    "5 Jallikattu": {
-        "price": 270,
-        "category": "One Sound Crackers",
-        "unit": "Pkt",
-        "offerprice": "54"
-    },
-    "6 Lion": {
-        "price": 360,
-        "category": "One Sound Crackers",
-        "unit": "Pkt",
-        "offerprice": "72"
-    },
-     "7 Golden Sparrow": {
-        "price": 480,
-        "category": "One Sound Crackers",
-        "unit": "Pkt",
-        "offerprice": "96"
-    },
-     "28 Chorsa": {
-        "price": 72,
-        "category": "Thunder Crackers",
-        "unit": "Pkt",
-        "offerprice": "14"
-    },
-     "28 Giant": {
-        "price": 120,
-        "category": "Thunder Crackers",
-        "unit": "Pkt",
-        "offerprice": "24"
-    },
-    "56 Giant": {
-        "price": 240,
-        "category": "Thunder Crackers",
-        "unit": "Pkt",
-        "offerprice": "48"
-    },
-    "24 deluxe": {
-        "price": 240,
-        "category": "Deluxe Crackers",
-        "unit": "Pkt",
-        "offerprice": "48"
-    },
-    "50 deluxe": {
-        "price": 480,
-        "category": "Deluxe Crackers",
-        "unit": "Pkt",
-        "offerprice": "96"
-    },
-    "100 deluxe": {
-        "price": 960,
-        "category": "Deluxe Crackers",
-        "unit": "Pkt",
-        "offerprice": "192"
-    },
-    "Red bijili": {
-        "price": 180,
-        "category": "Bijli Crackers",
-        "unit": "Bag",
-        "offerprice": "36"
-    },
-    "Stripped bijili": {
-        "price": 192,
-        "category": "Bijli Crackers",
-        "unit": "Bag",
-        "offerprice": "38"
-    },
-    "100 wala": {
-        "price": 240,
-        "category": "Wala",
-        "unit": "Box",
-        "offerprice": "48"
-    },
-    "200 wala": {
-        "price": 480,
-        "category": "Wala",
-        "unit": "Box",
-        "offerprice": "96"
-    },
-    "1000 wala": {
-        "price": 840,
-        "category": "Wala",
-        "unit": "Box",
-        "offerprice": "168"
-    },
-    "2000 wala": {
-        "price": 1680,
-        "category": "Wala",
-        "unit": "Box",
-        "offerprice": "336"
-    },
-    "5000 wala": {
-        "price": 4200,
-        "category": "Wala",
-        "unit": "Box",
-        "offerprice": "840"
-    },
-     "10000 wala": {
-        "price": 8400,
-        "category": "Wala",
-        "unit": "Box",
-        "offerprice": "1680"
-    },
-    "Bullet Bomb": {
-        "price": 144,
-        "category": "Crackling Bombs",
-        "unit": "Box",
-        "offerprice": "29"
-    },
-    "Hydro Bomb": {
-        "price": 450,
-        "category": "Crackling Bombs",
-        "unit": "Box",
-        "offerprice": "90"
-    },
-    "King of King": {
-        "price": 540,
-        "category": "Crackling Bombs",
-        "unit": "Box",
-        "offerprice": "108"
-    },
-    "Classic Bomb": {
-        "price": 680,
-        "category": "Crackling Bombs",
-        "unit": "Box",
-        "offerprice": "132"
-    },
-    "Digital Bomb": {
-        "price": 1260,
-        "category": "Crackling Bombs",
-        "unit": "Box",
-        "offerprice": "252"
-    },
-     "555 Bomb": {
-        "price": 600,
-        "category": "Crackling Bombs",
-        "unit": "Box",
-        "offerprice": "120"
-    },
-    "Paper bomb 1/4 kg": {
-        "price": 240,
-        "category": "Crackling Bombs",
-        "unit": "Box",
-        "offerprice": "48"
-    },
-    "Paper bomb 1/2 kg": {
-        "price": 480,
-        "category": "Crackling Bombs",
-        "unit": "Box",
-        "offerprice": "96"
-    },
-     "Paper bomb 1kg": {
-        "price": 960,
-        "category": "Crackling Bombs",
-        "unit": "Box",
-        "offerprice": "192"
-    },
-     "Avathar bomb": {
-        "price": 1200,
-        "category": "Crackling Bombs",
-        "unit": "10pieces",
-        "offerprice": "240"
-    },
-    "Twinkling Stars": {
-        "price": 120,
-        "category": "Ropes & Candles",
-        "unit": "Box",
-        "offerprice": "24"
-    },
-    "4 Twinkling Stars": {
-        "price": 360,
-        "category": "Ropes & Candles",
-        "unit": "Box",
-        "offerprice": "72"
-    },
-    "selfie stick": {
-        "price": 210,
-        "category": "Ropes & Candles",
-        "unit": "Box",
-        "offerprice": "42"
-    },
-    "candy crush": {
-        "price": 600,
-        "category": "Ropes & Candles",
-        "unit": "Box",
-        "offerprice": "120"
-    },
-    "lorax": {
-        "price": 480,
-        "category": "Ropes & Candles",
-        "unit": "Box",
-        "offerprice": "96"
-    },
-    "Chakkar Big": {
-        "price": 300,
-        "category": "Round Chakra",
-        "unit": "Box",
-        "offerprice": "60"
-    },
-     "Chakkar Special": {
-        "price": 480,
-        "category": "Round Chakra",
-        "unit": "Box",
-        "offerprice": "96"
-    },
-    "Chakkar deluxe": {
-        "price": 720,
-        "category": "Round Chakra",
-        "unit": "Box",
-        "offerprice": "144"
-    },
-    
-    "Spinner Super Deluxe": {
-        "price": 1260,
-        "category": "Round Chakra",
-        "unit": "Box",
-        "offerprice": "252"
-    },
-     "Disco Wheel": {
-        "price": 240,
-        "category": "Round Chakra",
-        "unit": "Box",
-        "offerprice": "48"
-    },
-    "Lotus Wheel": {
-        "price": 720,
-        "category": "Round Chakra",
-        "unit": "Box",
-        "offerprice": "144"
-    },
-     "Flowerpot Big": {
-        "price": 288,
-        "category": "Digital Flower Pots",
-        "unit": "Box",
-        "offerprice": "58"
-    },
-     "Flowerpot Special": {
-        "price": 360,
-        "category": "Digital Flower Pots",
-        "unit": "Box",
-        "offerprice": "72"
-    },
-    "Flowerpot ashoka": {
-        "price": 510,
-        "category": "Digital Flower Pots",
-        "unit": "Box",
-        "offerprice": "102"
-    },
-      "Color Kotti": {
-        "price": 990,
-        "category": "Digital Flower Pots",
-        "unit": "Box",
-        "offerprice": "398"
-    },
-    "F.P. deluxe (5 pcs)": {
-        "price": 840,
-        "category": "Digital Flower Pots",
-        "unit": "Box",
-        "offerprice": "168"
-    },
-     "F.P. Super deluxe (5 pcs)": {
-        "price": 420,
-        "category": "Digital Flower Pots",
-        "unit": "Box",
-        "offerprice": "84"
-    },
-     "Color Kotti Delux": {
-        "price": 1170,
-        "category": "Digital Flower Pots",
-        "unit": "Box",
-        "offerprice": "354"
-    },
-    "Baby Rocket": {
-        "price": 240,
-        "category": "Runner Rocket",
-        "unit": "Box",
-        "offerprice": "48"
-    },
-      "Rocket Bomb": {
-        "price": 300,
-        "category": "Runner Rocket",
-        "unit": "Box",
-        "offerprice": "60"
-    },
-    "Lunik Rocket": {
-        "price": 660,
-        "category": "Runner Rocket",
-        "unit": "Box",
-        "offerprice": "132"
-    },
-    "2 Sound Rocket": {
-        "price": 780,
-        "category": "Runner Rocket",
-        "unit": "Box",
-        "offerprice": "156"
-    },
-    "3 Sound Rocket": {
-        "price": 840,
-        "category": "Runner Rocket",
-        "unit": "Box",
-        "offerprice": "168"
-    },
-    "siren": {
-        "price": 1020,
-        "category": "Whistle Crackers",
-        "unit": "Box",
-        "offerprice": "204"
-    },
-    "Whistling dixie wheel": {
-        "price": 660,
-        "category": "Whistle Crackers",
-        "unit": "Box",
-        "offerprice": "132"
-    },
-    "Whistling Rocket": {
-        "price": 1080,
-        "category": "Whistle Crackers",
-        "unit": "Box",
-        "offerprice": "216"
-    },
-    "Whistling Zip 25 shot": {
-        "price": 4080,
-        "category": "Whistle Crackers",
-        "unit": "Box",
-        "offerprice": "816"
-    },
-      "Mini Siren": {
-        "price": 780,
-        "category": "Whistle Crackers",
-        "unit": "Box",
-        "offerprice": "156"
-    },
-     "Electric Stone": {
-        "price": 60,
-        "category": "90's Dream",
-        "unit": "Box",
-        "offerprice": "12"
-    },
-    "Zee Boom bag": {
-        "price": 60,
-        "category": "90's Dream",
-        "unit": "Box",
-        "offerprice": "12"
-    },
-    "Magic pops": {
-        "price": 60,
-        "category": "90's Dream",
-        "unit": "Box",
-        "offerprice": "12"
-    },
-    "Kit kat": {
-        "price": 120,
-        "category": "90's Dream",
-        "unit": "Box",
-        "offerprice": "24"
-    },
-    
+  "Kuruvi": {
+    "price": 36,
+    "category": "One Sound Crackers",
+    "unit": "Pkt",
+    "offerprice": "7",
+    "tamilName": "குருவி"
+  },
+  "31/2 Lakshmi": {
+    "price": 66,
+    "category": "One Sound Crackers",
+    "unit": "Pkt",
+    "offerprice": "13",
+    "tamilName": "3½ லட்சுமி"
+  },
+  "4 Lakshmi": {
+    "price": 90,
+    "category": "One Sound Crackers",
+    "unit": "Pkt",
+    "offerprice": "18",
+    "tamilName": "4\" லட்சுமி"
+  },
+  "4 Deluxe Lakshmi": {
+    "price": 132,
+    "category": "One Sound Crackers",
+    "unit": "Pkt",
+    "offerprice": "26",
+    "tamilName": "4\" டீலக்ஸ் லட்சுமி"
+  },
+  "Gold Lakshmi": {
+    "price": 138,
+    "category": "One Sound Crackers",
+    "unit": "Pkt",
+    "offerprice": "28",
+    "tamilName": "கோல்டு லட்சுமி"
+  },
+  "2 Sound": {
+    "price": 120,
+    "category": "One Sound Crackers",
+    "unit": "Pkt",
+    "offerprice": "24",
+    "tamilName": "2\" சவுண்டு"
+  },
+  "5 Jallikattu": {
+    "price": 270,
+    "category": "One Sound Crackers",
+    "unit": "Pkt",
+    "offerprice": "54",
+    "tamilName": "5\" ஜல்லிக்கட்டு"
+  },
+  "6 Lion": {
+    "price": 360,
+    "category": "One Sound Crackers",
+    "unit": "Pkt",
+    "offerprice": "72",
+    "tamilName": "6\" லயன்"
+  },
+  "7 Golden Sparrow": {
+    "price": 480,
+    "category": "One Sound Crackers",
+    "unit": "Pkt",
+    "offerprice": "96",
+    "tamilName": "7\" கோல்டன் ஸ்பேரோ"
+  },
+  "28 Chorsa": {
+    "price": 72,
+    "category": "Thunder Crackers",
+    "unit": "Pkt",
+    "offerprice": "14",
+    "tamilName": "28 சோர்சா"
+  },
+  "28 Giant": {
+    "price": 120,
+    "category": "Thunder Crackers",
+    "unit": "Pkt",
+    "offerprice": "24",
+    "tamilName": "28 ஜெயன்ட்"
+  },
+  "56 Giant": {
+    "price": 240,
+    "category": "Thunder Crackers",
+    "unit": "Pkt",
+    "offerprice": "48",
+    "tamilName": "56 ஜெயன்ட்"
+  },
+  "24 deluxe": {
+    "price": 240,
+    "category": "Deluxe Crackers",
+    "unit": "Pkt",
+    "offerprice": "48",
+    "tamilName": "24 டீலக்ஸ்"
+  },
+  "50 deluxe": {
+    "price": 480,
+    "category": "Deluxe Crackers",
+    "unit": "Pkt",
+    "offerprice": "96",
+    "tamilName": "50 டீலக்ஸ்"
+  },
+  "100 deluxe": {
+    "price": 960,
+    "category": "Deluxe Crackers",
+    "unit": "Pkt",
+    "offerprice": "192",
+    "tamilName": "100 டீலக்ஸ்"
+  },
+  "Red bijili": {
+    "price": 180,
+    "category": "Bijli Crackers",
+    "unit": "Bag",
+    "offerprice": "36",
+    "tamilName": "ரெட் பிஜிலி"
+  },
+  "Stripped bijili": {
+    "price": 192,
+    "category": "Bijli Crackers",
+    "unit": "Bag",
+    "offerprice": "38",
+    "tamilName": "ஸ்ட்ரிப்பட் பிஜிலி"
+  },
+  "100 wala": {
+    "price": 240,
+    "category": "Wala",
+    "unit": "Box",
+    "offerprice": "48",
+    "tamilName": "100 வாலா"
+  },
+  "200 wala": {
+    "price": 480,
+    "category": "Wala",
+    "unit": "Box",
+    "offerprice": "96",
+    "tamilName": "200 வாலா"
+  },
+  "1000 wala": {
+    "price": 840,
+    "category": "Wala",
+    "unit": "Box",
+    "offerprice": "168",
+    "tamilName": "1000 வாலா"
+  },
+  "2000 wala": {
+    "price": 1680,
+    "category": "Wala",
+    "unit": "Box",
+    "offerprice": "336",
+    "tamilName": "2000 வாலா"
+  },
+  "5000 wala": {
+    "price": 4200,
+    "category": "Wala",
+    "unit": "Box",
+    "offerprice": "840",
+    "tamilName": "5000 வாலா"
+  },
+  "10000 wala": {
+    "price": 8400,
+    "category": "Wala",
+    "unit": "Box",
+    "offerprice": "1680",
+    "tamilName": "10000 வாலா"
+  },
+  "Bullet Bomb": {
+    "price": 144,
+    "category": "Crackling Bombs",
+    "unit": "Box",
+    "offerprice": "29",
+    "tamilName": "புல்லட் பாம்"
+  },
+  "Hydro Bomb": {
+    "price": 450,
+    "category": "Crackling Bombs",
+    "unit": "Box",
+    "offerprice": "90",
+    "tamilName": "ஹைட்ரோ பாம்"
+  },
+  "King of King": {
+    "price": 540,
+    "category": "Crackling Bombs",
+    "unit": "Box",
+    "offerprice": "108",
+    "tamilName": "கிங் ஆஃப் கிங்"
+  },
+  "Classic Bomb": {
+    "price": 680,
+    "category": "Crackling Bombs",
+    "unit": "Box",
+    "offerprice": "132",
+    "tamilName": "கிளாசிக் பாம்"
+  },
+  "Digital Bomb": {
+    "price": 1260,
+    "category": "Crackling Bombs",
+    "unit": "Box",
+    "offerprice": "252",
+    "tamilName": "டிஜிட்டல் பாம்"
+  },
+  "555 Bomb": {
+    "price": 600,
+    "category": "Crackling Bombs",
+    "unit": "Box",
+    "offerprice": "120",
+    "tamilName": "555 பாம்"
+  },
+  "Paper bomb 1/4 kg": {
+    "price": 240,
+    "category": "Crackling Bombs",
+    "unit": "Box",
+    "offerprice": "48",
+    "tamilName": "பேப்பர் பாம் ¼ கிலோ"
+  },
+  "Paper bomb 1/2 kg": {
+    "price": 480,
+    "category": "Crackling Bombs",
+    "unit": "Box",
+    "offerprice": "96",
+    "tamilName": "பேப்பர் பாம் ½ கிலோ"
+  },
+  "Paper bomb 1kg": {
+    "price": 960,
+    "category": "Crackling Bombs",
+    "unit": "Box",
+    "offerprice": "192",
+    "tamilName": "பேப்பர் பாம் 1 கிலோ"
+  },
+  "Avathar bomb": {
+    "price": 1200,
+    "category": "Crackling Bombs",
+    "unit": "10pieces",
+    "offerprice": "240",
+    "tamilName": "அவதார் பாம்"
+  },
+  "Twinkling Stars": {
+    "price": 120,
+    "category": "Ropes & Candles",
+    "unit": "Box",
+    "offerprice": "24",
+    "tamilName": "ட்விங்கிளிங் ஸ்டார்ஸ்"
+  },
+  "4 Twinkling Stars": {
+    "price": 360,
+    "category": "Ropes & Candles",
+    "unit": "Box",
+    "offerprice": "72",
+    "tamilName": "4 ட்விங்கிளிங் ஸ்டார்ஸ்"
+  },
+  "selfie stick": {
+    "price": 210,
+    "category": "Ropes & Candles",
+    "unit": "Box",
+    "offerprice": "42",
+    "tamilName": "செல்ஃபி ஸ்டிக்"
+  },
+  "candy crush": {
+    "price": 600,
+    "category": "Ropes & Candles",
+    "unit": "Box",
+    "offerprice": "120",
+    "tamilName": "கேண்டி க்ரஷ்"
+  },
+  "lorax": {
+    "price": 480,
+    "category": "Ropes & Candles",
+    "unit": "Box",
+    "offerprice": "96",
+    "tamilName": "லோரக்ஸ்"
+  },
+  "Chakkar Big": {
+    "price": 300,
+    "category": "Round Chakra",
+    "unit": "Box",
+    "offerprice": "60",
+    "tamilName": "சக்கர் பிக்"
+  },
+  "Chakkar Special": {
+    "price": 480,
+    "category": "Round Chakra",
+    "unit": "Box",
+    "offerprice": "96",
+    "tamilName": "சக்கர் ஸ்பெஷல்"
+  },
+  "Chakkar deluxe": {
+    "price": 720,
+    "category": "Round Chakra",
+    "unit": "Box",
+    "offerprice": "144",
+    "tamilName": "சக்கர் டீலக்ஸ்"
+  },
+  "Spinner Super Deluxe": {
+    "price": 1260,
+    "category": "Round Chakra",
+    "unit": "Box",
+    "offerprice": "252",
+    "tamilName": "ஸ்பின்னர் சூப்பர் டீலக்ஸ்"
+  },
+  "Disco Wheel": {
+    "price": 240,
+    "category": "Round Chakra",
+    "unit": "Box",
+    "offerprice": "48",
+    "tamilName": "டிஸ்கோ வீல்"
+  },
+  "Lotus Wheel": {
+    "price": 720,
+    "category": "Round Chakra",
+    "unit": "Box",
+    "offerprice": "144",
+    "tamilName": "லோட்டஸ் வீல்"
+  },
+  "Flowerpot Big": {
+    "price": 288,
+    "category": "Digital Flower Pots",
+    "unit": "Box",
+    "offerprice": "58",
+    "tamilName": "பூந்தொட்டி பிக்"
+  },
+  "Flowerpot Special": {
+    "price": 360,
+    "category": "Digital Flower Pots",
+    "unit": "Box",
+    "offerprice": "72",
+    "tamilName": "பூந்தொட்டி ஸ்பெஷல்"
+  },
+  "Flowerpot ashoka": {
+    "price": 510,
+    "category": "Digital Flower Pots",
+    "unit": "Box",
+    "offerprice": "102",
+    "tamilName": "பூந்தொட்டி அசோகா"
+  },
+  "Color Kotti": {
+    "price": 990,
+    "category": "Digital Flower Pots",
+    "unit": "Box",
+    "offerprice": "398",
+    "tamilName": "கலர் கொட்டி"
+  },
+  "F.P. deluxe (5 pcs)": {
+    "price": 840,
+    "category": "Digital Flower Pots",
+    "unit": "Box",
+    "offerprice": "168",
+    "tamilName": "எஃப்.பி. டீலக்ஸ் (5 பீஸ்)"
+  },
+  "F.P. Super deluxe (5 pcs)": {
+    "price": 420,
+    "category": "Digital Flower Pots",
+    "unit": "Box",
+    "offerprice": "84",
+    "tamilName": "எஃப்.பி. சூப்பர் டீலக்ஸ் (5 பீஸ்)"
+  },
+  "Color Kotti Delux": {
+    "price": 1170,
+    "category": "Digital Flower Pots",
+    "unit": "Box",
+    "offerprice": "354",
+    "tamilName": "கலர் கொட்டி டீலக்ஸ்"
+  },
+  "Baby Rocket": {
+    "price": 240,
+    "category": "Runner Rocket",
+    "unit": "Box",
+    "offerprice": "48",
+    "tamilName": "பேபி ராக்கெட்"
+  },
+  "Rocket Bomb": {
+    "price": 300,
+    "category": "Runner Rocket",
+    "unit": "Box",
+    "offerprice": "60",
+    "tamilName": "ராக்கெட் பாம்"
+  },
+  "Lunik Rocket": {
+    "price": 660,
+    "category": "Runner Rocket",
+    "unit": "Box",
+    "offerprice": "132",
+    "tamilName": "லூனிக் ராக்கெட்"
+  },
+  "2 Sound Rocket": {
+    "price": 780,
+    "category": "Runner Rocket",
+    "unit": "Box",
+    "offerprice": "156",
+    "tamilName": "2 சவுண்டு ராக்கெட்"
+  },
+  "3 Sound Rocket": {
+    "price": 840,
+    "category": "Runner Rocket",
+    "unit": "Box",
+    "offerprice": "168",
+    "tamilName": "3 சவுண்டு ராக்கெட்"
+  },
+  "siren": {
+    "price": 1020,
+    "category": "Whistle Crackers",
+    "unit": "Box",
+    "offerprice": "204",
+    "tamilName": "சைரன்"
+  },
+  "Whistling dixie wheel": {
+    "price": 660,
+    "category": "Whistle Crackers",
+    "unit": "Box",
+    "offerprice": "132",
+    "tamilName": "விஸ்லிங் டிக்ஸி வீல்"
+  },
+  "Whistling Rocket": {
+    "price": 1080,
+    "category": "Whistle Crackers",
+    "unit": "Box",
+    "offerprice": "216",
+    "tamilName": "விஸ்லிங் ராக்கெட்"
+  },
+  "Whistling Zip 25 shot": {
+    "price": 4080,
+    "category": "Whistle Crackers",
+    "unit": "Box",
+    "offerprice": "816",
+    "tamilName": "விஸ்லிங் ஜிப் 25 ஷாட்"
+  },
+  "Mini Siren": {
+    "price": 780,
+    "category": "Whistle Crackers",
+    "unit": "Box",
+    "offerprice": "156",
+    "tamilName": "மினி சைரன்"
+  },
+  "Electric Stone": {
+    "price": 60,
+    "category": "90's Dream",
+    "unit": "Box",
+    "offerprice": "12",
+    "tamilName": "எலக்ட்ரிக் ஸ்டோன்"
+  },
+  "Zee Boom bag": {
+    "price": 60,
+    "category": "90's Dream",
+    "unit": "Box",
+    "offerprice": "12",
+    "tamilName": "ஸீ பூம் பேக்"
+  },
+  "Magic pops": {
+    "price": 60,
+    "category": "90's Dream",
+    "unit": "Box",
+    "offerprice": "12",
+    "tamilName": "மேஜிக் பாப்ஸ்"
+  },
+  "Kit kat": {
+    "price": 120,
+    "category": "90's Dream",
+    "unit": "Box",
+    "offerprice": "24",
+    "tamilName": "கிட் கேட்"
+  },
   "1 Chota Fancy": {
     "price": 240,
     "category": "Sky Display",
     "unit": "Box",
-    "offerprice": "48"
+    "offerprice": "48",
+    "tamilName": "1 சோட்டா ஃபேன்சி"
   },
   "2 Chota Fancy": {
     "price": 480,
     "category": "Sky Display",
     "unit": "Box",
-    "offerprice": "96"
+    "offerprice": "96",
+    "tamilName": "2 சோட்டா ஃபேன்சி"
   },
   "2 Chota Fancy 3pcs": {
     "price": 1260,
     "category": "Sky Display",
     "unit": "Box",
-    "offerprice": "252"
+    "offerprice": "252",
+    "tamilName": "2 சோட்டா ஃபேன்சி 3 பீஸ்"
   },
   "3½ Fancy": {
     "price": 1470,
     "category": "Sky Display",
     "unit": "Box",
-    "offerprice": "294"
+    "offerprice": "294",
+    "tamilName": "3½ ஃபேன்சி"
   },
   "4 Fancy": {
     "price": 1680,
     "category": "Sky Display",
     "unit": "Box",
-    "offerprice": "336"
+    "offerprice": "336",
+    "tamilName": "4 ஃபேன்சி"
   },
-     "Niagara Falls": {
+  "Niagara Falls": {
     "price": 2100,
     "category": "Sky Display",
     "unit": "Box",
-    "offerprice": "420"
+    "offerprice": "420",
+    "tamilName": "நயாகரா ஃபால்ஸ்"
   },
-     "7 colors": {
+  "7 colors": {
     "price": 420,
     "category": "Sky Display",
     "unit": "Box",
-    "offerprice": "84"
+    "offerprice": "84",
+    "tamilName": "7 கலர்ஸ்"
   },
-       "Penta (5 Pcs)": {
+  "Penta (5 Pcs)": {
     "price": 900,
     "category": "Sky Display",
     "unit": "Box",
-    "offerprice": "180"
+    "offerprice": "180",
+    "tamilName": "பென்டா (5 பீஸ்)"
   },
-"Army Force": {
+  "Army Force": {
     "price": 720,
     "category": "Sky Display",
     "unit": "Box",
-    "offerprice": "144"
+    "offerprice": "144",
+    "tamilName": "ஆர்மி ஃபோர்ஸ்"
   },
-"Beast Show (5 Pcs)": {
+  "Beast Show (5 Pcs)": {
     "price": 720,
     "category": "Sky Display",
     "unit": "Box",
-    "offerprice": "144"
+    "offerprice": "144",
+    "tamilName": "பீஸ்ட் ஷோ (5 பீஸ்)"
   },
-    "3 step (3 Pcs)": {
+  "3 step (3 Pcs)": {
     "price": 2400,
     "category": "Sky Display",
     "unit": "Box",
-    "offerprice": "480"
+    "offerprice": "480",
+    "tamilName": "3 ஸ்டெப் (3 பீஸ்)"
   },
-     
   "12 shot": {
     "price": 660,
     "category": "Repeating Rockers Shot",
     "unit": "Box",
-    "offerprice": 132
+    "offerprice": 132,
+    "tamilName": "12 ஷாட்"
   },
- 
   "25 shot": {
     "price": 1200,
     "category": "Repeating Rockers Shot",
     "unit": "Box",
-    "offerprice": 240
+    "offerprice": 240,
+    "tamilName": "25 ஷாட்"
   },
-     "30 shot multicolor": {
+  "30 shot multicolor": {
     "price": 1980,
     "category": "Repeating Rockers Shot",
     "unit": "Box",
-    "offerprice": 396
+    "offerprice": 396,
+    "tamilName": "30 ஷாட் மல்டிகலர்"
   },
   "60 shot": {
     "price": 3960,
     "category": "Repeating Rockers Shot",
     "unit": "Box",
-    "offerprice": 792
+    "offerprice": 792,
+    "tamilName": "60 ஷாட்"
   },
-     "120 shot multi color": {
+  "120 shot multi color": {
     "price": 7920,
     "category": "Repeating Rockers Shot",
     "unit": "Box",
-    "offerprice": 1584
+    "offerprice": 1584,
+    "tamilName": "120 ஷாட் மல்டிகலர்"
   },
-     "240 shot (limited stocks only)": {
+  "240 shot (limited stocks only)": {
     "price": 15840,
     "category": "Repeating Rockers Shot",
     "unit": "Box",
-    "offerprice": 3168
+    "offerprice": 3168,
+    "tamilName": "240 ஷாட் (லிமிடெட் ஸ்டாக்)"
   },
-     "Tri color Fountain": {
+  "Tri color Fountain": {
     "price": 1320,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 264
+    "offerprice": 264,
+    "tamilName": "ட்ரை கலர் ஃபவுண்டன்"
   },
-     "Fun N Fun shower": {
+  "Fun N Fun shower": {
     "price": 420,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 84
+    "offerprice": 84,
+    "tamilName": "ஃபன் என் ஃபன் ஷவர்"
   },
   "Golden globe": {
     "price": 540,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 108
+    "offerprice": 108,
+    "tamilName": "கோல்டன் குளோப்"
   },
   "Colour Rain": {
     "price": 540,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 108
+    "offerprice": 108,
+    "tamilName": "கலர் ரெயின்"
   },
   "Peacock feather": {
     "price": 570,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 114
+    "offerprice": 114,
+    "tamilName": "பீகாக் ஃபெதர்"
   },
   "Tin": {
     "price": 420,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 84
+    "offerprice": 84,
+    "tamilName": "டின்"
   },
- 
   "Lollipop": {
     "price": 840,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 168
+    "offerprice": 168,
+    "tamilName": "லாலிபாப்"
   },
-     "pop corn": {
+  "pop corn": {
     "price": 1140,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 228
+    "offerprice": 228,
+    "tamilName": "பாப்கார்ன்"
   },
   "Cocktail (5 in 1 fountain)": {
     "price": 1320,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 264
+    "offerprice": 264,
+    "tamilName": "காக்டெயில் (5 இன் 1 ஃபவுண்டன்)"
   },
   "Peacock dance": {
     "price": 810,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 162
+    "offerprice": 162,
+    "tamilName": "பீகாக் டான்ஸ்"
   },
-  
-   "Bada Peacock": {
+  "Bada Peacock": {
     "price": 1920,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 384
+    "offerprice": 384,
+    "tamilName": "படா பீகாக்"
   },
-    "Butterfly": {
+  "Butterfly": {
     "price": 420,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 84
+    "offerprice": 84,
+    "tamilName": "பட்டர்ஃப்ளை"
   },
   "Spinner": {
     "price": 600,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 120
+    "offerprice": 120,
+    "tamilName": "ஸ்பின்னர்"
   },
-    "Helicopter": {
+  "Helicopter": {
     "price": 420,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 84
+    "offerprice": 84,
+    "tamilName": "ஹெலிகாப்டர்"
   },
   "Colour smoke": {
     "price": 780,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 156
+    "offerprice": 156,
+    "tamilName": "கலர் ஸ்மோக்"
   },
   "Water Queen": {
     "price": 960,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 192
+    "offerprice": 192,
+    "tamilName": "வாட்டர் குயின்"
   },
-   "Photo Flash": {
+  "Photo Flash": {
     "price": 240,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 48
+    "offerprice": 48,
+    "tamilName": "ஃபோட்டோ ஃப்ளாஷ்"
   },
   "Twix": {
     "price": 960,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 192
+    "offerprice": 192,
+    "tamilName": "ட்விக்ஸ்"
   },
   "Sling pop": {
     "price": 900,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 180
+    "offerprice": 180,
+    "tamilName": "ஸ்லிங் பாப்"
   },
   "Fox Star": {
     "price": 720,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 144
+    "offerprice": 144,
+    "tamilName": "ஃபாக்ஸ் ஸ்டார்"
   },
-     "Water melon": {
+  "Water melon": {
     "price": 1560,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 112
+    "offerprice": 112,
+    "tamilName": "வாட்டர்மெலன்"
   },
-         "Tawny Lion (2 Pcs)": {
+  "Tawny Lion (2 Pcs)": {
     "price": 1440,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 288
+    "offerprice": 288,
+    "tamilName": "டாவ்னி லயன் (2 பீஸ்)"
   },
-         "Icone": {
+  "Icone": {
     "price": 960,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 192
+    "offerprice": 192,
+    "tamilName": "ஐகோன்"
   },
-         "Spectrum (5 PCs)": {
+  "Spectrum (5 PCs)": {
     "price": 840,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 198
+    "offerprice": 198,
+    "tamilName": "ஸ்பெக்ட்ரம் (5 பீஸ்)"
   },
-         "Lucky (5 Pcs)": {
+  "Lucky (5 Pcs)": {
     "price": 780,
     "category": "Magic Night Fountains",
     "unit": "Pack",
-    "offerprice": 156
+    "offerprice": 156,
+    "tamilName": "லக்கி (5 பீஸ்)"
   },
-
   "Parachutes": {
     "price": 300,
     "category": "Kids Special",
     "unit": "Pack",
-    "offerprice": 60
+    "offerprice": 60,
+    "tamilName": "பாராசூட்ஸ்"
   },
   "Palm blast": {
     "price": 360,
     "category": "Kids Special",
     "unit": "Pack",
-    "offerprice": 72
+    "offerprice": 72,
+    "tamilName": "பாம் பிளாஸ்ட்"
   },
   "Fire Egg": {
     "price": 900,
     "category": "Kids Special",
     "unit": "Pack",
-    "offerprice": 180
+    "offerprice": 180,
+    "tamilName": "ஃபயர் எக்"
   },
-   "Bat & Ball": {
+  "Bat & Ball": {
     "price": 1080,
     "category": "Kids Special",
     "unit": "Pack",
-    "offerprice": 216
+    "offerprice": 216,
+    "tamilName": "பேட் & பால்"
   },
-       "Drone": {
+  "Drone": {
     "price": 660,
     "category": "Kids Special",
     "unit": "Pack",
-    "offerprice": 132
+    "offerprice": 132,
+    "tamilName": "ட்ரோன்"
   },
-       "Cylinder Bomb": {
+  "Cylinder Bomb": {
     "price": 1200,
     "category": "Kids Special",
     "unit": "Pack",
-    "offerprice": 240
+    "offerprice": 240,
+    "tamilName": "சிலிண்டர் பாம்"
   },
-       "Beam gada": {
+  "Beam gada": {
     "price": 1200,
     "category": "Kids Special",
     "unit": "Pack",
-    "offerprice": 240
+    "offerprice": 240,
+    "tamilName": "பீம் கடா"
   },
-         "Money Bank": {
+  "Money Bank": {
     "price": 990,
     "category": "Kids Special",
     "unit": "Pack",
-    "offerprice": 198
+    "offerprice": 198,
+    "tamilName": "மணி பேங்க்"
   },
   "Men in Black (Ring & Gun)": {
     "price": 720,
     "category": "Kids Special",
     "unit": "Pack",
-    "offerprice": 144
+    "offerprice": 144,
+    "tamilName": "மென் இன் பிளாக் (ரிங் & கன்)"
   },
   "Colour matches Blooms": {
     "price": 600,
     "category": "Kids Special",
     "unit": "Pack",
-    "offerprice": 120
+    "offerprice": 120,
+    "tamilName": "கலர் மேட்சஸ் ப்ளூம்ஸ்"
   },
   "Colour matches Super Six": {
     "price": 600,
     "category": "Kids Special",
     "unit": "Pack",
-    "offerprice": 120
+    "offerprice": 120,
+    "tamilName": "கலர் மேட்சஸ் சூப்பர் சிக்ஸ்"
   },
-   "Laptop Color Matches": {
+  "Laptop Color Matches": {
     "price": 1200,
     "category": "Kids Special",
     "unit": "Pack",
-    "offerprice": 240
+    "offerprice": 240,
+    "tamilName": "லேப்டாப் கலர் மேட்சஸ்"
   },
-  
   "10cm Electric Sparklers": {
     "price": 90,
     "category": "Genz Sparklers",
     "unit": "Pack",
-    "offerprice": 18
+    "offerprice": 18,
+    "tamilName": "10 செ.மீ. எலக்ட்ரிக் கம்பி மத்தாப்பு"
   },
   "10cm Glittering Sparklers": {
     "price": 96,
     "category": "Genz Sparklers",
     "unit": "Pack",
-    "offerprice": 19
+    "offerprice": 19,
+    "tamilName": "10 செ.மீ. கிளிட்டரிங் கம்பி மத்தாப்பு"
   },
   "10cm Green Sparklers": {
     "price": 108,
     "category": "Genz Sparklers",
     "unit": "Pack",
-    "offerprice": 22
+    "offerprice": 22,
+    "tamilName": "10 செ.மீ. கிரீன் கம்பி மத்தாப்பு"
   },
   "10cm Red Sparklers": {
     "price": 120,
     "category": "Genz Sparklers",
     "unit": "Pack",
-    "offerprice": 24
+    "offerprice": 24,
+    "tamilName": "10 செ.மீ. ரெட் கம்பி மத்தாப்பு"
   },
   "12cm Electric Sparklers": {
     "price": 132,
     "category": "Genz Sparklers",
     "unit": "Pack",
-    "offerprice": 26
+    "offerprice": 26,
+    "tamilName": "12 செ.மீ. எலக்ட்ரிக் கம்பி மத்தாப்பு"
   },
   "12cm Colour Sparklers": {
     "price": 150,
     "category": "Genz Sparklers",
     "unit": "Pack",
-    "offerprice": 30
+    "offerprice": 30,
+    "tamilName": "12 செ.மீ. கலர் கம்பி மத்தாப்பு"
   },
   "12cm Green Sparklers": {
     "price": 168,
     "category": "Genz Sparklers",
     "unit": "Pack",
-    "offerprice": 34
+    "offerprice": 34,
+    "tamilName": "12 செ.மீ. கிரீன் கம்பி மத்தாப்பு"
   },
   "12cm Red Sparklers": {
     "price": 180,
     "category": "Genz Sparklers",
     "unit": "Pack",
-    "offerprice": 36
+    "offerprice": 36,
+    "tamilName": "12 செ.மீ. ரெட் கம்பி மத்தாப்பு"
   },
   "15cm Electric Sparklers": {
     "price": 210,
     "category": "Genz Sparklers",
     "unit": "Pack",
-    "offerprice": 42
+    "offerprice": 42,
+    "tamilName": "15 செ.மீ. எலக்ட்ரிக் கம்பி மத்தாப்பு"
   },
   "15cm Colour Sparklers": {
     "price": 210,
     "category": "Genz Sparklers",
     "unit": "Pack",
-    "offerprice": 42
+    "offerprice": 42,
+    "tamilName": "15 செ.மீ. கலர் கம்பி மத்தாப்பு"
   },
   "15cm Green Sparklers": {
     "price": 240,
     "category": "Genz Sparklers",
     "unit": "Pack",
-    "offerprice": 48
+    "offerprice": 48,
+    "tamilName": "15 செ.மீ. கிரீன் கம்பி மத்தாப்பு"
   },
   "15cm Red Sparklers": {
     "price": 270,
     "category": "Genz Sparklers",
     "unit": "Pack",
-    "offerprice": 54
+    "offerprice": 54,
+    "tamilName": "15 செ.மீ. ரெட் கம்பி மத்தாப்பு"
   },
   "15cm Silver drops": {
     "price": 360,
     "category": "Genz Sparklers",
     "unit": "Pack",
-    "offerprice": 72
+    "offerprice": 72,
+    "tamilName": "15 செ.மீ. சில்வர் டிராப்ஸ்"
   },
   "30cm Electric Sparklers": {
     "price": 210,
     "category": "Genz Sparklers",
     "unit": "Pack",
-    "offerprice": 42
+    "offerprice": 42,
+    "tamilName": "30 செ.மீ. எலக்ட்ரிக் கம்பி மத்தாப்பு"
   },
   "30cm Colour Sparklers": {
     "price": 210,
     "category": "Genz Sparklers",
     "unit": "Pack",
-    "offerprice": 42
+    "offerprice": 42,
+    "tamilName": "30 செ.மீ. கலர் கம்பி மத்தாப்பு"
   },
   "30cm Green Sparklers": {
     "price": 240,
     "category": "Genz Sparklers",
     "unit": "Pack",
-    "offerprice": 48
+    "offerprice": 48,
+    "tamilName": "30 செ.மீ. கிரீன் கம்பி மத்தாப்பு"
   },
   "30cm Red Sparklers": {
     "price": 270,
     "category": "Genz Sparklers",
     "unit": "Pack",
-    "offerprice": 54
+    "offerprice": 54,
+    "tamilName": "30 செ.மீ. ரெட் கம்பி மத்தாப்பு"
   },
   "50cm Electric Sparklers": {
     "price": 900,
     "category": "Genz Sparklers",
     "unit": "Pack",
-    "offerprice": 180
+    "offerprice": 180,
+    "tamilName": "50 செ.மீ. எலக்ட்ரிக் கம்பி மத்தாப்பு"
   },
   "50cm Colour Sparklers": {
     "price": 960,
     "category": "Genz Sparklers",
     "unit": "Pack",
-    "offerprice": 192
+    "offerprice": 192,
+    "tamilName": "50 செ.மீ. கலர் கம்பி மத்தாப்பு"
   },
   "50cm Rotating Sparklers": {
     "price": 960,
     "category": "Genz Sparklers",
     "unit": "Pack",
-    "offerprice": 192
+    "offerprice": 192,
+    "tamilName": "50 செ.மீ. ரோட்டேட்டிங் கம்பி மத்தாப்பு"
   },
   "30 Item": {
     "price": 500,
     "category": "Gift Box",
     "unit": "Pack",
-    "offerprice": 500
+    "offerprice": 500,
+    "tamilName": "30 ஐட்டம்"
   },
   "40 Item": {
     "price": 700,
     "category": "Gift Box",
     "unit": "Pack",
-    "offerprice": 700
+    "offerprice": 700,
+    "tamilName": "40 ஐட்டம்"
   },
   "50 Item": {
     "price": 900,
     "category": "Gift Box",
     "unit": "Pack",
-    "offerprice": 900
+    "offerprice": 900,
+    "tamilName": "50 ஐட்டம்"
   }
-
 }
