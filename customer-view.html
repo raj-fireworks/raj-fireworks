@@ -1149,9 +1149,10 @@ function buildOrderPayload(name, phone, address) {
 
 function makeSummaryLink(orderObj) {
   const basePath = location.origin + location.pathname.replace(/[^/]+$/, '');
-  const json = JSON.stringify(orderObj);
-  const b64 = btoa(unescape(encodeURIComponent(json))); // UTF-8 safe base64
-  return `${basePath}order.html?o=${b64}`;
+const orderId = 'AJ' + Date.now().toString(36).toUpperCase();
+	const summaryLink =
+  `${window.location.origin}/raj-fireworks/order.html?id=${orderId}`;
+	return summaryLink;
 }
 
 /* -------- WhatsApp (top-level, not nested) -------- */
@@ -1185,7 +1186,7 @@ async function sendOrderToWhatsApp() {
   message += `\n\n📍 Address: ${order.address}`;
   if (order.phone) message += `\n📞 Phone: ${order.phone}`;
 
-  message += `\n\nView your bill`;
+  message += `\n\nView full summary: ${summaryLink}`;
 	message += `\n\n🚚 Transport charges are not included in the payable total. Parcels will be sent on a TO-PAY basis, and transport charges must be paid directly to the transporter/transport office. Charges may vary based on location, parcel weight, number of boxes, and transport rates.`;
   const encodedMessage = encodeURIComponent(message);
   const whatsappURL = `https://wa.me/918296772217?text=${encodedMessage}`;
