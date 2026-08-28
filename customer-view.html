@@ -615,8 +615,9 @@ tr {
 <thead>
   <tr>
     <th style="width:200px;">Crackers Name</th>
+    <th style="width:200px;">பட்டாசு வகைகள்</th>
     <th style="width:50px;">Unit</th>
-    <th style="width:70px;">Actual Price (₹)</th> <!-- NEW -->
+    <th style="width:70px;">Actual Price (₹)</th>
     <th style="width:70px;">Offer Price (₹)</th>
     <th style="width:50px;">Quantity</th>
     <th style="width:70px;">Total (₹)</th>
@@ -662,23 +663,24 @@ function loadProducts() {
         const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 75 };
         currentOffer = storedOffer.offer;
 
-        const products = Object.entries(data).map(([name, info]) => ({
-          name,
-          price: Number(info.price) || 0,
-          offerprice: Number(info.offerprice) || 0,
-          unit: info.unit || "-",
-          category: info.category || "Uncategorized"
-        }));
+      const products = Object.entries(data).map(([name, info]) => ({
+  name,
+  tamilName: tamilNames[name] || "",
+  price: Number(info.price) || 0,
+  offerprice: Number(info.offerprice) || 0,
+  unit: info.unit || "-",
+  category: info.category || "Uncategorized"
+}));
 
         renderProductTable(products);
       } catch (err) {
         console.error("❌ Error processing products:", err);
-        document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="6">Failed to process products.</td></tr>`;
+        document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="7">Failed to process products.</td></tr>`;
       }
     })
     .catch(err => {
       console.error("Error loading products.json:", err);
-      document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="6">Failed to load products.</td></tr>`;
+      document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="7">Failed to load products.</td></tr>`;
     });
 }
 
@@ -687,7 +689,7 @@ function renderProductTable(products) {
   tbody.innerHTML = "";
 
   if (!products.length) {
-    tbody.innerHTML = `<tr><td colspan="6">No products available.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7">No products available.</td></tr>`;
     return;
   }
 
@@ -704,7 +706,7 @@ function renderProductTable(products) {
     const catRow = document.createElement("tr");
     catRow.classList.add("category-header");
     catRow.style.cursor = "pointer";
-    catRow.innerHTML = `<td colspan="6" style="text-align:left; background:#f0f0f0; font-weight:bold;">▼ ${category}</td>`;
+    catRow.innerHTML = `<td colspan="7" style="text-align:left; background:#f0f0f0; font-weight:bold;">▼ ${category}</td>`;
     tbody.appendChild(catRow);
 
     items.forEach(item => {
@@ -722,6 +724,7 @@ function renderProductTable(products) {
             <span class="product-name">${item.name}</span>
           </div>
         </td>
+		 <td>${item.tamilName || ""}</td>
         <td>${item.unit || "-"}</td>
         <td>₹${item.price.toFixed(2)}</td>
         <td>₹${item.offerprice.toFixed(2)}</td>
