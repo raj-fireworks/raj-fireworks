@@ -1180,10 +1180,7 @@ async function sendOrderToWhatsApp() {
     message += `${i}. ${it.name} × ${it.qty} = ₹${it.total.toFixed(2)}\n`;
   });
 
-  message += `\nProducts Total: ₹${order.totals.productsTotal.toFixed(2)}`;
-  message += `\nTransport Charge: ₹${order.totals.transport.toFixed(2)}`;
-  message += `\n-----------------------------`;
-  message += `\nPayable Total: ₹${order.totals.payable.toFixed(2)}`;
+  message += `\Payable Total: ₹${order.totals.productsTotal.toFixed(2)}`;
 
   message += `\n\n📍 Address: ${order.address}`;
   if (order.phone) message += `\n📞 Phone: ${order.phone}`;
