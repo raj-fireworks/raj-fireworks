@@ -1173,7 +1173,8 @@ async function sendOrderToWhatsApp() {
   }
 
   const summaryLink = makeSummaryLink(order);
-
+const billUrl =
+  `https://raj-fireworks.github.io/raj-fireworks/order.html?id=${orderId}`;
   let i = 0;
   let message = `Hi, I'm ${name}, and I'd like to place an order:\n\n`;
   order.items.forEach(it => {
@@ -1186,7 +1187,8 @@ async function sendOrderToWhatsApp() {
   message += `\n\n📍 Address: ${order.address}`;
   if (order.phone) message += `\n📞 Phone: ${order.phone}`;
 
-  message += `\n\nView full summary: ${summaryLink}`;
+  message += `\n\nView your bill: ${billUrl}`;
+
 	message += `\n\n🚚 Transport charges are not included in the payable total. Parcels will be sent on a TO-PAY basis, and transport charges must be paid directly to the transporter/transport office. Charges may vary based on location, parcel weight, number of boxes, and transport rates.`;
   const encodedMessage = encodeURIComponent(message);
   const whatsappURL = `https://wa.me/918296772217?text=${encodedMessage}`;
