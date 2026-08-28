@@ -51,25 +51,29 @@
   </div>
 
 <script>
-function decodeOrder() {
+async function loadOrder() {
   const params = new URLSearchParams(window.location.search);
   const orderId = params.get('id');
 
   if (!orderId) {
-    return null;
+    render(null);
+    return;
   }
 
   try {
-    const storedOrder = localStorage.getItem(`order_${orderId}`);
+    // Get the order from your online database
+    const response = await fetch(
+      `YOUR_DATABASE_URL/orders/${encodeURIComponent(orderId)}.json`
+    );
 
-    if (!storedOrder) {
-      return null;
+    if (!response.ok) {
+      throw new Error('Failed to load order');
     }
 
-    return JSON.parse(storedOrder);
-  } catch (e) {
-    console.error('Failed to load order:', e);
-    return null;
+   loadOrder();
+  } catch (error) {
+    console.error('Failed to load order:', error);
+    render(null);
   }
 }
 function number(n){ return (Number(n)||0).toFixed(2); }
