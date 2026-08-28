@@ -1148,13 +1148,10 @@ function buildOrderPayload(name, phone, address) {
 }
 
 function makeSummaryLink(orderObj) {
+  const basePath = location.origin + location.pathname.replace(/[^/]+$/, '');
   const json = JSON.stringify(orderObj);
-
-  const encoded = btoa(
-    unescape(encodeURIComponent(json))
-  );
-
-  return `${window.location.origin}/raj-fireworks/order.html?o=${encodeURIComponent(encoded)}`;
+  const b64 = btoa(unescape(encodeURIComponent(json))); // UTF-8 safe base64
+  return `${basePath}order.html?o=${b64}`;
 }
 
 /* -------- WhatsApp (top-level, not nested) -------- */
