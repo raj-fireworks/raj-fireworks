@@ -62,6 +62,14 @@
     "offerprice": "96",
     "tamilName": "7\" கோல்டன் ஸ்பேரோ"
   },
+  "4 Mega Delux": {
+  "price": 180,
+  "category": "One Sound Crackers",
+  "unit": "Pkt",
+  "offerprice": "36",
+  "tamilName": "4 மெகா டீலக்ஸ்"
+},
+  
   "28 Chorsa": {
     "price": 72,
     "category": "Thunder Crackers",
@@ -265,6 +273,20 @@
     "offerprice": "96",
     "tamilName": "லோரக்ஸ்"
   },
+  "Roman Candle": {
+  "price": 660,
+  "category": "Ropes & Candles",
+  "unit": "Box",
+  "offerprice": "132",
+  "tamilName": "ரோமன் கேண்டில்"
+},
+"Ultra Pencil": {
+  "price": 540,
+  "category": "Ropes & Candles",
+  "unit": "Box",
+  "offerprice": "108",
+  "tamilName": "அல்ட்ரா பென்சில்"
+},
   "Chakkar Big": {
     "price": 300,
     "category": "Round Chakra",
@@ -307,6 +329,13 @@
     "offerprice": "144",
     "tamilName": "லோட்டஸ் வீல்"
   },
+  "Rio Wheel": {
+  "price": 1320,
+  "category": "Round Chakra",
+  "unit": "Box",
+  "offerprice": "264",
+  "tamilName": "ரியோ வீல்"
+},
   "Flowerpot Big": {
     "price": 288,
     "category": "Digital Flower Pots",
@@ -531,6 +560,28 @@
     "offerprice": "480",
     "tamilName": "3 ஸ்டெப் (3 பீஸ்)"
   },
+  "Rang Chakkar": {
+  "price": 1440,
+  "category": "Sky Display",
+  "unit": "Box",
+  "offerprice": "288",
+  "tamilName": "ரங் சக்கர்"
+},
+"4 Double Piece": {
+  "price": 3300,
+  "category": "Sky Display",
+  "unit": "Box",
+  "offerprice": "660",
+  "tamilName": "4 டபுள் பீஸ்"
+},
+"4 Double Ball": {
+  "price": 2700,
+  "category": "Sky Display",
+  "unit": "Box",
+  "offerprice": "540",
+  "tamilName": "4 டபுள் பால்"
+},
+
   "12 shot": {
     "price": 660,
     "category": "Repeating Rockers Shot",
@@ -573,6 +624,76 @@
     "offerprice": 3168,
     "tamilName": "240 ஷாட் (லிமிடெட் ஸ்டாக்)"
   },
+   "Ashrafi Koti Delux": {
+  "price": 960,
+  "category": "Magic Night Fountains",
+  "unit": "Box",
+  "offerprice": "192",
+  "tamilName": "அஷ்ரஃபி கோட்டி டீலக்ஸ்"
+},
+"Gaiety": {
+  "price": 720,
+  "category": "Magic Night Fountains",
+  "unit": "Box",
+  "offerprice": "144",
+  "tamilName": "கெயிட்டி"
+},
+"Miracle Pots": {
+  "price": 960,
+  "category": "Magic Night Fountains",
+  "unit": "Box",
+  "offerprice": "192",
+  "tamilName": "மிராக்கிள் பாட்ஸ்"
+},
+"Social Media 5Pcs": {
+  "price": 1080,
+  "category": "Magic Night Fountains",
+  "unit": "Box",
+  "offerprice": "216",
+  "tamilName": "சோஷியல் மீடியா 5 பீஸ்"
+},
+"Super Hero": {
+  "price": 1380,
+  "category": "Magic Night Fountains",
+  "unit": "Box",
+  "offerprice": "276",
+  "tamilName": "சூப்பர் ஹீரோ"
+},
+"Mega Asrafi": {
+  "price": 1020,
+  "category": "Magic Night Fountains",
+  "unit": "Box",
+  "offerprice": "204",
+  "tamilName": "மெகா அஷ்ரஃபி"
+},
+"Pop Star": {
+  "price": 660,
+  "category": "Magic Night Fountains",
+  "unit": "Box",
+  "offerprice": "132",
+  "tamilName": "பாப் ஸ்டார்"
+},
+"Star Dum": {
+  "price": 780,
+  "category": "Magic Night Fountains",
+  "unit": "Box",
+  "offerprice": "156",
+  "tamilName": "ஸ்டார் டம்"
+},
+"Crackling Star": {
+  "price": 960,
+  "category": "Magic Night Fountains",
+  "unit": "Box",
+  "offerprice": "192",
+  "tamilName": "கிராக்லிங் ஸ்டார்"
+},
+"Vel": {
+  "price": 1080,
+  "category": "Magic Night Fountains",
+  "unit": "Box",
+  "offerprice": "216",
+  "tamilName": "வேல்"
+},
   "Tri color Fountain": {
     "price": 1320,
     "category": "Magic Night Fountains",
@@ -804,6 +925,34 @@
     "offerprice": 198,
     "tamilName": "மணி பேங்க்"
   },
+  "Serpend Egg": {
+  "price": 100,
+  "category": "Kids Special",
+  "unit": "Pack",
+  "offerprice": 20,
+  "tamilName": "செர்பண்ட் எக்"
+},
+"Magic Tiktok": {
+  "price": 100,
+  "category": "Kids Special",
+  "unit": "Pack",
+  "offerprice": 20,
+  "tamilName": "மேஜிக் டிக் டாக்"
+},
+"Ring Cap": {
+  "price": 40,
+  "category": "Kids Special",
+  "unit": "Pack",
+  "offerprice": 8,
+  "tamilName": "ரிங் கேப்"
+},
+"Roll Cap": {
+  "price": 400,
+  "category": "Kids Special",
+  "unit": "Pack",
+  "offerprice": 80,
+  "tamilName": "ரோல் கேப்"
+},
   "Men in Black (Ring & Gun)": {
     "price": 720,
     "category": "Kids Special",
