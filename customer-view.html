@@ -1043,14 +1043,14 @@ items.forEach(item => {
     <td>₹${item.price.toFixed(2)}</td>
     <td>₹${item.offerprice.toFixed(2)}</td>
     <td>
-      <input type="number"
-             min="0"
-             step="1"
-             placeholder="Qty"
-             onchange="calculateTotals()"
-             oninput="validateIntegerInput(this)"
-             data-name="${item.name}"
-             data-offer="${item.offerprice}" />
+    <input type="number"
+       min="0"
+       step="1"
+       placeholder="Qty"
+       oninput="validateIntegerInput(this); calculateTotals()"
+       onchange="calculateTotals()"
+       data-name="${item.name}"
+       data-offer="${item.offerprice}" />
     </td>
     <td class="item-total">₹0.00</td>
   `;
@@ -1118,22 +1118,27 @@ function calculateTotals() {
     const input = row.querySelector("input[type='number']");
     const totalCell = row.querySelector(".item-total");
 
-    if (input && totalCell) {
-      const quantity = parseInt(input.value) || 0;
-      const offerPrice = parseFloat(input.dataset.offer) || 0;
-      const itemTotal = quantity * offerPrice;
-
-      totalCell.textContent = `₹${itemTotal.toFixed(2)}`;
-      grandTotal += itemTotal;
+    if (!input || !totalCell) {
+      return;
     }
+
+    const quantity = parseInt(input.value, 10) || 0;
+    const offerPrice = parseFloat(input.dataset.offer) || 0;
+
+    const itemTotal = quantity * offerPrice;
+
+    totalCell.textContent = `₹${itemTotal.toFixed(2)}`;
+
+    grandTotal += itemTotal;
   });
 
-  // Update Payable Total
-  document.getElementById("grandTotal").textContent =
-    grandTotal.toFixed(2);
-}
+  const grandTotalElement = document.getElementById("grandTotal");
 
-/* -------- Order link helpers (for WhatsApp) -------- */
+  if (grandTotalElement) {
+    grandTotalElement.textContent = grandTotal.toFixed(2);
+  }
+}
+	/* -------- Order link helpers (for WhatsApp) -------- */
 
 function buildOrderPayload(name, phone, address) {
   const rows = document.querySelectorAll("#productTable tbody tr");
