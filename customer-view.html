@@ -1025,12 +1025,13 @@ function renderProductTable(products) {
     catRow.style.cursor = "pointer";
     catRow.innerHTML = `<td colspan="7" style="text-align:left; background:#f0f0f0; font-weight:bold;">▼ ${category}</td>`;
     tbody.appendChild(catRow);
+
 items.forEach(item => {
   const row = document.createElement("tr");
   row.classList.add("category-row", `category-${index}`);
 
   const imageName = `${item.category}.jpeg`;
-  const imagePath = `images/${imageName}`;
+  const imagePath = `images/${encodeURIComponent(imageName)}`;
 
   row.innerHTML = `
     <td class="product-cell">
@@ -1045,29 +1046,26 @@ items.forEach(item => {
         <span class="product-name">${item.name}</span>
       </div>
     </td>
-
+    <td>${item.tamilName || ""}</td>
     <td>${item.unit || "-"}</td>
     <td>₹${item.price.toFixed(2)}</td>
     <td>₹${item.offerprice.toFixed(2)}</td>
-
     <td>
-      <input
-        type="number"
-        min="0"
-        step="1"
-        placeholder="Qty"
-        oninput="validateIntegerInput(this); calculateTotals()"
-        onchange="calculateTotals()"
-        data-name="${item.name}"
-        data-offer="${item.offerprice}"
-      />
+      <input type="number"
+             min="0"
+             step="1"
+             placeholder="Qty"
+             onchange="calculateTotals()"
+             oninput="validateIntegerInput(this)"
+             data-name="${item.name}"
+             data-offer="${item.offerprice}" />
     </td>
-
     <td class="item-total">₹0.00</td>
   `;
 
   tbody.appendChild(row);
-});
+
+
  
   const image = new Image();
 
