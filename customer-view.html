@@ -1111,27 +1111,26 @@ function validateIntegerInput(input) {
 
 function calculateTotals() {
   let grandTotal = 0;
-  let selectedCount = 0;
 
   const rows = document.querySelectorAll("#productTable tbody tr");
+
   rows.forEach(row => {
     const input = row.querySelector("input[type='number']");
     const totalCell = row.querySelector(".item-total");
+
     if (input && totalCell) {
       const quantity = parseInt(input.value) || 0;
       const offerPrice = parseFloat(input.dataset.offer) || 0;
       const itemTotal = quantity * offerPrice;
 
-      if (quantity > 0) selectedCount++;
       totalCell.textContent = `₹${itemTotal.toFixed(2)}`;
       grandTotal += itemTotal;
     }
   });
 
-  document.getElementById("grandTotal").textContent = grandTotal.toFixed(2);
-
-  const payable = selectedCount > 0 ? grandTotal : 0;
-  document.getElementById("payableTotal").textContent = payable.toFixed(2);
+  // Update Payable Total
+  document.getElementById("grandTotal").textContent =
+    grandTotal.toFixed(2);
 }
 
 /* -------- Order link helpers (for WhatsApp) -------- */
