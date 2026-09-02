@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -897,7 +896,6 @@ tr {
 <thead>
   <tr>
     <th style="width:200px;">Crackers Name</th>
-    <th style="width:200px;">பட்டாசு வகைகள்</th>
     <th style="width:50px;">Unit</th>
     <th style="width:70px;">Actual Price (₹)</th>
     <th style="width:70px;">Offer Price (₹)</th>
@@ -910,8 +908,7 @@ tr {
 </table>
 
 <div class="total-section">
-  <p>Products Total: ₹<span id="grandTotal">0.00</span></p>
-  <p><strong>Payable Total: ₹<span id="payableTotal">0.00</span></strong></p>
+  <p>Payable Total: ₹<span id="grandTotal">0.00</span></p>
 </div>
 
 
@@ -989,7 +986,8 @@ function loadProducts() {
   price: Number(info.price) || 0,
   offerprice: Number(info.offerprice) || 0,
   unit: info.unit || "-",
-  category: info.category || "Uncategorized"
+  category: info.category || "Uncategorized",
+  imagename: info.imagename || name
 }));
 
         renderProductTable(products);
@@ -1021,75 +1019,85 @@ function renderProductTable(products) {
     if (!categories[cat]) categories[cat] = [];
     categories[cat].push(item);
   });
+Object.entries(categories).forEach(([category, items], index) => {
+  const catRow = document.createElement("tr");
 
-  Object.entries(categories).forEach(([category, items], index) => {
-    const catRow = document.createElement("tr");
-    catRow.classList.add("category-header");
-    catRow.style.cursor = "pointer";
-    catRow.innerHTML = `<td colspan="7" style="text-align:left; background:#f0f0f0; font-weight:bold;">▼ ${category}</td>`;
-    tbody.appendChild(catRow);
+  catRow.classList.add("category-header");
+  catRow.style.cursor = "pointer";
 
-items.forEach(item => {
-  const row = document.createElement("tr");
-  row.classList.add("category-row", `category-${index}`);
-
-  const imageName = `${item.category}.jpeg`;
-  const imagePath = `images/${encodeURIComponent(imageName)}`;
-
-  row.innerHTML = `
-    <td class="product-cell">
-      <div class="product-wrapper">
-        <span class="product-name">${item.name}</span>
-      </div>
+  catRow.innerHTML = `
+    <td colspan="7"
+        style="text-align:left; background:#f0f0f0; font-weight:bold;">
+      ▼ ${category}
     </td>
-    <td>${item.tamilName || ""}</td>
-    <td>${item.unit || "-"}</td>
-    <td>₹${item.price.toFixed(2)}</td>
-    <td>₹${item.offerprice.toFixed(2)}</td>
-    <td>
-      <input type="number"
-             min="0"
-             step="1"
-             placeholder="Qty"
-             onchange="calculateTotals()"
-             oninput="validateIntegerInput(this)"
-             data-name="${item.name}"
-             data-offer="${item.offerprice}" />
-    </td>
-    <td class="item-total">₹0.00</td>
   `;
 
-  tbody.appendChild(row);
+  tbody.appendChild(catRow);
 
-  const image = new Image();
+  // Add products
+  items.forEach(item => {
+    const row = document.createElement("tr");
 
-  image.onload = function () {
-    const wrapper = row.querySelector(".product-wrapper");
+    row.classList.add("category-row", `category-${index}`);
 
-    const img = document.createElement("img");
-    img.className = "product-image";
-    img.src = imagePath;
-    img.alt = item.name;
-    img.onclick = () => zoomImage(imagePath);
+    const imageName = `${item.imagename}.jpeg`;
+    const imagePath = `./images/${imageName}`;
 
-    wrapper.insertBefore(img, wrapper.firstChild);
-  };
+    row.innerHTML = `
+      <td class="product-cell">
+        <div class="product-wrapper">
+          <img
+            class="product-image"
+            src="${imagePath}"
+            alt="${item.name}"
+            onclick="zoomImage('${imagePath}')"
+            onerror="this.style.display='none'"
+          />
+          <span class="product-name">${item.name}</span>
+        </div>
+      </td>
 
-  image.onerror = function () {
-    // Image does not exist - do nothing
-  };
+      <td>${item.unit || "-"}</td>
+      <td>₹${item.price.toFixed(2)}</td>
+      <td>₹${item.offerprice.toFixed(2)}</td>
 
-  image.src = imagePath;
-});
+      <td>
+        <input
+          type="number"
+          min="0"
+          step="1"
+          placeholder="Qty"
+          onchange="calculateTotals()"
+          oninput="validateIntegerInput(this)"
+          data-name="${item.name}"
+          data-offer="${item.offerprice}"
+        />
+      </td>
 
-    catRow.addEventListener("click", () => {
-      const catRows = document.querySelectorAll(`.category-${index}`);
-      catRows.forEach(r => { r.style.display = r.style.display === "none" ? "" : "none"; });
-      catRow.cells[0].textContent = catRow.cells[0].textContent.startsWith("▼")
-        ? catRow.cells[0].textContent.replace("▼", "▶")
-        : catRow.cells[0].textContent.replace("▶", "▼");
-    });
+      <td class="item-total">₹0.00</td>
+    `;
+
+    tbody.appendChild(row);
   });
+
+  // Category collapse/expand
+  catRow.addEventListener("click", () => {
+    const catRows = document.querySelectorAll(`.category-${index}`);
+
+    catRows.forEach(row => {
+      row.style.display =
+        row.style.display === "none" ? "" : "none";
+    });
+
+    if (catRow.cells[0].textContent.trim().startsWith("▼")) {
+      catRow.cells[0].textContent =
+        catRow.cells[0].textContent.replace("▼", "▶");
+    } else {
+      catRow.cells[0].textContent =
+        catRow.cells[0].textContent.replace("▶", "▼");
+    }
+  });
+});
 }
 
 function zoomImage(src) {
@@ -1115,30 +1123,34 @@ function validateIntegerInput(input) {
 
 function calculateTotals() {
   let grandTotal = 0;
-  let selectedCount = 0;
 
   const rows = document.querySelectorAll("#productTable tbody tr");
+
   rows.forEach(row => {
     const input = row.querySelector("input[type='number']");
     const totalCell = row.querySelector(".item-total");
-    if (input && totalCell) {
-      const quantity = parseInt(input.value) || 0;
-      const offerPrice = parseFloat(input.dataset.offer) || 0;
-      const itemTotal = quantity * offerPrice;
 
-      if (quantity > 0) selectedCount++;
-      totalCell.textContent = `₹${itemTotal.toFixed(2)}`;
-      grandTotal += itemTotal;
+    if (!input || !totalCell) {
+      return;
     }
+
+    const quantity = parseInt(input.value, 10) || 0;
+    const offerPrice = parseFloat(input.dataset.offer) || 0;
+
+    const itemTotal = quantity * offerPrice;
+
+    totalCell.textContent = `₹${itemTotal.toFixed(2)}`;
+
+    grandTotal += itemTotal;
   });
 
-  document.getElementById("grandTotal").textContent = grandTotal.toFixed(2);
+  const grandTotalElement = document.getElementById("grandTotal");
 
-  const payable = selectedCount > 0 ? grandTotal : 0;
-  document.getElementById("payableTotal").textContent = payable.toFixed(2);
+  if (grandTotalElement) {
+    grandTotalElement.textContent = grandTotal.toFixed(2);
+  }
 }
-
-/* -------- Order link helpers (for WhatsApp) -------- */
+	/* -------- Order link helpers (for WhatsApp) -------- */
 
 function buildOrderPayload(name, phone, address) {
   const rows = document.querySelectorAll("#productTable tbody tr");
