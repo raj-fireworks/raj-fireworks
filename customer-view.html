@@ -1021,11 +1021,13 @@ function renderProductTable(products) {
   });
 Object.entries(categories).forEach(([category, items], index) => {
   const catRow = document.createElement("tr");
+
   catRow.classList.add("category-header");
   catRow.style.cursor = "pointer";
 
   catRow.innerHTML = `
-    <td colspan="7" style="text-align:left; background:#f0f0f0; font-weight:bold;">
+    <td colspan="7"
+        style="text-align:left; background:#f0f0f0; font-weight:bold;">
       ▼ ${category}
     </td>
   `;
@@ -1035,6 +1037,7 @@ Object.entries(categories).forEach(([category, items], index) => {
   // Add products
   items.forEach(item => {
     const row = document.createElement("tr");
+
     row.classList.add("category-row", `category-${index}`);
 
     const imageName = `${item.imagename}.jpeg`;
@@ -1081,15 +1084,18 @@ Object.entries(categories).forEach(([category, items], index) => {
   catRow.addEventListener("click", () => {
     const catRows = document.querySelectorAll(`.category-${index}`);
 
-    catRows.forEach(r => {
-      r.style.display =
-        r.style.display === "none" ? "" : "none";
+    catRows.forEach(row => {
+      row.style.display =
+        row.style.display === "none" ? "" : "none";
     });
 
-    catRow.cells[0].textContent =
-      catRow.cells[0].textContent.startsWith("▼")
-        ? catRow.cells[0].textContent.replace("▼", "▶")
-        : catRow.cells[0].textContent.replace("▶", "▼");
+    if (catRow.cells[0].textContent.trim().startsWith("▼")) {
+      catRow.cells[0].textContent =
+        catRow.cells[0].textContent.replace("▼", "▶");
+    } else {
+      catRow.cells[0].textContent =
+        catRow.cells[0].textContent.replace("▶", "▼");
+    }
   });
 });
 function zoomImage(src) {
