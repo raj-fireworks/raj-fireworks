@@ -1066,27 +1066,6 @@ const imagePath = `./images/${imageName}`;
   tbody.appendChild(row);
 
 
- 
-  const image = new Image();
-
-  image.onload = function () {
-    const wrapper = row.querySelector(".product-wrapper");
-
-    const img = document.createElement("img");
-    img.className = "product-image";
-    img.src = imagePath;
-    img.alt = item.name;
-    img.onclick = () => zoomImage(imagePath);
-
-    wrapper.insertBefore(img, wrapper.firstChild);
-  };
-
-  image.onerror = function () {
-    // Image does not exist - do nothing
-  };
-
-  image.src = imagePath;
-});
 
     catRow.addEventListener("click", () => {
       const catRows = document.querySelectorAll(`.category-${index}`);
