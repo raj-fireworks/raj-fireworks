@@ -986,7 +986,8 @@ function loadProducts() {
   price: Number(info.price) || 0,
   offerprice: Number(info.offerprice) || 0,
   unit: info.unit || "-",
-  category: info.category || "Uncategorized"
+  category: info.category || "Uncategorized",
+  imagename: info.imagename || name
 }));
 
         renderProductTable(products);
