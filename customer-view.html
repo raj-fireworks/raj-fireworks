@@ -2,1291 +2,811 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#1a1040" />
 <title>RAJ FIREWORKS - Customer View</title>
+<meta name="description" content="RAJ FIREWORKS, Sivakasi. Browse the complete crackers price list with offer prices." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;500;600&display=swap" rel="stylesheet" />
+
 <style>
+  :root {
+    --ink: #1c1633;
+    --ink-soft: #5d5675;
+    --night: #1a1040;
+    --night-2: #2b1a63;
+    --plum: #4b1d7a;
+    --fire: #ff5a1f;
+    --fire-2: #ff9d00;
+    --gold: #ffc83d;
+    --cream: #fff8ee;
+    --card: #ffffff;
+    --line: #efe6d8;
+    --green: #16a34a;
+    --wa: #25d366;
+    --wa-dark: #128c4a;
+    --danger: #dc2626;
+    --radius: 20px;
+    --shadow: 0 10px 30px -12px rgba(43, 26, 99, .28);
+    --shadow-sm: 0 4px 14px -6px rgba(43, 26, 99, .25);
+    --bar-h: 76px;
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; scroll-padding-top: 130px; }
   body {
-    font-family: sans-serif;
-    padding: 20px;
     margin: 0;
+    font-family: 'Poppins', 'Noto Sans Tamil', system-ui, sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(1200px 500px at 90% -10%, rgba(255,157,0,.12), transparent 60%),
+      radial-gradient(900px 500px at -10% 20%, rgba(75,29,122,.08), transparent 60%),
+      var(--cream);
+    padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom));
+    overflow-x: hidden;
   }
-html, body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  width: 100%;
-  box-sizing: border-box;
-}
-#customerInfo h4 {
-   font-size: 28px;
-    font-weight: bold;
-    color: #2c3e50;
-    border-bottom: 3px solid #e74c3c;
-    padding-bottom: 10px;
-    margin-bottom: 18px;
-    margin-top: 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    letter-spacing: 1px;
-}
+  img { max-width: 100%; }
+  button { font-family: inherit; }
+  .wrap { width: min(1180px, 100% - 28px); margin-inline: auto; }
 
-header {
-  width: 100vw;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  background-color: #d9534f;
-  color: white;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-}
-
-.header-container {
-  max-width: 100%;
-  width: 100%;
- 
-  padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  box-sizing: border-box;
-}
-
-
- /* Base styles for header */
-header, footer {
-  width: 100%;
-  background-color: #d9534f;
-  color: white;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Container inside header/footer to center content and add side padding */
-.header-container, .footer-container {
-  max-width: 100%;
-  width: 100%; /* ✅ Prevent overflow */
-  
-  padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  box-sizing: border-box;
-}
-
-
-/* Left side header */
-.header-left {
-  max-width: 50%;
-  text-align: left;
-}
-.header-left h1 {
-  margin: 0;
-  font-size: 28px;
-}
-.header-left .tagline {
-  font-size: 14px;
-  margin-top: 5px;
-  color: #ffe;
-}
-
-/* Right side header */
-.header-right {
-  background: #fff3cd;
-  border: 2px solid #ffc107;
-  color: #333;
-  padding: 12px 20px;
-  border-radius: 10px;
-  max-width: 45%;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  text-align: right;
-  font-size: 16px;
-  
-}
-
-/* Blink animations */
-.blink-text {
-  animation: blink-fast 1s infinite;
-  color: #e60000;
-  font-weight: bold;
-}
-.blink-slow {
-  animation: blink-slow 2.5s infinite;
-  color: #d9534f;
-  font-weight: bold;
-}
-@keyframes blink-fast {
-  50% {
-    opacity: 0;
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative;
+    color: #fff;
+    background:
+      radial-gradient(700px 320px at 15% 0%, rgba(255,90,31,.35), transparent 60%),
+      radial-gradient(700px 360px at 90% 30%, rgba(255,200,61,.22), transparent 60%),
+      linear-gradient(160deg, var(--night) 0%, var(--night-2) 55%, var(--plum) 100%);
+    overflow: hidden;
+    border-radius: 0 0 36px 36px;
+    padding: 22px 0 64px;
   }
-}
-@keyframes blink-slow {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.3;
-  }
-}
+  #sparkCanvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: .95; }
+  .hero .wrap { position: relative; z-index: 2; }
 
-/* Responsive styling for mobile view */
-@media (max-width: 600px) {
-  .header-container {
-    flex-direction: column;
-    align-items: flex-start;
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand .logo {
+    width: 64px; height: 64px; border-radius: 18px; object-fit: cover; flex: none;
+    background: #fff; padding: 4px;
+    box-shadow: 0 0 0 3px rgba(255,200,61,.6), 0 10px 24px rgba(0,0,0,.35);
+  }
+  .brand .logo-fallback {
+    width: 64px; height: 64px; border-radius: 18px; flex: none; display: none;
+    align-items: center; justify-content: center; font-size: 32px;
+    background: linear-gradient(135deg, var(--fire), var(--fire-2));
+    box-shadow: 0 0 0 3px rgba(255,200,61,.6), 0 10px 24px rgba(0,0,0,.35);
+  }
+  .brand h1 {
+    margin: 0; font-size: clamp(24px, 5.4vw, 40px); font-weight: 800; letter-spacing: .5px; line-height: 1.1;
+    background: linear-gradient(90deg, #fff, var(--gold) 70%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .brand .tagline { margin: 4px 0 0; font-size: 13px; color: #d9d0f5; letter-spacing: 2.4px; text-transform: uppercase; font-weight: 500; }
+
+  .hero-copy { margin: 34px 0 0; max-width: 640px; }
+  .hero-copy h2 { margin: 0 0 10px; font-size: clamp(22px, 4.6vw, 36px); font-weight: 700; line-height: 1.2; }
+  .hero-copy h2 em { font-style: normal; color: var(--gold); }
+  .hero-copy p { margin: 0; color: #d9d0f5; font-size: 15px; line-height: 1.6; }
+
+  .contact-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 8px; padding: 9px 15px; border-radius: 999px;
+    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
+    color: #fff; text-decoration: none; font-size: 13px; font-weight: 500; backdrop-filter: blur(6px);
+    transition: transform .15s, background .15s;
+  }
+    a.chip:hover { background: rgba(255,255,255,.2); transform: translateY(-1px); }
+
+  /* ---------- LEGAL NOTICE ---------- */
+  .notice {
+    position: relative; z-index: 5;
+    margin: -36px auto 0;
+    background: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
+    border: 1px solid #ffe2a8; display: flex; gap: 14px; padding: 16px 18px;
+  }
+  .notice .ico {
+    flex: none; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center;
+    background: linear-gradient(135deg, #fff1cf, #ffdc8a); color: #b45309; font-size: 18px;
+  }
+  .notice h3 { margin: 0 0 4px; font-size: 14px; font-weight: 700; color: #92400e; }
+  .notice p { margin: 0; font-size: 12.5px; line-height: 1.6; color: var(--ink-soft); }
+  .notice strong { color: var(--ink); }
+
+  /* ---------- TOOLBAR ---------- */
+  .toolbar {
+    position: sticky; top: 0; z-index: 40; margin-top: 18px; padding: 10px 0 8px;
+    background: var(--cream); box-shadow: 0 14px 16px -14px rgba(43,26,99,.35);
+  }
+  .search-row { display: flex; gap: 10px; align-items: center; }
+  .search {
+    flex: 1; position: relative;
+  }
+  .search svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #a39bbd; }
+  .search input {
+    width: 100%; padding: 13px 16px 13px 44px; border-radius: 999px; border: 1.5px solid var(--line);
+    background: #fff; font: 500 14px 'Poppins', 'Noto Sans Tamil', sans-serif; color: var(--ink);
+    box-shadow: var(--shadow-sm); outline: none; transition: border-color .15s, box-shadow .15s;
+  }
+  .search input:focus { border-color: var(--fire); box-shadow: 0 0 0 4px rgba(255,90,31,.15); }
+  .btn-pdf {
+    flex: none; display: inline-flex; align-items: center; gap: 8px; padding: 12px 16px; border-radius: 999px;
+    border: 1.5px solid var(--night-2); background: #fff; color: var(--night-2); font-weight: 600; font-size: 13px;
+    cursor: pointer; box-shadow: var(--shadow-sm); transition: all .15s;
+  }
+  .btn-pdf:hover { background: var(--night-2); color: #fff; }
+  .btn-pdf .d { display: none; }
+  @media (min-width: 620px) { .btn-pdf .d { display: inline; } .btn-pdf .l { display: none; } .btn-pdf .d ~ * {} }
+
+  .cat-nav { display: flex; gap: 8px; overflow-x: auto; padding: 12px 2px 4px; scrollbar-width: none; }
+  .cat-nav::-webkit-scrollbar { display: none; }
+  .cat-chip {
+    flex: none; padding: 8px 16px; border-radius: 999px; border: 1.5px solid var(--line); background: #fff;
+    font-size: 12.5px; font-weight: 600; color: var(--ink-soft); cursor: pointer; white-space: nowrap;
+    transition: all .15s;
+  }
+  .cat-chip:hover { border-color: var(--fire); color: var(--fire); }
+  .cat-chip.active {
+    background: linear-gradient(135deg, var(--fire), var(--fire-2)); color: #fff; border-color: transparent;
+    box-shadow: 0 6px 16px -6px rgba(255,90,31,.7);
   }
 
-  .header-left,
-  .header-right {
-    max-width: 100%;
-    text-align: left;
+  /* ---------- CATEGORY SECTIONS ---------- */
+  .cat-section { margin-top: 26px; }
+  .cat-head {
+    display: flex; align-items: center; gap: 12px; width: 100%; padding: 10px 4px; background: none; border: 0;
+    cursor: pointer; text-align: left; color: var(--ink);
+  }
+  .cat-head .bar { width: 6px; height: 28px; border-radius: 6px; background: linear-gradient(var(--fire), var(--fire-2)); flex: none; }
+  .cat-head h2 { margin: 0; font-size: clamp(17px, 3.6vw, 22px); font-weight: 700; flex: 1; }
+  .cat-head .count { font-size: 12px; font-weight: 600; color: var(--ink-soft); background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; }
+  .cat-head .arrow { color: var(--fire); transition: transform .25s; }
+  .cat-section.collapsed .arrow { transform: rotate(-90deg); }
+  .cat-section.collapsed .grid { display: none; }
+
+  .grid { display: grid; gap: 14px; grid-template-columns: repeat(2, 1fr); margin-top: 6px; }
+  @media (min-width: 720px) { .grid { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
+  @media (min-width: 1000px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+
+  /* ---------- PRODUCT CARD ---------- */
+  .card {
+    position: relative; display: flex; flex-direction: column; background: var(--card); border-radius: var(--radius);
+    border: 1.5px solid transparent; box-shadow: var(--shadow-sm); overflow: hidden;
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .card.selected { border-color: var(--fire); box-shadow: 0 0 0 4px rgba(255,90,31,.12), var(--shadow); }
+  .thumb {
+    position: relative; aspect-ratio: 1 / 1; display: grid; place-items: center; cursor: zoom-in;
+    background: radial-gradient(circle at 50% 35%, #fff, #fdf1de);
+  }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; }
+  @media (min-width: 720px) { .thumb { aspect-ratio: 4 / 3; } }
+  .thumb .placeholder { font-size: 44px; opacity: .55; }
+  .thumb .zoom {
+    position: absolute; right: 8px; bottom: 8px; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
+    background: rgba(28,22,51,.55); color: #fff; font-size: 12px; opacity: 0; transition: opacity .2s; backdrop-filter: blur(4px);
+  }
+  .card:hover .zoom { opacity: 1; }
+  @media (hover: none) { .thumb .zoom { opacity: 1; } }
+  .badge {
+    position: absolute; left: 10px; top: 10px; z-index: 2; padding: 4px 10px; border-radius: 999px;
+    font-size: 11px; font-weight: 700; color: #fff; letter-spacing: .3px;
+    background: linear-gradient(135deg, #e11d48, var(--fire));
+    box-shadow: 0 6px 14px -6px rgba(225,29,72,.8);
+  }
+  .card-body { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .pname { margin: 0; font-size: 14.5px; font-weight: 600; line-height: 1.3; }
+  .tname { margin: 0; font-family: 'Noto Sans Tamil', sans-serif; font-size: 12.5px; color: var(--ink-soft); line-height: 1.4; }
+  .unit-pill { align-self: flex-start; font-size: 10.5px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; padding: 2px 9px; border-radius: 999px; background: #f3edff; color: var(--plum); }
+  .price-row { display: flex; align-items: baseline; gap: 8px; margin-top: auto; padding-top: 4px; flex-wrap: wrap; }
+  .offer { font-size: 20px; font-weight: 800; color: var(--fire); }
+  .mrp { font-size: 12.5px; color: #a39bbd; text-decoration: line-through; }
+  .line-total { font-size: 12px; color: var(--green); font-weight: 600; min-height: 18px; }
+
+  .add-btn {
+    width: 100%; margin-top: 6px; padding: 10px 12px; border-radius: 12px; border: 0; cursor: pointer;
+    font-weight: 700; font-size: 13.5px; color: #fff;
+    background: linear-gradient(135deg, var(--fire), var(--fire-2));
+    box-shadow: 0 8px 18px -8px rgba(255,90,31,.85); transition: transform .12s, filter .15s;
+  }
+  .add-btn:hover { filter: brightness(1.06); }
+  .add-btn:active { transform: scale(.97); }
+  .stepper { display: none; align-items: stretch; margin-top: 6px; border-radius: 12px; overflow: hidden; border: 1.5px solid var(--fire); background: #fff; }
+  .card.selected .add-btn { display: none; }
+  .card.selected .stepper { display: flex; }
+  .stepper button { width: 42px; border: 0; background: #fff4ec; color: var(--fire); font-size: 20px; font-weight: 700; cursor: pointer; }
+  .stepper button:active { background: #ffe1d0; }
+  .stepper input {
+    flex: 1; min-width: 0; width: 100%; text-align: center; border: 0; outline: 0; padding: 9px 0;
+    font: 700 15px 'Poppins', sans-serif; color: var(--ink); background: #fff;
   }
 
-  .header-right {
-    margin-top: 15px;
-    margin-right: 0;
-    font-size: 14px;
-    padding: 10px 15px;
-  }
+  .empty { text-align: center; padding: 60px 20px; color: var(--ink-soft); }
+  .empty .big { font-size: 48px; }
+  .skeleton { height: 260px; border-radius: var(--radius); background: linear-gradient(100deg, #f4ead9 30%, #fff8ee 50%, #f4ead9 70%); background-size: 200% 100%; animation: shimmer 1.3s infinite; }
+  @keyframes shimmer { to { background-position: -200% 0; } }
 
-  .header-left h1 {
-    font-size: 24px;
-  }
+  /* ---------- INFO / TRANSPORT ---------- */
+  .info-grid { display: grid; gap: 16px; margin-top: 40px; }
+  @media (min-width: 820px) { .info-grid { grid-template-columns: 1.3fr 1fr; } }
+  .panel { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: 20px; border: 1px solid var(--line); }
+  .panel h3 { margin: 0 0 14px; font-size: 16px; display: flex; align-items: center; gap: 10px; }
+  .panel h3 .ico { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: linear-gradient(135deg, #fff1cf, #ffdc8a); color: #b45309; }
+  .tlist { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .tlist li { display: flex; gap: 12px; font-size: 13px; line-height: 1.6; color: var(--ink-soft); }
+  .tlist li .dot { flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 700; margin-top: 1px; }
+  .dot.warn { background: #fff3d6; color: #d97706; border: 1.5px solid #f5b642; }
+  .dot.ok { background: #dcfce7; color: var(--green); border: 1.5px solid #86efac; }
+  .tlist strong { color: var(--ink); }
+  .foot-note { font-size: 12.5px; color: var(--ink-soft); margin: 16px 0 0; text-align: center; }
 
-  .header-left .tagline {
-    font-size: 12px;
-  }
-}
-@media (max-width: 600px) {
-  /* Stack the form and buttons */
-  div[style*="display:flex"][style*="align-items:flex-start"] {
-    flex-direction: column !important;
-    gap: 1rem !important;
-  }
-
-  #customerInfo {
-    max-width: 100% !important;
-    margin-right: 0 !important;
-    width: 100%;
-	margin-bottom: 0 !important;
-  }
-
-  /* Full width inputs */
-  #customerInfo input[type="text"],
-  #customerInfo input[type="tel"],
-  #customerInfo textarea {
-    width: 300px !important;
-    max-width: 100%;
-  }
-
-  /* Table wrapper for horizontal scroll */
-  .table-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* Smaller table padding and font */
-  th, td {
-    padding: 6px 8px;
-    font-size: 14px;
-  }
-
-  /* Buttons smaller */
-  .button-group button {
-    padding: 10px 14px;
-    font-size: 14px;
-  }
-
-	/* Adjust WhatsApp button margin */
-  .whatsapp-button {
-    margin-left: 0 !important;
-  }
-
-  /* Make button group flex nicely */
-  .button-group {
-    flex-wrap: wrap;
-    gap: 10px;
-	margin: 0 !important;
-  }
-}
-
-  /* Footer styles */
   footer {
-    background-color: #f2f2f2;
-    color: #444;
+    margin-top: 40px; background: linear-gradient(160deg, var(--night), var(--night-2)); color: #d9d0f5;
+    border-radius: 36px 36px 0 0; padding: 34px 0 40px; text-align: center; font-size: 13px; line-height: 1.8;
   }
-  footer .footer-container {
-    flex-direction: column;
-    text-align: center;
-    font-size: 14px;
-    gap: 10px;
+  footer .fname { font-size: 20px; font-weight: 800; color: #fff; letter-spacing: .5px; }
+  footer .safety { display: inline-block; margin-top: 14px; padding: 9px 18px; border-radius: 999px; background: rgba(255,90,31,.15); border: 1px solid rgba(255,90,31,.4); color: #ffb48f; font-weight: 600; }
+  footer a { color: var(--gold); text-decoration: none; }
+
+  /* ---------- STICKY CART BAR ---------- */
+  .cartbar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+    padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+    background: rgba(26,16,64,.94); backdrop-filter: blur(14px);
+    border-top: 1px solid rgba(255,255,255,.12); box-shadow: 0 -12px 30px -14px rgba(0,0,0,.5);
   }
-  footer .safety {
-    color: #d9534f;
-    font-weight: bold;
-    margin-top: 10px;
+  .cartbar .in { width: min(1180px, 100%); margin-inline: auto; display: flex; align-items: center; gap: 14px; }
+  .cart-info { flex: 1; color: #fff; min-width: 0; }
+  .cart-info .l1 { font-size: 12px; color: #cbbff2; }
+  .cart-info .l2 { font-size: 20px; font-weight: 800; }
+  .cart-info .l2 small { font-size: 11px; font-weight: 500; color: #cbbff2; margin-left: 6px; }
+  .btn-review {
+    flex: none; display: inline-flex; align-items: center; gap: 9px; padding: 13px 22px; border-radius: 14px; border: 0; cursor: pointer;
+    font-weight: 700; font-size: 14px; color: #fff; background: linear-gradient(135deg, var(--wa), var(--wa-dark));
+    box-shadow: 0 10px 22px -10px rgba(37,211,102,.9); transition: transform .12s;
   }
+  .btn-review:active { transform: scale(.97); }
+  .btn-review svg { width: 22px; height: 22px; }
+  .btn-review .n { background: #fff; color: var(--wa-dark); border-radius: 999px; min-width: 22px; height: 22px; display: inline-grid; place-items: center; font-size: 12px; padding: 0 6px; }
 
-  /* Rest of your page content */
-  #customerInfo {
-    margin-bottom: 20px;
-    margin-top: 20px;
+  /* ---------- SHEET (order review + form) ---------- */
+  .overlay { position: fixed; inset: 0; z-index: 80; background: rgba(15,8,38,.6); backdrop-filter: blur(3px); display: none; }
+  .overlay.open { display: block; animation: fade .2s; }
+  .sheet {
+    position: fixed; z-index: 90; left: 0; right: 0; bottom: 0; max-height: 92vh; overflow-y: auto;
+    background: var(--cream); border-radius: 28px 28px 0 0; padding: 8px 20px calc(24px + env(safe-area-inset-bottom));
+    transform: translateY(105%); transition: transform .32s cubic-bezier(.2,.8,.2,1);
+    width: min(640px, 100%); margin-inline: auto;
   }
-  #customerInfo label {
-    margin-right: 8px;
+  .sheet.open { transform: translateY(0); }
+  @media (min-width: 700px) {
+    .sheet { top: 50%; bottom: auto; border-radius: 28px; transform: translateY(-40%) scale(.96); opacity: 0; pointer-events: none; left: 50%; right: auto; margin: 0; translate: -50% 0; transition: all .25s; max-height: 88vh; }
+    .sheet.open { transform: translateY(-50%) scale(1); opacity: 1; pointer-events: auto; }
   }
-  #customerInfo input[type="text"],
-  #customerInfo input[type="tel"] {
-    padding: 8px;
-    margin-right: 20px;
-    width: 200px;
-    display: inline-block;
+  @keyframes fade { from { opacity: 0; } }
+  .grab { width: 44px; height: 5px; border-radius: 5px; background: #d9cfe9; margin: 6px auto 14px; }
+  .sheet-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .sheet-head h3 { margin: 0; font-size: 20px; font-weight: 800; }
+  .x { width: 36px; height: 36px; border-radius: 50%; border: 0; background: #fff; box-shadow: var(--shadow-sm); cursor: pointer; color: var(--ink); font-size: 15px; }
+
+  .summary { background: #fff; border-radius: 16px; border: 1px solid var(--line); padding: 4px 14px; max-height: 210px; overflow-y: auto; }
+  .srow { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px dashed var(--line); font-size: 13px; }
+  .srow:last-child { border-bottom: 0; }
+  .srow .q { color: var(--ink-soft); font-size: 12px; }
+  .srow b { white-space: nowrap; }
+  .totalrow { display: flex; justify-content: space-between; align-items: center; margin: 14px 2px 4px; font-weight: 700; }
+  .totalrow .amt { font-size: 24px; font-weight: 800; color: var(--fire); }
+  .tmini { font-size: 11.5px; color: #92400e; background: #fff3d6; border: 1px solid #f5d38a; border-radius: 12px; padding: 9px 12px; line-height: 1.55; margin: 10px 0 18px; }
+
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 6px; color: var(--ink); }
+  .field label .req { color: var(--danger); }
+  .field label .opt { color: #a39bbd; font-weight: 500; }
+  .field input, .field textarea {
+    width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid var(--line); background: #fff;
+    font: 500 14px 'Poppins', sans-serif; color: var(--ink); outline: none; resize: vertical; transition: border-color .15s, box-shadow .15s;
   }
-  table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 0 auto; /* ✅ Center safely */
-  box-sizing: border-box;
-}
-@media (max-width: 600px) {
-  table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
+  .field input:focus, .field textarea:focus { border-color: var(--fire); box-shadow: 0 0 0 4px rgba(255,90,31,.14); }
+  .field.err input, .field.err textarea { border-color: var(--danger); }
+  .field .msg { display: none; margin-top: 5px; font-size: 12px; color: var(--danger); }
+  .field.err .msg { display: block; }
+  .btn-wa {
+    width: 100%; padding: 15px; border-radius: 14px; border: 0; cursor: pointer; font-weight: 700; font-size: 15px; color: #fff;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    background: linear-gradient(135deg, var(--wa), var(--wa-dark)); box-shadow: 0 12px 24px -12px rgba(37,211,102,.9);
   }
+  .btn-wa svg { width: 24px; height: 24px; }
 
-  th, td {
-    white-space: nowrap;
-    padding: 6px 8px;
-    font-size: 14px;
+  /* ---------- IMAGE MODAL ---------- */
+  .image-modal { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(10,6,25,.92); justify-content: center; align-items: center; flex-direction: column; gap: 14px; padding: 16px; cursor: zoom-out; }
+  .image-modal.open { display: flex; animation: fade .2s; }
+  .image-modal img { max-width: 92vw; max-height: 80vh; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,.6); object-fit: contain; }
+  .image-modal .cap { color: #fff; font-weight: 600; font-size: 15px; text-align: center; }
+  .image-modal .cap small { display: block; color: #cbbff2; font-family: 'Noto Sans Tamil'; font-weight: 400; margin-top: 2px; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: calc(var(--bar-h) + 20px + env(safe-area-inset-bottom)); transform: translate(-50%, 20px); opacity: 0; z-index: 300;
+    background: var(--ink); color: #fff; padding: 12px 20px; border-radius: 14px; font-size: 13px; font-weight: 500; box-shadow: var(--shadow);
+    transition: all .25s; pointer-events: none; max-width: 90vw; text-align: center;
   }
-}
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
-  th, td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    #sparkCanvas { display: none; }
   }
-  th:first-child,
-td:first-child {
-  text-align: left;
-}
-  th {
-    background-color: #f2f2f2;
-  }
-  input[type="number"] {
-    width: 60px;
-  }
-  .total-section {
-    margin: 20px;
-    font-size: 18px;
-    font-weight: bold;
-  }
-  .button-group {
-    margin-top: 20px;
-    margin-left: 20px;
-  }
-  .button-group button {
-    padding: 12px 20px;
-    font-size: 16px;
-    margin-right: 10px;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-  }
-  .whatsapp-button {
-  background-color: #25D366;
-  color: white;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-left: 0; /* ✅ Prevent overflow on small screens */
-}
-
-  @media (max-width: 600px) {
-  .whatsapp-button {
-    margin-left: 20px;
-  }
-}
-
-  .print-button {
-    background-color: #007bff;
-    color: white;
-  }
-  .footer-note {
-    margin: 20px;
-    color: #888;
-    font-size: 14px;
-  }
-  .offer-days-left {
-    font-size: 16px;
-    margin-top: 10px;
-    color: #555;
-  }
-
-  /* Collapsible category styles */
-  .category-header {
-    background-color: #f0f0f0;
-    user-select: none;
-    cursor: pointer;
-    font-weight: bold;
-    text-align: left;
-  }
-  .category-header td {
-    padding-left: 15px;
-    font-size: 18px;
-  }
-  .category-row {
-    transition: all 0.3s ease;
-  }
- .product-cell {
-  vertical-align: top;
-}
-
-.product-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.product-image {
-  width: 30px;
-  height: 30px;
-  object-fit: cover;
-
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.product-name {
-  font-weight: 500;
-  display: inline-block;
-  max-width: 150px;
-  word-wrap: break-word;
-}
-.product-image:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 8px rgba(0,0,0,0.2);
-}
-tr {
-  padding: 10px 0;
-}
-
-  .thumb-image {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-    margin-left: 10px;
-    cursor: pointer;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    transition: transform 0.2s ease;
-  }
-
-.image-modal {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-  /* remove display:flex here */
-}
-#zoomedImage {
-  max-width: 90vw;  /* max width 90% of viewport */
-  max-height: 90vh; /* max height 90% of viewport */
-  border-radius: 8px; /* optional styling */
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
-
-
-.image-modal img {
-  max-width: 90vw;
-  max-height: 90vh;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  border-radius: 8px;
-  box-shadow: 0 0 10px #fff;
-  cursor: zoom-out;
-}
-
-
-
-  .print-button {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 10px;
-    font-size: 20px;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-
-  .print-button:hover {
-    background-color: #d32f2f;
-  }
-.form-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  padding: 0 1rem;
-  box-sizing: border-box;
-  width: 100%;
-   background-image: url('https://cdn.pixabay.com/photo/2016/10/21/23/19/diwali-1756961_1280.jpg');
-  background-repeat: no-repeat;
-  background-position: right center;
-  background-size: contain;
-}
-.disclaimer-box {
-  width: 100%;	
-  margin-top: 12px;
-  padding: 10px 14px;
-  background-color: #fff5e6;
-  border-left: 5px solid #ff9900;
-  color: #333;
-  font-size: 0.85rem;
-  line-height: 1.5;
-  border-radius: 4px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
-}
-
-@media (max-width: 600px) {
-  .form-container {
-    flex-direction: column;
-    padding: 0 10px;
-  }
-
-  .button-group {
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 10px;
-    margin: 10px 0 0;
-  }
-
-  .whatsapp-button {
-    margin-left: 0 !important; /* ✅ Reset */
-	margin-bottom: 15px;
-  }
-}
-/* Contact Info Bar */
-.contact-info-bar {
-  background-color: #2C3E50;
-  color: #fff;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  font-size: 14px;
-  font-family: Arial, sans-serif;
-  flex-wrap: wrap;
-  box-sizing: border-box;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-
-.contact-info-bar i {
-  color: yellow;
-  margin-right: 8px;
-}
-
-/* Responsive for smaller screens */
-@media (max-width: 600px) {
-  .contact-info-bar {
-    flex-direction: column;
-    text-align: center;
-    gap: 8px;
-    padding: 10px;
-  }
-}
-
-@media (max-width: 600px) {
-  table thead th {
-    font-size: 12px;
-    padding: 6px;
-  }
-
-  table thead th:nth-child(1) { width: 120px; } /* Crackers Name */
-  table thead th:nth-child(2) { width: 40px; }  /* Unit */
-  table thead th:nth-child(3),
-  table thead th:nth-child(4) { width: 60px; }  /* Actual & Offer Price */
-  table thead th:nth-child(5) { width: 40px; }  /* Quantity */
-  table thead th:nth-child(6) { width: 60px; }  /* Total */
-
-  table {
-    table-layout: auto !important;
-    font-size: 12px;
-  }
-
-  td, th {
-    word-break: break-word;
-  }
-}
-.transport-note {
-  width: calc(100% - 40px);
-  margin: 25px auto 30px;
-  padding: 10px 18px;
-  box-sizing: border-box;
-  background: #fffaf0;
-  border: 1px solid #f5b642;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  color: #222;
-  font-family: Arial, sans-serif;
-  font-size: 12px;
-  line-height: 1.4;
-}
-
-.transport-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding-bottom: 7px;
-  border-bottom: 1px dashed #f5b642;
-}
-
-.transport-icon {
-  width: 38px;
-  height: 38px;
-  min-width: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #f5b642;
-  border-radius: 50%;
-  background: #fff3d6;
-  font-size: 21px;
-}
-
-.transport-title {
-  font-size: 14px;
-  font-weight: 700;
-  color: #a85408;
-}
-
-.transport-content {
-  width: 100%;
-}
-
-.transport-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 30px;
-  padding: 4px 0;
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.transport-row:last-child {
-  border-bottom: none;
-}
-
-.transport-symbol {
-  width: 22px;
-  height: 22px;
-  min-width: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1.5px solid #f59e0b;
-  border-radius: 50%;
-  color: #f59e0b;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.transport-check {
-  border-color: #22a95a;
-  color: #22a95a;
-}
-
-.transport-row strong {
-  font-weight: 700;
-  color: #111;
-}
-
-@media (max-width: 600px) {
-  .transport-note {
-    width: calc(100% - 20px);
-    padding: 8px 10px;
-    font-size: 11px;
-  }
-
-  .transport-title {
-    font-size: 12px;
-  }
-
-  .transport-row {
-    gap: 8px;
-  }
-}
-
-/* Mobile */
-@media (max-width: 600px) {
-  .transport-note {
-    width: calc(100% - 16px);
-    padding: 8px 10px;
-    font-size: 11px;
-  }
-
-  .transport-icon {
-    width: 34px;
-    height: 34px;
-    font-size: 19px;
-  }
-}
-/* ================================
-   RAJ CRACKERS TRANSPORT NOTE
-   ================================ */
-
-.aj-transport-box {
-  width: 96% !important;
-  max-width: 1100px !important;
-  margin: 25px auto 30px !important;
-  padding: 10px 16px !important;
-  box-sizing: border-box !important;
-
-  background: #fffaf0 !important;
-  border: 1px solid #f5b642 !important;
-  border-radius: 6px !important;
-
-  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.10) !important;
-
-  font-family: Arial, Helvetica, sans-serif !important;
-  font-size: 12px !important;
-  line-height: 1.4 !important;
-  color: #222 !important;
-}
-
-/* Heading */
-.aj-transport-heading {
-  display: flex !important;
-  align-items: center !important;
-  gap: 10px !important;
-
-  min-height: 38px !important;
-  padding-bottom: 7px !important;
-
-  border-bottom: 1px dashed #f5b642 !important;
-
-  font-size: 14px !important;
-  font-weight: 700 !important;
-  color: #a85408 !important;
-}
-
-.aj-transport-main-icon {
-  width: 38px !important;
-  height: 38px !important;
-  min-width: 38px !important;
-
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-
-  border: 1px solid #f5b642 !important;
-  border-radius: 50% !important;
-
-  background: #fff3d6 !important;
-
-  font-size: 21px !important;
-}
-
-/* Each note row */
-.aj-transport-item {
-  display: flex !important;
-  align-items: center !important;
-
-  gap: 12px !important;
-  min-height: 30px !important;
-
-  padding: 4px 0 !important;
-
-  border-bottom: 1px solid #e4e4e4 !important;
-
-  font-size: 12px !important;
-  color: #333 !important;
-}
-
-/* Last row */
-.aj-transport-last {
-  border-bottom: none !important;
-}
-
-/* Orange information icon */
-.aj-transport-icon {
-  width: 21px !important;
-  height: 21px !important;
-  min-width: 21px !important;
-
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-
-  border: 1.5px solid #f59e0b !important;
-  border-radius: 50% !important;
-
-  color: #f59e0b !important;
-  font-size: 13px !important;
-  font-weight: 700 !important;
-}
-
-/* Green check icon */
-.aj-transport-check {
-  width: 21px !important;
-  height: 21px !important;
-  min-width: 21px !important;
-
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-
-  border: 1.5px solid #22a95a !important;
-  border-radius: 50% !important;
-
-  color: #22a95a !important;
-  font-size: 13px !important;
-  font-weight: 700 !important;
-}
-
-/* Bold text */
-.aj-transport-item strong {
-  font-weight: 700 !important;
-  color: #111 !important;
-}
-
-/* Mobile */
-@media (max-width: 600px) {
-
-  .aj-transport-box {
-    width: 94% !important;
-    margin: 18px auto 22px !important;
-    padding: 8px 10px !important;
-    font-size: 11px !important;
-  }
-
-  .aj-transport-heading {
-    font-size: 12px !important;
-    gap: 8px !important;
-  }
-
-  .aj-transport-main-icon {
-    width: 32px !important;
-    height: 32px !important;
-    min-width: 32px !important;
-    font-size: 18px !important;
-  }
-
-  .aj-transport-item {
-    gap: 8px !important;
-    min-height: 28px !important;
-    font-size: 11px !important;
-  }
-
-  .aj-transport-icon,
-  .aj-transport-check {
-    width: 19px !important;
-    height: 19px !important;
-    min-width: 19px !important;
-    font-size: 11px !important;
-  }
-}
-  .transport-title {
-    font-size: 12px;
-  }
-
-  .transport-row {
-    grid-template-columns: 28px 1fr;
-    min-height: 28px;
-  }
-
-  .transport-symbol {
-    width: 20px;
-    height: 20px;
-  }
-}
 </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
 
-<header>
-  <div class="header-container" role="banner">
-    <div class="header-left">
-      <h1>🎇 RAJ FIREWORKS </h1>
-      <p class="tagline" aria-label="Tagline">Your Trusted Firework Partner</p>
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <canvas id="sparkCanvas" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="brand">
+      <img class="logo" src="logo.png" alt="RAJ FIREWORKS logo" onerror="this.style.display='none';document.querySelector('.logo-fallback').style.display='flex'" />
+      <div class="logo-fallback">🎇</div>
+      <div>
+        <h1>RAJ FIREWORKS</h1>
+        <p class="tagline">Your Trusted Firework Partner</p>
+      </div>
     </div>
-	<!-- Contact Info Bar -->
-	<div class="contact-info-bar">
-	  <span><i class="fas fa-location-dot"></i> Sivakasi</span>
-	  <span><i class="fas fa-phone"></i> 8296772217</span>
-	  <span><i class="fas fa-envelope"></i> rajmohanmca14a@gmail.com</span>
-	</div>
 
-    <!-- Disclaimer Message -->
-<div class="disclaimer-box" role="note" aria-label="Legal disclaimer">
-  <strong>⚠️ Important Legal Notice – Tamil Nadu High Court Order</strong><br>
-  <small>
-    As per the Madurai Bench of the Madras High Court (Order dated 04-09-2025) and the 2018 Supreme Court directions, 
-    <strong>online sale or acceptance of firecracker orders is strictly prohibited</strong>.<br>
-    This website is only for information and price reference.
-  </small>
-</div>
+    <div class="hero-copy">
+      <h2>Light up every celebration with <em>Sivakasi's finest</em></h2>
+      <p>Browse the complete price list with fixed offer prices, pick your favourites and send us an enquiry on WhatsApp.</p>
+    </div>
 
+    <div class="contact-chips">
+      <span class="chip">📍 Sivakasi</span>
+      <a class="chip" href="tel:+918296772217">📞 82967 72217</a>
+      <a class="chip" href="mailto:rajmohanmca14a@gmail.com">✉️ rajmohanmca14a@gmail.com</a>
+    </div>
   </div>
 </header>
 
+<main class="wrap">
 
-<!-- Customer Info Inputs -->
-  <div  class="form-container">
-<div id="customerInfo" style="margin-top: 20px; max-width: 800px; margin-right: auto; margin-bottom: 40px;">
-<h4>Customer Enquiry Form</h4>
-  
-  <!-- Name -->
-  <div style="margin-bottom: 15px;">
-    <label for="customerName">Name<span style="color: red;">*</span>:</label><br />
-<input type="text" id="customerName" placeholder="Enter name" 
-       onkeypress="return /[a-zA-Z\s]/.test(event.key)" />
+  <!-- Legal notice (kept, restyled) -->
+  <section class="notice" role="note" aria-label="Legal disclaimer">
+    <div class="ico">⚖️</div>
+    <div>
+      <h3>Important Legal Notice – Tamil Nadu High Court Order</h3>
+      <p>As per the Madurai Bench of the Madras High Court (Order dated 04-09-2025) and the 2018 Supreme Court directions,
+        <strong>online sale or acceptance of firecracker orders is strictly prohibited</strong>.
+        This website is only for information and price reference.</p>
+    </div>
+  </section>
+
+  <!-- Search + category chips -->
+  <div class="toolbar">
+    <div class="search-row">
+      <div class="search">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="searchInput" type="search" placeholder="Search crackers (English or தமிழ்)…" autocomplete="off" />
+      </div>
+      <button class="btn-pdf" onclick="downloadPDF()" title="Download Product List PDF">
+        <b>⬇</b><span class="l">PDF</span><span class="d"> Price List</span>
+      </button>
+    </div>
+    <nav class="cat-nav" id="catNav" aria-label="Categories"></nav>
   </div>
 
-  <!-- Address -->
-  <div style="margin-bottom: 15px;">
-    <label for="customerAddress">Address<span style="color: red;">*</span>:</label><br />
-    <textarea id="customerAddress" placeholder="Enter full address including area and landmark" required rows="3" style="width: 200px; padding: 8px; font-size: 14px; resize: vertical;"></textarea>
+  <!-- Products -->
+  <div id="catalog">
+    <div class="grid"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
   </div>
 
- <!-- Pin Code and Phone (optional) -->
-<div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 15px;">
-
-
-  <div style="flex: 1; min-width: 200px;">
-    <label for="customerPhone">Phone (optional):</label><br />
-   <input type="tel" id="customerPhone" placeholder="Enter phone number" 
-              maxlength="10"
-              onkeypress="return /[0-9]/.test(event.key) && this.value.length < 10" />
-
+  <!-- Transport info -->
+  <div class="info-grid">
+    <section class="panel">
+      <h3><span class="ico">🚚</span> Important – Transport Charges</h3>
+      <ul class="tlist">
+        <li><span class="dot warn">!</span><span>Transport charges are <strong>NOT</strong> included in the product price or payable total.</span></li>
+        <li><span class="dot warn">📦</span><span>All parcels will be sent on a <strong>TO-PAY</strong> basis through the available transport service.</span></li>
+        <li><span class="dot ok">✓</span><span>Transport charges <strong>must be paid directly</strong> by the customer to the transport office / transporter at the time of parcel collection or delivery.</span></li>
+        <li><span class="dot ok">✓</span><span>Transport charges may vary depending on <strong>location, parcel weight, number of boxes, and transport company rates.</strong></span></li>
+      </ul>
+    </section>
+    <section class="panel">
+      <h3><span class="ico">🏷️</span> About the prices</h3>
+      <ul class="tlist">
+        <li><span class="dot ok">✓</span><span>Offer is fixed and prices shown are <strong>after discount</strong>.</span></li>
+        <li><span class="dot ok">✓</span><span>Prices are <strong>inclusive of taxes</strong>.</span></li>
+        <li><span class="dot ok">✓</span><span>Tap a product photo to zoom in and see it clearly.</span></li>
+      </ul>
+    </section>
   </div>
+  <p class="foot-note">* Offer is fixed and prices shown are after discount. Prices inclusive of taxes.</p>
+</main>
 
-</div>
-
-
-</div>
-
-
-
-
-<div class="button-group">
-  <button class="whatsapp-button" onclick="sendOrderToWhatsApp()">Request a Callback on WhatsApp</button>
-</div>
-
-  </div>
-<table id="productTable">
-<thead>
-  <tr>
-    <th style="width:200px;">Crackers Name</th>
-    <th style="width:50px;">Unit</th>
-    <th style="width:70px;">Actual Price (₹)</th>
-    <th style="width:70px;">Offer Price (₹)</th>
-    <th style="width:50px;">Quantity</th>
-    <th style="width:70px;">Total (₹)</th>
-  </tr>
-</thead>
-
-  <tbody></tbody>
-</table>
-
-<div class="total-section">
-  <p>Estimated Price: ₹<span id="grandTotal">0.00</span></p>
-</div>
-
-
-
-<div class="button-group" style="display:flex;gap:15px;">
-  <button class="whatsapp-button" style="margin:0;" onclick="sendOrderToWhatsApp()">Request a Callback on WhatsApp</button>
-   <button class="print-button" onclick="downloadPDF()" title="Download Product List PDF">
-  Download Product List PDF
-</button>
-</div>
-
-<p class="footer-note">* Offer is fixed and prices shown are after discount. Prices inclusive of taxes.</p>
-<div class="aj-transport-box">
-  <div class="aj-transport-heading">
-    <span class="aj-transport-main-icon">🚚</span>
-    <span>IMPORTANT – TRANSPORT CHARGES</span>
-  </div>
-
-  <div class="aj-transport-item">
-    <span class="aj-transport-icon">!</span>
-    <span>
-      Transport charges are <strong>NOT</strong> included in the product
-      price or payable total.
-    </span>
-  </div>
-
-  <div class="aj-transport-item">
-    <span class="aj-transport-icon">📦</span>
-    <span>
-      All parcels will be sent on a <strong>TO-PAY</strong> basis through
-      the available transport service.
-    </span>
-  </div>
-
-  <div class="aj-transport-item">
-    <span class="aj-transport-check">✓</span>
-    <span>
-      Transport charges <strong>must be paid directly</strong> by the
-      customer to the transport office / transporter at the time of
-      parcel collection or delivery.
-    </span>
-  </div>
-
-  <div class="aj-transport-item aj-transport-last">
-    <span class="aj-transport-check">✓</span>
-    <span>
-      Transport charges may vary depending on
-      <strong>location, parcel weight, number of boxes, and transport
-      company rates.</strong>
-    </span>
-  </div>
-</div>
-	<footer>
-  <div class="footer-container">
-    <p><strong>RAJ FIREWORKS</strong> — Your Trusted Firework Partner</p>
-    <p>Contact: +91 82967 72217, 97914 44235, 99436 81121 | Email: support@rajfireworks.in</p>
-    <p class="safety">🔥 Please celebrate responsibly and follow firework safety rules!</p>
+<footer>
+  <div class="wrap">
+    <div class="fname">🎇 RAJ FIREWORKS</div>
+    <div>Your Trusted Firework Partner</div>
+    <div>Contact: <a href="tel:+918296772217">+91 82967 72217</a>, <a href="tel:+919791444235">97914 44235</a>, <a href="tel:+919943681121">99436 81121</a></div>
+    <div>Email: <a href="mailto:support@rajfireworks.in">support@rajfireworks.in</a></div>
+    <div class="safety">🔥 Please celebrate responsibly and follow firework safety rules!</div>
   </div>
 </footer>
+
+<!-- ================= STICKY CART BAR ================= -->
+<div class="cartbar" id="cartbar">
+  <div class="in">
+    <div class="cart-info">
+      <div class="l1" id="cartCount">No items selected</div>
+      <div class="l2">₹<span id="grandTotal">0.00</span><small>excl. transport</small></div>
+    </div>
+    <button class="btn-review" onclick="openSheet()">
+      <svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M19.1 17.3c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2.1-.4 0-.5-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1.1 1.1-1.1 2.6s1.1 3 1.3 3.2c.2.2 2.2 3.4 5.3 4.7.7.3 1.3.5 1.8.7.7.2 1.4.2 2 .1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.4zM16 3C8.8 3 3 8.8 3 16c0 2.3.6 4.5 1.8 6.5L3 29l6.7-1.7c1.9 1 4 1.6 6.3 1.6 7.2 0 13-5.8 13-13S23.2 3 16 3zm0 23.7c-2 0-3.9-.6-5.6-1.6l-.4-.2-4 1 1.1-3.9-.3-.4C5.7 19.9 5.1 18 5.1 16 5.1 9.9 10 5.1 16 5.1S26.9 10 26.9 16 22 26.7 16 26.7z"/></svg> Enquire <span class="n" id="cartN">0</span>
+    </button>
+  </div>
+</div>
+
+<!-- ================= ORDER SHEET ================= -->
+<div class="overlay" id="overlay" onclick="closeSheet()"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Customer enquiry">
+  <div class="grab"></div>
+  <div class="sheet-head">
+    <h3>Customer Enquiry</h3>
+    <button class="x" onclick="closeSheet()" aria-label="Close">✕</button>
+  </div>
+
+  <div class="summary" id="summaryList"></div>
+  <div class="totalrow"><span>Estimated Price</span><span class="amt">₹<span id="sheetTotal">0.00</span></span></div>
+  <div class="tmini">🚚 Transport is <b>not included</b>. Parcels go <b>TO-PAY</b>; pay the transporter directly on collection.</div>
+
+  <div class="field" id="fName">
+    <label for="customerName">Name <span class="req">*</span></label>
+    <input type="text" id="customerName" placeholder="Enter your name" autocomplete="name" />
+    <div class="msg">Enter a valid name (min 3 letters, only letters and spaces).</div>
+  </div>
+  <div class="field" id="fAddr">
+    <label for="customerAddress">Address <span class="req">*</span></label>
+    <textarea id="customerAddress" rows="3" placeholder="Full address including area and landmark" autocomplete="street-address"></textarea>
+    <div class="msg">Address cannot be empty.</div>
+  </div>
+  <div class="field" id="fPhone">
+    <label for="customerPhone">Phone <span class="opt">(optional)</span></label>
+    <input type="tel" id="customerPhone" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number" autocomplete="tel" />
+    <div class="msg">Enter a valid 10-digit mobile number starting with 6–9.</div>
+  </div>
+
+  <button class="btn-wa" onclick="sendOrderToWhatsApp()"><svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M19.1 17.3c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2.1-.4 0-.5-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1.1 1.1-1.1 2.6s1.1 3 1.3 3.2c.2.2 2.2 3.4 5.3 4.7.7.3 1.3.5 1.8.7.7.2 1.4.2 2 .1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.4zM16 3C8.8 3 3 8.8 3 16c0 2.3.6 4.5 1.8 6.5L3 29l6.7-1.7c1.9 1 4 1.6 6.3 1.6 7.2 0 13-5.8 13-13S23.2 3 16 3zm0 23.7c-2 0-3.9-.6-5.6-1.6l-.4-.2-4 1 1.1-3.9-.3-.4C5.7 19.9 5.1 18 5.1 16 5.1 9.9 10 5.1 16 5.1S26.9 10 26.9 16 22 26.7 16 26.7z"/></svg> Request a Callback on WhatsApp</button>
+</div>
+
+<!-- Image zoom modal -->
+<div id="imageModal" class="image-modal" onclick="closeModal()">
+  <img id="zoomedImage" src="" alt="Zoomed product" onclick="event.stopPropagation()" />
+  <div class="cap" id="zoomCap"></div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
 
 <script>
 const TRANSPORT_CHARGE = 850;
 
+let products = [];          // { id, name, tamilName, price, offerprice, unit, category, imagename }
+const qty = {};             // id -> integer quantity
+
+/* ---------- helpers ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const inr = n => "₹" + Number(n).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+let toastTimer;
+function toast(msg) {
+  const t = $("#toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
+}
+function imgPath(p) { return "./images/" + encodeURI(p.imagename) + ".jpeg"; }
+
+/* ---------- load ---------- */
 function loadProducts() {
   fetch("products.json")
-    .then(res => res.json())
+    .then(r => r.json())
     .then(data => {
-      try {
-        const storedOffer = JSON.parse(localStorage.getItem("fireworkOffer")) || { offer: 75 };
-        currentOffer = storedOffer.offer;
-
-     const products = Object.entries(data).map(([name, info]) => ({
-  name,
-  tamilName: info.tamilName || "",
-  price: Number(info.price) || 0,
-  offerprice: Number(info.offerprice) || 0,
-  unit: info.unit || "-",
-  category: info.category || "Uncategorized",
-  imagename: info.imagename || name
-}));
-
-        renderProductTable(products);
-      } catch (err) {
-        console.error("❌ Error processing products:", err);
-        document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="7">Failed to process products.</td></tr>`;
-      }
+      products = Object.entries(data).map(([name, info], i) => ({
+        id: i,
+        name,
+        tamilName: info.tamilName || "",
+        price: Number(info.price) || 0,
+        offerprice: Number(info.offerprice) || 0,
+        unit: info.unit || "-",
+        category: (info.category || "Uncategorized").trim(),
+        imagename: info.imagename || name
+      }));
+      renderCatalog();
     })
     .catch(err => {
       console.error("Error loading products.json:", err);
-      document.querySelector("#productTable tbody").innerHTML = `<tr><td colspan="7">Failed to load products.</td></tr>`;
+      $("#catalog").innerHTML = `<div class="empty"><div class="big">😕</div><p>Failed to load products. Please refresh the page.</p></div>`;
     });
 }
 
-function renderProductTable(products) {
-  const tbody = document.querySelector("#productTable tbody");
-  tbody.innerHTML = "";
+/* ---------- render ---------- */
+function renderCatalog() {
+  const host = $("#catalog");
+  const cats = {};
+  products.forEach(p => (cats[p.category] = cats[p.category] || []).push(p));
 
-  if (!products.length) {
-    tbody.innerHTML = `<tr><td colspan="7">No products available.</td></tr>`;
-    return;
+  const nav = $("#catNav");
+  nav.innerHTML = `<button class="cat-chip active" data-cat="__all">All</button>` +
+    Object.keys(cats).map(c => `<button class="cat-chip" data-cat="${esc(slug(c))}">${esc(c)}</button>`).join("");
+
+  host.innerHTML = Object.entries(cats).map(([cat, items]) => `
+    <section class="cat-section" id="cat-${esc(slug(cat))}" data-cat="${esc(slug(cat))}">
+      <button class="cat-head" onclick="this.parentElement.classList.toggle('collapsed')" aria-label="Toggle ${esc(cat)}">
+        <span class="bar"></span><h2>${esc(cat)}</h2>
+        <span class="count">${items.length}</span><span class="arrow">▾</span>
+      </button>
+      <div class="grid">${items.map(cardHTML).join("")}</div>
+    </section>`).join("");
+
+  nav.onclick = e => {
+    const b = e.target.closest(".cat-chip"); if (!b) return;
+    nav.querySelectorAll(".cat-chip").forEach(c => c.classList.toggle("active", c === b));
+    const target = b.dataset.cat;
+    $("#searchInput").value = "";
+    applyFilter();
+    if (target === "__all") { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
+    const sec = document.getElementById("cat-" + target);
+    if (sec) { sec.classList.remove("collapsed"); sec.scrollIntoView({ behavior: "smooth", block: "start" }); }
+  };
+}
+
+function cardHTML(p) {
+  const off = p.price > 0 ? Math.round((1 - p.offerprice / p.price) * 100) : 0;
+  return `
+  <article class="card" id="card-${p.id}" data-id="${p.id}" data-search="${esc((p.name + " " + p.tamilName + " " + p.category).toLowerCase())}">
+    ${off > 0 ? `<span class="badge">${off}% OFF</span>` : ""}
+    <div class="thumb" onclick="zoomImage(${p.id})">
+      <img loading="lazy" src="${imgPath(p)}" alt="${esc(p.name)}" />
+      <span class="placeholder" style="position:absolute;z-index:0;display:none">🎆</span>
+      <span class="zoom">⤢</span>
+    </div>
+    <div class="card-body">
+      <h3 class="pname">${esc(p.name)}</h3>
+      ${p.tamilName ? `<p class="tname">${esc(p.tamilName)}</p>` : ""}
+      <span class="unit-pill">${esc(p.unit)}</span>
+      <div class="price-row">
+        <span class="offer">₹${p.offerprice}</span>
+        ${off > 0 ? `<span class="mrp">₹${p.price}</span>` : ""}
+      </div>
+      <div class="line-total" id="lt-${p.id}"></div>
+      <button class="add-btn" onclick="setQty(${p.id}, 1)">＋ Add</button>
+      <div class="stepper">
+        <button onclick="setQty(${p.id}, (qty[${p.id}]||0) - 1)" aria-label="Decrease">−</button>
+        <input type="text" inputmode="numeric" id="q-${p.id}" value="0" aria-label="Quantity"
+               oninput="onQtyType(${p.id}, this)" onfocus="this.select()" />
+        <button onclick="setQty(${p.id}, (qty[${p.id}]||0) + 1)" aria-label="Increase">+</button>
+      </div>
+    </div>
+  </article>`;
+}
+
+/* ---------- broken image fallback (delegated so it works with lazy loading) ---------- */
+document.addEventListener("error", e => {
+  if (e.target.tagName === "IMG" && e.target.closest(".thumb")) {
+    const th = e.target.closest(".thumb");
+    e.target.remove();
+    const ph = th.querySelector(".placeholder"); if (ph) ph.style.display = "block";
+    th.dataset.noimg = "1";
   }
+}, true);
 
-  const categories = {};
-  const normalizeCategory = cat => cat.trim();
-
-  products.forEach(item => {
-    const cat = normalizeCategory(item.category || "Uncategorized");
-    if (!categories[cat]) categories[cat] = [];
-    categories[cat].push(item);
-  });
-Object.entries(categories).forEach(([category, items], index) => {
-  const catRow = document.createElement("tr");
-
-  catRow.classList.add("category-header");
-  catRow.style.cursor = "pointer";
-
-  catRow.innerHTML = `
-    <td colspan="7"
-        style="text-align:left; background:#f0f0f0; font-weight:bold;">
-      ▼ ${category}
-    </td>
-  `;
-
-  tbody.appendChild(catRow);
-
-  // Add products
-  items.forEach(item => {
-    const row = document.createElement("tr");
-
-    row.classList.add("category-row", `category-${index}`);
-
-    const imageName = `${item.imagename}.jpeg`;
-    const imagePath = `./images/${imageName}`;
-
-    row.innerHTML = `
-      <td class="product-cell">
-        <div class="product-wrapper">
-          <img
-            class="product-image"
-            src="${imagePath}"
-            alt="${item.name}"
-            onclick="zoomImage('${imagePath}')"
-            onerror="this.style.display='none'"
-          />
-          <span class="product-name">${item.name}</span>
-        </div>
-      </td>
-
-      <td>${item.unit || "-"}</td>
-      <td>₹${item.price.toFixed(2)}</td>
-      <td>₹${item.offerprice.toFixed(2)}</td>
-
-      <td>
-        <input
-          type="number"
-          min="0"
-          step="1"
-          placeholder="Qty"
-          onchange="calculateTotals()"
-          oninput="validateIntegerInput(this)"
-          data-name="${item.name}"
-          data-offer="${item.offerprice}"
-        />
-      </td>
-
-      <td class="item-total">₹0.00</td>
-    `;
-
-    tbody.appendChild(row);
-  });
-
-  // Category collapse/expand
-  catRow.addEventListener("click", () => {
-    const catRows = document.querySelectorAll(`.category-${index}`);
-
-    catRows.forEach(row => {
-      row.style.display =
-        row.style.display === "none" ? "" : "none";
-    });
-
-    if (catRow.cells[0].textContent.trim().startsWith("▼")) {
-      catRow.cells[0].textContent =
-        catRow.cells[0].textContent.replace("▼", "▶");
-    } else {
-      catRow.cells[0].textContent =
-        catRow.cells[0].textContent.replace("▶", "▼");
-    }
-  });
-});
+/* ---------- quantity + totals ---------- */
+function onQtyType(id, input) {
+  const clean = input.value.replace(/\D/g, "").slice(0, 5);
+  if (clean !== input.value) input.value = clean;
+  setQty(id, parseInt(clean, 10) || 0, true);
 }
-
-function zoomImage(src) {
-  const modal = document.getElementById("imageModal");
-  const zoomedImg = document.getElementById("zoomedImage");
-  zoomedImg.src = src;
-  modal.style.display = "flex";
-}
-
-function closeModal(event) {
-  if (event.target.id === "imageModal") event.target.style.display = "none";
-}
-
-function validateIntegerInput(input) {
-  const value = input.value.trim();
-  if (value === "") return;
-  if (!/^\d+$/.test(value)) {
-    alert("Only whole numbers are allowed. Please enter a valid quantity.");
-    input.value = "";
-    input.focus();
-  }
+function setQty(id, n, fromTyping) {
+  n = Math.max(0, Math.min(99999, n | 0));
+  if (n) qty[id] = n; else delete qty[id];
+  const card = $("#card-" + id);
+  card.classList.toggle("selected", n > 0);
+  const inp = $("#q-" + id);
+  if (!fromTyping) inp.value = n;
+  else if (n === 0 && inp.value === "") inp.value = "";
+  const p = products[id];
+  $("#lt-" + id).textContent = n ? `${n} × ₹${p.offerprice} = ${inr(n * p.offerprice)}` : "";
+  calculateTotals();
 }
 
 function calculateTotals() {
-  let grandTotal = 0;
-
-  const rows = document.querySelectorAll("#productTable tbody tr");
-
-  rows.forEach(row => {
-    const input = row.querySelector("input[type='number']");
-    const totalCell = row.querySelector(".item-total");
-
-    if (!input || !totalCell) {
-      return;
-    }
-
-    const quantity = parseInt(input.value, 10) || 0;
-    const offerPrice = parseFloat(input.dataset.offer) || 0;
-
-    const itemTotal = quantity * offerPrice;
-
-    totalCell.textContent = `₹${itemTotal.toFixed(2)}`;
-
-    grandTotal += itemTotal;
-  });
-
-  const grandTotalElement = document.getElementById("grandTotal");
-
-  if (grandTotalElement) {
-    grandTotalElement.textContent = grandTotal.toFixed(2);
-  }
+  let total = 0, lines = 0, pieces = 0;
+  Object.entries(qty).forEach(([id, q]) => { total += q * products[id].offerprice; lines++; pieces += q; });
+  $("#grandTotal").textContent = total.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  $("#cartCount").textContent = lines ? `${lines} item${lines > 1 ? "s" : ""} · ${pieces} qty` : "No items selected";
+  $("#cartN").textContent = lines;
+  if ($("#sheet").classList.contains("open")) renderSummary();
 }
-	/* -------- Order link helpers (for WhatsApp) -------- */
 
+/* ---------- search ---------- */
+function applyFilter() {
+  const q = $("#searchInput").value.trim().toLowerCase();
+  let any = false;
+  document.querySelectorAll(".cat-section").forEach(sec => {
+    let vis = 0;
+    sec.querySelectorAll(".card").forEach(c => {
+      const show = !q || c.dataset.search.includes(q);
+      c.style.display = show ? "" : "none";
+      if (show) vis++;
+    });
+    sec.style.display = vis ? "" : "none";
+    if (q && vis) sec.classList.remove("collapsed");
+    any = any || vis > 0;
+  });
+  let empty = $("#noResults");
+  if (!any) {
+    if (!empty) { empty = document.createElement("div"); empty.id = "noResults"; empty.className = "empty";
+      empty.innerHTML = `<div class="big">🔎</div><p>No crackers match your search.</p>`; $("#catalog").appendChild(empty); }
+  } else if (empty) empty.remove();
+}
+$("#searchInput").addEventListener("input", applyFilter);
+
+/* ---------- sheet ---------- */
+function selectedItems() {
+  return Object.entries(qty).map(([id, q]) => ({ p: products[id], q }));
+}
+function renderSummary() {
+  const items = selectedItems();
+  const box = $("#summaryList");
+  if (!items.length) {
+    box.innerHTML = `<div class="empty" style="padding:22px"><div class="big" style="font-size:34px">🛒</div><p style="margin:6px 0 0">No items yet. Add crackers from the list.</p></div>`;
+  } else {
+    box.innerHTML = items.map(({ p, q }) => `
+      <div class="srow"><div><div>${esc(p.name)}</div><div class="q">${q} × ₹${p.offerprice}</div></div><b>${inr(q * p.offerprice)}</b></div>`).join("");
+  }
+  const total = items.reduce((s, { p, q }) => s + p.offerprice * q, 0);
+  $("#sheetTotal").textContent = total.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+function openSheet() {
+  renderSummary();
+  $("#overlay").classList.add("open"); $("#sheet").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeSheet() {
+  $("#overlay").classList.remove("open"); $("#sheet").classList.remove("open");
+  document.body.style.overflow = "";
+}
+document.addEventListener("keydown", e => { if (e.key === "Escape") { closeSheet(); closeModal(); } });
+
+/* input restrictions (same rules as before) */
+$("#customerName").addEventListener("input", function () { this.value = this.value.replace(/[^a-zA-Z\s.]/g, ""); });
+$("#customerPhone").addEventListener("input", function () { this.value = this.value.replace(/\D/g, "").slice(0, 10); });
+
+/* ---------- image zoom ---------- */
+function zoomImage(id) {
+  const p = products[id];
+  const th = $("#card-" + id + " .thumb");
+  if (th.dataset.noimg) return;
+  $("#zoomedImage").src = imgPath(p);
+  $("#zoomCap").innerHTML = `${esc(p.name)}<small>${esc(p.tamilName)}</small>`;
+  $("#imageModal").classList.add("open");
+}
+function closeModal() { $("#imageModal").classList.remove("open"); }
+
+/* ---------- order link helpers (for WhatsApp) ---------- */
 function buildOrderPayload(name, phone, address) {
-  const rows = document.querySelectorAll("#productTable tbody tr");
   const items = [];
   let productsTotal = 0;
-
-  rows.forEach(row => {
-    const input = row.querySelector("input[type='number']");
-    if (!input) return;
-    const qty = parseInt(input.value);
-    if (!qty || qty <= 0) return;
-
-    const itemName = input.dataset.name;
-    const offerPrice = parseFloat(input.dataset.offer) || 0;
-    const itemTotal = qty * offerPrice;
-
-    items.push({ name: itemName, qty, price: offerPrice, total: itemTotal });
-    productsTotal += itemTotal;
+  selectedItems().forEach(({ p, q }) => {
+    const total = q * p.offerprice;
+    items.push({ name: p.name, qty: q, price: p.offerprice, total });
+    productsTotal += total;
   });
-
   return {
-    name,
-    phone,
-    address,
+    name, phone, address,
     date: new Date().toLocaleString(),
     items,
-    totals: {
-      productsTotal,
-      transport: TRANSPORT_CHARGE,
-      payable: items.length ? (productsTotal + TRANSPORT_CHARGE) : 0
-    }
+    totals: { productsTotal, transport: TRANSPORT_CHARGE, payable: items.length ? (productsTotal + TRANSPORT_CHARGE) : 0 }
   };
 }
 
 function makeSummaryLink(orderObj) {
-  const basePath = location.origin + location.pathname.replace(/[^/]+$/, '');
+  const basePath = location.origin + location.pathname.replace(/[^/]+$/, "");
   const json = JSON.stringify(orderObj);
   const b64 = btoa(unescape(encodeURIComponent(json))); // UTF-8 safe base64
   return `${basePath}order.html?o=${b64}`;
 }
 
-/* -------- WhatsApp (top-level, not nested) -------- */
+/* ---------- WhatsApp ---------- */
+function validateForm() {
+  const name = $("#customerName").value.trim();
+  const phone = $("#customerPhone").value.trim();
+  const address = $("#customerAddress").value.trim();
+  const okName = /^[A-Za-z .]{3,}$/.test(name);
+  const okAddr = !!address;
+  const okPhone = !phone || /^[6-9]\d{9}$/.test(phone);
+  $("#fName").classList.toggle("err", !okName);
+  $("#fAddr").classList.toggle("err", !okAddr);
+  $("#fPhone").classList.toggle("err", !okPhone);
+  return okName && okAddr && okPhone ? { name, phone, address } : null;
+}
+
 async function sendOrderToWhatsApp() {
-  const name = document.getElementById("customerName").value.trim();
-  const phone = document.getElementById("customerPhone").value.trim();
-  const address = document.getElementById("customerAddress").value.trim();
+  if (!selectedItems().length) { toast("Please select at least one product first."); closeSheet(); return; }
+  const f = validateForm();
+  if (!f) { toast("Please fix the highlighted fields."); return; }
 
-  if (!name || !address) {
-    alert("Please fill in all required fields: Name, Address.");
-    return;
-  }
+  const order = buildOrderPayload(f.name, f.phone, f.address);
+  const summaryLink = makeSummaryLink(order);
 
-  const order = buildOrderPayload(name, phone, address);
-  if (!order.items.length) {
-    alert("Please select at least one product before sending the order.");
-    return;
-  }
-const summaryLink = await makeSummaryLink(order);
+  let message = `Hi, I'm ${f.name}, and I'd like to place an order:\n\n`;
+  order.items.forEach((it, i) => { message += `${i + 1}. ${it.name} × ${it.qty} = ₹${it.total.toFixed(2)}\n`; });
+  message += `\nPayable Total: ₹${order.totals.productsTotal.toFixed(2)}`;
+  message += `\n\n📍 Address: ${order.address}`;
+  if (order.phone) message += `\n📞 Phone: ${order.phone}`;
+  message += `\n\nView full summary: ${summaryLink}`;
+  message += `\n\n🚚 Transport charges are not included in the payable total. Parcels will be sent on a TO-PAY basis, and transport charges must be paid directly to the transporter/transport office. Charges may vary based on location, parcel weight, number of boxes, and transport rates.`;
 
-let i = 0;
-let message = `Hi, I'm ${name}, and I'd like to place an order:\n\n`;
-
-order.items.forEach(it => {
-  i++;
-  message += `${i}. ${it.name} × ${it.qty} = ₹${it.total.toFixed(2)}\n`;
-});
-
-message += `\nPayable Total: ₹${order.totals.productsTotal.toFixed(2)}`;
-
-message += `\n\n📍 Address: ${order.address}`;
-
-if (order.phone) {
-  message += `\n📞 Phone: ${order.phone}`;
+  window.open(`https://wa.me/918296772217?text=${encodeURIComponent(message)}`, "_blank");
 }
 
- message += `\n\nView full summary: ${summaryLink}`;
-message += `\n\n🚚 Transport charges are not included in the payable total. Parcels will be sent on a TO-PAY basis, and transport charges must be paid directly to the transporter/transport office. Charges may vary based on location, parcel weight, number of boxes, and transport rates.`;
-
-const encodedMessage = encodeURIComponent(message);
-const whatsappURL =
-  `https://wa.me/918296772217?text=${encodedMessage}`;
-
-window.open(whatsappURL, "_blank");
-}
-
-/* -------- PDF export -------- */
+/* ---------- PDF export ---------- */
 function downloadPDF() {
+  if (!products.length) { toast("Products are still loading."); return; }
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
   doc.setFontSize(18);
-  doc.text("AJ Crackers - Product List", 14, 20);
+  doc.text("RAJ FIREWORKS - Product List", 14, 20);
+  doc.setFontSize(10);
+  doc.text("Sivakasi | +91 82967 72217", 14, 27);
 
-  const rows = [];
-  const headers = [["S.No", "Product Name", "Offer Price (Rs.)"]];
-
-  const productRows = document.querySelectorAll("#productTable tbody tr");
-  let index = 1;
-  productRows.forEach(row => {
-    const input = row.querySelector("input[type='number']");
-    if (!input) return;
-    const name = input.dataset.name;
-    const price = parseFloat(input.dataset.offer);
-    rows.push([index, name, "Rs." + Number(price).toFixed(2)]);
-    index++;
-  });
-
-  if (rows.length === 0) {
-    alert("No products to export.");
-    return;
-  }
-
+  const rows = products.map((p, i) => [i + 1, p.name, p.category, p.unit, "Rs." + p.price.toFixed(2), "Rs." + p.offerprice.toFixed(2)]);
   doc.autoTable({
-    startY: 30,
-    head: headers,
+    startY: 33,
+    head: [["S.No", "Product Name", "Category", "Unit", "Actual (Rs.)", "Offer (Rs.)"]],
     body: rows,
     theme: "grid",
-    headStyles: { fillColor: [217, 83, 79] },
-    styles: { fontSize: 12 },
+    headStyles: { fillColor: [75, 29, 122] },
+    styles: { fontSize: 9 },
   });
-
-  doc.save("AJ_Crackers_Product_List.pdf");
+  doc.save("RAJ_Fireworks_Product_List.pdf");
 }
 
-/* -------- onload (single place) -------- */
-window.onload = function () {
-  loadProducts();
-  calculateTotals();
-};
+/* ---------- sparkle canvas (hero) ---------- */
+(function sparks() {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const cv = $("#sparkCanvas"), ctx = cv.getContext("2d");
+  let w, h, parts = [];
+  const colors = ["#ffc83d", "#ff5a1f", "#ff9d00", "#ff4d8d", "#7dd3fc", "#a78bfa", "#ffffff"];
+  function size() { const r = cv.getBoundingClientRect(); w = cv.width = r.width; h = cv.height = r.height; }
+  size(); addEventListener("resize", size);
+  function burst() {
+    const x = Math.random() * w, y = Math.random() * h * .6 + 10, c = colors[Math.random() * colors.length | 0];
+    const n = 26 + (Math.random() * 16 | 0);
+    for (let i = 0; i < n; i++) {
+      const a = (i / n) * Math.PI * 2, s = 1 + Math.random() * 2.6;
+      parts.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, life: 1, c });
+    }
+  }
+  function tick() {
+    ctx.clearRect(0, 0, w, h);
+    parts = parts.filter(p => p.life > 0);
+    for (const p of parts) {
+      p.x += p.vx; p.y += p.vy; p.vy += .03; p.vx *= .985; p.life -= .014;
+      ctx.globalAlpha = Math.max(p.life, 0);
+      ctx.fillStyle = p.c;
+      ctx.beginPath(); ctx.arc(p.x, p.y, 1.8, 0, 6.283); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(tick);
+  }
+  burst(); setInterval(() => { if (!document.hidden) burst(); }, 1300);
+  tick();
+})();
+
+window.addEventListener("load", loadProducts);
 </script>
-<!-- Image Zoom Modal -->
-<div id="imageModal" class="image-modal" onclick="closeModal(event)">
-  <img id="zoomedImage" src="" alt="Zoomed Image" onclick="event.stopPropagation()" />
-</div>
-
-
-
 </body>
 </html>
