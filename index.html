@@ -97,7 +97,20 @@
     color: #fff; text-decoration: none; font-size: 13px; font-weight: 500; backdrop-filter: blur(6px);
     transition: transform .15s, background .15s;
   }
-    a.chip:hover { background: rgba(255,255,255,.2); transform: translateY(-1px); }
+    .chip { max-width: 100%; }
+  .chip .clink { color: #fff; text-decoration: none; overflow-wrap: anywhere; }
+  .chip .clink:hover { text-decoration: underline; }
+  .copy-btn {
+    flex: none; cursor: pointer; font: 600 11px 'Poppins', sans-serif; letter-spacing: .3px;
+    padding: 4px 11px; border-radius: 999px; border: 1px solid rgba(255,200,61,.55);
+    background: rgba(255,200,61,.14); color: var(--gold); transition: all .15s;
+  }
+  .copy-btn:hover { background: var(--gold); color: var(--night); }
+  .copy-btn:active { transform: scale(.94); }
+  .copy-btn.done { background: var(--green); border-color: var(--green); color: #fff; }
+  .fcontacts { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 12px; }
+  .fitem { display: inline-flex; align-items: center; gap: 9px; max-width: 100%; padding: 6px 8px 6px 14px; border-radius: 999px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); }
+  .fitem a { color: #fff; overflow-wrap: anywhere; }
 
   /* ---------- LEGAL NOTICE ---------- */
   .notice {
@@ -364,8 +377,8 @@
 
     <div class="contact-chips">
       <span class="chip">📍 Sivakasi</span>
-      <a class="chip" href="tel:+918296772217">📞 82967 72217</a>
-      <a class="chip" href="mailto:rajmohanmca14a@gmail.com">✉️ rajmohanmca14a@gmail.com</a>
+      <span class="chip"><a class="clink" href="tel:+918296772217">📞 82967 72217</a><button type="button" class="copy-btn" data-copy="+918296772217" aria-label="Copy phone number">Copy</button></span>
+      <span class="chip"><a class="clink" href="mailto:rajmohanmca14a@gmail.com">✉️ rajmohanmca14a@gmail.com</a><button type="button" class="copy-btn" data-copy="rajmohanmca14a@gmail.com" aria-label="Copy email address">Copy</button></span>
     </div>
   </div>
 </header>
@@ -429,8 +442,12 @@
   <div class="wrap">
     <div class="fname">🎇 RAJ FIREWORKS</div>
     <div>Your Trusted Firework Partner</div>
-    <div>Contact: <a href="tel:+918296772217">+91 82967 72217</a>, <a href="tel:+919791444235">97914 44235</a>, <a href="tel:+919943681121">99436 81121</a></div>
-    <div>Email: <a href="mailto:support@rajfireworks.in">support@rajfireworks.in</a></div>
+    <div class="fcontacts">
+      <span class="fitem"><a href="tel:+918296772217">📞 +91 82967 72217</a><button type="button" class="copy-btn" data-copy="+918296772217" aria-label="Copy phone number">Copy</button></span>
+      <span class="fitem"><a href="tel:+919791444235">📞 97914 44235</a><button type="button" class="copy-btn" data-copy="+919791444235" aria-label="Copy phone number">Copy</button></span>
+      <span class="fitem"><a href="tel:+919943681121">📞 99436 81121</a><button type="button" class="copy-btn" data-copy="+919943681121" aria-label="Copy phone number">Copy</button></span>
+      <span class="fitem"><a href="mailto:support@rajfireworks.in">✉️ support@rajfireworks.in</a><button type="button" class="copy-btn" data-copy="support@rajfireworks.in" aria-label="Copy email address">Copy</button></span>
+    </div>
     <div class="safety">🔥 Please celebrate responsibly and follow firework safety rules!</div>
   </div>
 </footer>
@@ -773,6 +790,29 @@ function downloadPDF() {
   });
   doc.save("RAJ_Fireworks_Product_List.pdf");
 }
+
+/* ---------- copy phone / email ---------- */
+function copyText(text) {
+  if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+  return new Promise((resolve, reject) => {           // fallback for http / older browsers
+    const ta = document.createElement("textarea");
+    ta.value = text; ta.setAttribute("readonly", "");
+    ta.style.cssText = "position:fixed;top:-1000px;opacity:0";
+    document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, text.length);
+    try { document.execCommand("copy") ? resolve() : reject(); } catch (e) { reject(e); }
+    ta.remove();
+  });
+}
+document.addEventListener("click", e => {
+  const btn = e.target.closest(".copy-btn"); if (!btn) return;
+  const text = btn.dataset.copy;
+  copyText(text).then(() => {
+    const old = btn.textContent;
+    btn.textContent = "Copied ✓"; btn.classList.add("done");
+    toast("Copied: " + text);
+    setTimeout(() => { btn.textContent = old; btn.classList.remove("done"); }, 1600);
+  }).catch(() => toast("Couldn't copy. Please long-press the number to copy it."));
+});
 
 /* ---------- sparkle canvas (hero) ---------- */
 (function sparks() {
