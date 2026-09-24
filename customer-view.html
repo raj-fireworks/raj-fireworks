@@ -101,15 +101,16 @@
   .chip .clink { color: #fff; text-decoration: none; overflow-wrap: anywhere; }
   .chip .clink:hover { text-decoration: underline; }
   .copy-btn {
-    flex: none; cursor: pointer; font: 600 11px 'Poppins', sans-serif; letter-spacing: .3px;
-    padding: 4px 11px; border-radius: 999px; border: 1px solid rgba(255,200,61,.55);
+    flex: none; cursor: pointer; width: 30px; height: 30px; padding: 0; border-radius: 50%;
+    display: inline-grid; place-items: center; border: 1px solid rgba(255,200,61,.55);
     background: rgba(255,200,61,.14); color: var(--gold); transition: all .15s;
   }
+  .copy-btn svg { display: block; }
   .copy-btn:hover { background: var(--gold); color: var(--night); }
   .copy-btn:active { transform: scale(.94); }
   .copy-btn.done { background: var(--green); border-color: var(--green); color: #fff; }
   .fcontacts { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 12px; }
-  .fitem { display: inline-flex; align-items: center; gap: 9px; max-width: 100%; padding: 6px 8px 6px 14px; border-radius: 999px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); }
+  .fitem { display: inline-flex; align-items: center; gap: 9px; max-width: 100%; padding: 4px 5px 4px 14px; border-radius: 999px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); }
   .fitem a { color: #fff; overflow-wrap: anywhere; }
 
   /* ---------- LEGAL NOTICE ---------- */
@@ -377,8 +378,8 @@
 
     <div class="contact-chips">
       <span class="chip">📍 Sivakasi</span>
-      <span class="chip"><a class="clink" href="tel:+918296772217">📞 82967 72217</a><button type="button" class="copy-btn" data-copy="+918296772217" aria-label="Copy phone number">Copy</button></span>
-      <span class="chip"><a class="clink" href="mailto:rajmohanmca14a@gmail.com">✉️ rajmohanmca14a@gmail.com</a><button type="button" class="copy-btn" data-copy="rajmohanmca14a@gmail.com" aria-label="Copy email address">Copy</button></span>
+      <span class="chip"><a class="clink" href="tel:+918296772217">📞 82967 72217</a><button type="button" class="copy-btn" data-copy="+918296772217" aria-label="Copy phone number"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/></svg></button></span>
+      <span class="chip"><a class="clink" href="mailto:rajmohanmca14a@gmail.com">✉️ rajmohanmca14a@gmail.com</a><button type="button" class="copy-btn" data-copy="rajmohanmca14a@gmail.com" aria-label="Copy email address"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/></svg></button></span>
     </div>
   </div>
 </header>
@@ -443,10 +444,10 @@
     <div class="fname">🎇 RAJ FIREWORKS</div>
     <div>Your Trusted Firework Partner</div>
     <div class="fcontacts">
-      <span class="fitem"><a href="tel:+918296772217">📞 +91 82967 72217</a><button type="button" class="copy-btn" data-copy="+918296772217" aria-label="Copy phone number">Copy</button></span>
-      <span class="fitem"><a href="tel:+919791444235">📞 97914 44235</a><button type="button" class="copy-btn" data-copy="+919791444235" aria-label="Copy phone number">Copy</button></span>
-      <span class="fitem"><a href="tel:+919943681121">📞 99436 81121</a><button type="button" class="copy-btn" data-copy="+919943681121" aria-label="Copy phone number">Copy</button></span>
-      <span class="fitem"><a href="mailto:support@rajfireworks.in">✉️ support@rajfireworks.in</a><button type="button" class="copy-btn" data-copy="support@rajfireworks.in" aria-label="Copy email address">Copy</button></span>
+      <span class="fitem"><a href="tel:+918296772217">📞 +91 82967 72217</a><button type="button" class="copy-btn" data-copy="+918296772217" aria-label="Copy phone number"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/></svg></button></span>
+      <span class="fitem"><a href="tel:+919791444235">📞 97914 44235</a><button type="button" class="copy-btn" data-copy="+919791444235" aria-label="Copy phone number"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/></svg></button></span>
+      <span class="fitem"><a href="tel:+919943681121">📞 99436 81121</a><button type="button" class="copy-btn" data-copy="+919943681121" aria-label="Copy phone number"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/></svg></button></span>
+      <span class="fitem"><a href="mailto:support@rajfireworks.in">✉️ support@rajfireworks.in</a><button type="button" class="copy-btn" data-copy="support@rajfireworks.in" aria-label="Copy email address"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/></svg></button></span>
     </div>
     <div class="safety">🔥 Please celebrate responsibly and follow firework safety rules!</div>
   </div>
@@ -807,10 +808,11 @@ document.addEventListener("click", e => {
   const btn = e.target.closest(".copy-btn"); if (!btn) return;
   const text = btn.dataset.copy;
   copyText(text).then(() => {
-    const old = btn.textContent;
-    btn.textContent = "Copied ✓"; btn.classList.add("done");
+    const old = btn.innerHTML;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+    btn.classList.add("done");
     toast("Copied: " + text);
-    setTimeout(() => { btn.textContent = old; btn.classList.remove("done"); }, 1600);
+    setTimeout(() => { btn.innerHTML = old; btn.classList.remove("done"); }, 1600);
   }).catch(() => toast("Couldn't copy. Please long-press the number to copy it."));
 });
 
