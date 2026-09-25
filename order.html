@@ -51,17 +51,41 @@
   </div>
 
 <script>
+const TRANSPORT_CHARGE = 850;
+
+function decodeCompact(raw) {
+  // Reverse the URL-safe base64 (no padding) back to standard base64
+  const b64 = raw.replace(/-/g, "+").replace(/_/g, "/").padEnd(raw.length + (4 - raw.length % 4) % 4, "=");
+  const json = decodeURIComponent(escape(window.atob(b64)));
+  const c = JSON.parse(json);
+  const items = c.i.map(([name, qty, price]) => ({ name, qty, price, total: qty * price }));
+  const productsTotal = items.reduce((s, it) => s + it.total, 0);
+  return {
+    name: c.n,
+    phone: c.p,
+    address: c.a,
+    date: c.t ? new Date(c.t).toLocaleString() : "-",
+    items,
+    totals: { productsTotal, transport: TRANSPORT_CHARGE, payable: productsTotal + TRANSPORT_CHARGE }
+  };
+}
+
+function decodeLegacy(raw) {
+  const json = decodeURIComponent(escape(window.atob(raw))); // base64 -> UTF-8 string
+  return JSON.parse(json);
+}
+
 function decodeOrder() {
   const p = new URLSearchParams(location.search);
-  const raw = p.get('o');
-  if (!raw) return null;
   try {
-    const json = decodeURIComponent(escape(window.atob(raw))); // base64 -> UTF-8 string
-    return JSON.parse(json);
+    const d = p.get('d');
+    if (d) return decodeCompact(d);
+    const o = p.get('o');
+    if (o) return decodeLegacy(o);
   } catch (e) {
     console.error(e);
-    return null;
   }
+  return null;
 }
 
 function number(n){ return (Number(n)||0).toFixed(2); }
