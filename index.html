@@ -527,6 +527,31 @@ const IMG_EXTS = ["jpeg", "jpg", "png", "webp", "JPG", "JPEG", "PNG"];
 function imgBase(p) { return "./images/" + encodeURI(p.imagename); }
 function imgPath(p) { return imgBase(p) + "." + IMG_EXTS[0]; }
 
+/* Fallback lookup: some uploaded photos have a filename that differs from
+   a product's "imagename" only by case, spacing or punctuation. Build a
+   normalized-name -> actual-filename map from images/manifest.json so
+   those still get matched instead of falling back to the placeholder. */
+let imgManifest = null;
+let imgManifestPromise = null;
+const normImgName = s => String(s).toLowerCase().replace(/[^a-z0-9]/g, "");
+function loadImgManifest() {
+  imgManifestPromise = fetch("images/manifest.json")
+    .then(r => r.ok ? r.json() : [])
+    .then(files => {
+      imgManifest = {};
+      files.forEach(f => {
+        const base = f.replace(/\.[a-zA-Z0-9]+$/, "");
+        imgManifest[normImgName(base)] = f;
+      });
+    })
+    .catch(() => { imgManifest = {}; });
+  return imgManifestPromise;
+}
+function manifestMatch(p) {
+  if (!imgManifest) return null;
+  return imgManifest[normImgName(p.imagename)] || imgManifest[normImgName(p.name)] || null;
+}
+
 /* ---------- load ---------- */
 function loadProducts() {
   fetch("products.json")
@@ -587,7 +612,7 @@ function cardHTML(p) {
   <article class="card" id="card-${p.id}" data-id="${p.id}" data-search="${esc((p.name + " " + p.tamilName + " " + p.category).toLowerCase())}">
     ${off > 0 ? `<span class="badge">${off}% OFF</span>` : ""}
     <div class="thumb" onclick="zoomImage(${p.id})">
-      <img loading="lazy" src="${imgPath(p)}" alt="${esc(p.name)}" data-base="${imgBase(p)}" data-ext="0" />
+      <img loading="lazy" src="${imgPath(p)}" alt="${esc(p.name)}" data-base="${imgBase(p)}" data-ext="0" data-id="${p.id}" />
       <span class="placeholder">🎆</span>
       <span class="zoom">⤢</span>
     </div>
@@ -612,7 +637,7 @@ function cardHTML(p) {
 }
 
 /* ---------- broken image fallback (delegated so it works with lazy loading) ---------- */
-document.addEventListener("error", e => {
+document.addEventListener("error", async e => {
   const img = e.target;
   if (img.tagName === "IMG" && img.closest(".thumb") && img.dataset.base) {
     const next = (parseInt(img.dataset.ext, 10) || 0) + 1;
@@ -620,6 +645,13 @@ document.addEventListener("error", e => {
       img.dataset.ext = next;
       img.src = img.dataset.base + "." + IMG_EXTS[next];
       return;
+    }
+    if (!img.dataset.manifestTried) {
+      img.dataset.manifestTried = "1";
+      if (imgManifestPromise) await imgManifestPromise.catch(() => {});
+      const p = products[img.dataset.id];
+      const match = p ? manifestMatch(p) : null;
+      if (match) { img.src = "./images/" + encodeURI(match); return; }
     }
     const th = img.closest(".thumb");
     img.remove();
@@ -857,7 +889,7 @@ document.addEventListener("click", e => {
   tick();
 })();
 
-window.addEventListener("load", loadProducts);
+window.addEventListener("load", () => { loadImgManifest(); loadProducts(); });
 </script>
 </body>
 </html>
