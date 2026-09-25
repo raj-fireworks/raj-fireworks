@@ -29,7 +29,7 @@
     "unit": "Pkt",
     "offerprice": "26",
     "tamilName": "4\" டீலக்ஸ் லட்சுமி",
-    "imagename": "4_Deluxe_Lakshmi"
+    "imagename": "4_deluxe_Lakshmi"
   },
   "Gold Lakshmi": {
     "price": 138,
@@ -277,7 +277,7 @@
     "unit": "Box",
     "offerprice": "24",
     "tamilName": "ட்விங்கிளிங் ஸ்டார்ஸ்",
-    "imagename": "Twinkling_Stars"
+    "imagename": "Twinkling Stars"
   },
   "4 Twinkling Stars": {
     "price": 360,
@@ -301,7 +301,7 @@
     "unit": "Box",
     "offerprice": "120",
     "tamilName": "கேண்டி க்ரஷ்",
-    "imagename": "candy_crush"
+    "imagename": "Candy_crush"
   },
   "lorax": {
     "price": 480,
@@ -349,7 +349,7 @@
     "unit": "Box",
     "offerprice": "144",
     "tamilName": "சக்கர் டீலக்ஸ்",
-    "imagename": "Chakkar_deluxe"
+    "imagename": "Chakkar_Deluxe"
   },
   "Spinner Super Deluxe": {
     "price": 1260,
@@ -357,7 +357,7 @@
     "unit": "Box",
     "offerprice": "252",
     "tamilName": "ஸ்பின்னர் சூப்பர் டீலக்ஸ்",
-    "imagename": "Spinner_Super_Deluxe"
+    "imagename": "Spinner_Super_deluxe"
   },
   "Disco Wheel": {
     "price": 240,
@@ -365,7 +365,7 @@
     "unit": "Box",
     "offerprice": "48",
     "tamilName": "டிஸ்கோ வீல்",
-    "imagename": "Disco_Wheel"
+    "imagename": "Disco_wheel"
   },
   "Lotus Wheel": {
     "price": 720,
@@ -421,7 +421,7 @@
     "unit": "Box",
     "offerprice": "168",
     "tamilName": "எஃப்.பி. டீலக்ஸ் (5 பீஸ்)",
-    "imagename": "F.P._deluxe_(5_pcs)"
+    "imagename": "FP deluxe 5 pcs"
   },
   "F.P. Super deluxe (2 pcs)": {
     "price": 600,
@@ -485,7 +485,7 @@
     "unit": "Box",
     "offerprice": "204",
     "tamilName": "சைரன்",
-    "imagename": "siren"
+    "imagename": "Siren"
   },
   "Whistling dixie wheel": {
     "price": 660,
@@ -581,7 +581,7 @@
     "unit": "Box",
     "offerprice": "294",
     "tamilName": "3½ ஃபேன்சி",
-    "imagename": "3½_Fancy"
+    "imagename": "3_Fancy"
   },
   "4 Fancy": {
     "price": 1680,
@@ -605,7 +605,7 @@
     "unit": "Box",
     "offerprice": "84",
     "tamilName": "7 கலர்ஸ்",
-    "imagename": "7_colors"
+    "imagename": "7_Colors"
   },
   "Penta (5 Pcs)": {
     "price": 900,
@@ -797,7 +797,7 @@
     "unit": "Pack",
     "offerprice": 264,
     "tamilName": "ட்ரை கலர் ஃபவுண்டன்",
-    "imagename": "Tri_color_Fountain"
+    "imagename": "Tri_color_fountain"
   },
   "Fun N Fun shower": {
     "price": 420,
@@ -909,7 +909,7 @@
     "unit": "Pack",
     "offerprice": 156,
     "tamilName": "கலர் ஸ்மோக்",
-    "imagename": "Colour_smoke"
+    "imagename": "Colour_Smoke"
   },
   "Water Queen": {
     "price": 960,
@@ -925,7 +925,7 @@
     "unit": "Pack",
     "offerprice": 48,
     "tamilName": "ஃபோட்டோ ஃப்ளாஷ்",
-    "imagename": "Photo_Flash"
+    "imagename": "Photo_flash"
   },
   "Twix": {
     "price": 960,
@@ -1021,7 +1021,7 @@
     "unit": "Pack",
     "offerprice": 216,
     "tamilName": "பேட் & பால்",
-    "imagename": "Bat_and_Ball"
+    "imagename": "Bat_Ball"
   },
   "Drone": {
     "price": 660,
@@ -1053,7 +1053,7 @@
     "unit": "Pack",
     "offerprice": 198,
     "tamilName": "மணி பேங்க்",
-    "imagename": "Money_Bank"
+    "imagename": "Money_bank"
   },
   "Serpend Egg": {
     "price": 100,
