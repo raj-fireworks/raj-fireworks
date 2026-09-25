@@ -1125,7 +1125,7 @@
     "unit": "Pack",
     "offerprice": 18,
     "tamilName": "10 செ.மீ. எலக்ட்ரிக் கம்பி மத்தாப்பு",
-    "imagename": "10cm_Electric_Sparklers"
+    "imagename": "10cm_Sparklers"
   },
   "10cm Glittering Sparklers": {
     "price": 96,
@@ -1133,7 +1133,7 @@
     "unit": "Pack",
     "offerprice": 19,
     "tamilName": "10 செ.மீ. கிளிட்டரிங் கம்பி மத்தாப்பு",
-    "imagename": "10cm_Glittering_Sparklers"
+    "imagename": "10cm_Sparklers"
   },
   "10cm Green Sparklers": {
     "price": 108,
@@ -1141,7 +1141,7 @@
     "unit": "Pack",
     "offerprice": 22,
     "tamilName": "10 செ.மீ. கிரீன் கம்பி மத்தாப்பு",
-    "imagename": "10cm_Green_Sparklers"
+    "imagename": "10cm_Sparklers"
   },
   "10cm Red Sparklers": {
     "price": 120,
@@ -1149,7 +1149,7 @@
     "unit": "Pack",
     "offerprice": 24,
     "tamilName": "10 செ.மீ. ரெட் கம்பி மத்தாப்பு",
-    "imagename": "10cm_Red_Sparklers"
+    "imagename": "10cm_Sparklers"
   },
   "12cm Electric Sparklers": {
     "price": 132,
@@ -1157,7 +1157,7 @@
     "unit": "Pack",
     "offerprice": 26,
     "tamilName": "12 செ.மீ. எலக்ட்ரிக் கம்பி மத்தாப்பு",
-    "imagename": "12cm_Electric_Sparklers"
+    "imagename": "12cm_Sparklers"
   },
   "12cm Colour Sparklers": {
     "price": 150,
@@ -1165,7 +1165,7 @@
     "unit": "Pack",
     "offerprice": 30,
     "tamilName": "12 செ.மீ. கலர் கம்பி மத்தாப்பு",
-    "imagename": "12cm_Colour_Sparklers"
+    "imagename": "12cm_Sparklers"
   },
   "12cm Green Sparklers": {
     "price": 168,
@@ -1173,7 +1173,7 @@
     "unit": "Pack",
     "offerprice": 34,
     "tamilName": "12 செ.மீ. கிரீன் கம்பி மத்தாப்பு",
-    "imagename": "12cm_Green_Sparklers"
+    "imagename": "12cm_Sparklers"
   },
   "12cm Red Sparklers": {
     "price": 180,
@@ -1181,7 +1181,7 @@
     "unit": "Pack",
     "offerprice": 36,
     "tamilName": "12 செ.மீ. ரெட் கம்பி மத்தாப்பு",
-    "imagename": "12cm_Red_Sparklers"
+    "imagename": "12cm_Sparklers"
   },
   "15cm Electric Sparklers": {
     "price": 210,
@@ -1189,7 +1189,7 @@
     "unit": "Pack",
     "offerprice": 42,
     "tamilName": "15 செ.மீ. எலக்ட்ரிக் கம்பி மத்தாப்பு",
-    "imagename": "15cm_Electric_Sparklers"
+    "imagename": "15cm_Sparklers"
   },
   "15cm Colour Sparklers": {
     "price": 210,
@@ -1197,7 +1197,7 @@
     "unit": "Pack",
     "offerprice": 42,
     "tamilName": "15 செ.மீ. கலர் கம்பி மத்தாப்பு",
-    "imagename": "15cm_Colour_Sparklers"
+    "imagename": "15cm_Sparklers"
   },
   "15cm Green Sparklers": {
     "price": 240,
@@ -1205,7 +1205,7 @@
     "unit": "Pack",
     "offerprice": 48,
     "tamilName": "15 செ.மீ. கிரீன் கம்பி மத்தாப்பு",
-    "imagename": "15cm_Green_Sparklers"
+    "imagename": "15cm_Sparklers"
   },
   "15cm Red Sparklers": {
     "price": 270,
@@ -1213,7 +1213,7 @@
     "unit": "Pack",
     "offerprice": 54,
     "tamilName": "15 செ.மீ. ரெட் கம்பி மத்தாப்பு",
-    "imagename": "15cm_Red_Sparklers"
+    "imagename": "15cm_Sparklers"
   },
   "15cm Silver drops": {
     "price": 360,
@@ -1221,7 +1221,7 @@
     "unit": "Pack",
     "offerprice": 72,
     "tamilName": "15 செ.மீ. சில்வர் டிராப்ஸ்",
-    "imagename": "15cm_Silver_drops"
+    "imagename": "15cm_Sparklers"
   },
   "30cm Electric Sparklers": {
     "price": 210,
@@ -1229,7 +1229,7 @@
     "unit": "Pack",
     "offerprice": 42,
     "tamilName": "30 செ.மீ. எலக்ட்ரிக் கம்பி மத்தாப்பு",
-    "imagename": "30cm_Electric_Sparklers"
+    "imagename": "30cm_Sparklers"
   },
   "30cm Colour Sparklers": {
     "price": 210,
@@ -1237,7 +1237,7 @@
     "unit": "Pack",
     "offerprice": 42,
     "tamilName": "30 செ.மீ. கலர் கம்பி மத்தாப்பு",
-    "imagename": "30cm_Colour_Sparklers"
+    "imagename": "30cm_Sparklers"
   },
   "30cm Green Sparklers": {
     "price": 240,
@@ -1245,7 +1245,7 @@
     "unit": "Pack",
     "offerprice": 48,
     "tamilName": "30 செ.மீ. கிரீன் கம்பி மத்தாப்பு",
-    "imagename": "30cm_Green_Sparklers"
+    "imagename": "30cm_Sparklers"
   },
   "30cm Red Sparklers": {
     "price": 270,
@@ -1253,7 +1253,7 @@
     "unit": "Pack",
     "offerprice": 54,
     "tamilName": "30 செ.மீ. ரெட் கம்பி மத்தாப்பு",
-    "imagename": "30cm_Red_Sparklers"
+    "imagename": "30cm_Sparklers"
   },
   "50cm Electric Sparklers": {
     "price": 900,
@@ -1261,7 +1261,7 @@
     "unit": "Pack",
     "offerprice": 180,
     "tamilName": "50 செ.மீ. எலக்ட்ரிக் கம்பி மத்தாப்பு",
-    "imagename": "50cm_Electric_Sparklers"
+    "imagename": "50cm_Sparklers"
   },
   "50cm Colour Sparklers": {
     "price": 960,
@@ -1269,7 +1269,7 @@
     "unit": "Pack",
     "offerprice": 192,
     "tamilName": "50 செ.மீ. கலர் கம்பி மத்தாப்பு",
-    "imagename": "50cm_Colour_Sparklers"
+    "imagename": "50cm_Sparklers"
   },
   "50cm Rotating Sparklers": {
     "price": 960,
@@ -1277,7 +1277,7 @@
     "unit": "Pack",
     "offerprice": 192,
     "tamilName": "50 செ.மீ. ரோட்டேட்டிங் கம்பி மத்தாப்பு",
-    "imagename": "50cm_Rotating_Sparklers"
+    "imagename": "50cm_Sparklers"
   },
   "30 Item": {
     "price": 500,
