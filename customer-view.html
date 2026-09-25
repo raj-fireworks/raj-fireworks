@@ -523,7 +523,9 @@ function toast(msg) {
   t.textContent = msg; t.classList.add("show");
   clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
 }
-function imgPath(p) { return "./images/" + encodeURI(p.imagename) + ".jpeg"; }
+const IMG_EXTS = ["jpeg", "jpg", "png", "webp", "JPG", "JPEG", "PNG"];
+function imgBase(p) { return "./images/" + encodeURI(p.imagename); }
+function imgPath(p) { return imgBase(p) + "." + IMG_EXTS[0]; }
 
 /* ---------- load ---------- */
 function loadProducts() {
@@ -585,7 +587,7 @@ function cardHTML(p) {
   <article class="card" id="card-${p.id}" data-id="${p.id}" data-search="${esc((p.name + " " + p.tamilName + " " + p.category).toLowerCase())}">
     ${off > 0 ? `<span class="badge">${off}% OFF</span>` : ""}
     <div class="thumb" onclick="zoomImage(${p.id})">
-      <img loading="lazy" src="${imgPath(p)}" alt="${esc(p.name)}" />
+      <img loading="lazy" src="${imgPath(p)}" alt="${esc(p.name)}" data-base="${imgBase(p)}" data-ext="0" />
       <span class="placeholder">🎆</span>
       <span class="zoom">⤢</span>
     </div>
@@ -611,9 +613,16 @@ function cardHTML(p) {
 
 /* ---------- broken image fallback (delegated so it works with lazy loading) ---------- */
 document.addEventListener("error", e => {
-  if (e.target.tagName === "IMG" && e.target.closest(".thumb")) {
-    const th = e.target.closest(".thumb");
-    e.target.remove();
+  const img = e.target;
+  if (img.tagName === "IMG" && img.closest(".thumb") && img.dataset.base) {
+    const next = (parseInt(img.dataset.ext, 10) || 0) + 1;
+    if (next < IMG_EXTS.length) {
+      img.dataset.ext = next;
+      img.src = img.dataset.base + "." + IMG_EXTS[next];
+      return;
+    }
+    const th = img.closest(".thumb");
+    img.remove();
     const ph = th.querySelector(".placeholder"); if (ph) ph.style.display = "flex";
     th.dataset.noimg = "1";
   }
