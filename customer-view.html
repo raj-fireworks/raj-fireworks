@@ -192,12 +192,12 @@
   .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
   .card.selected { border-color: var(--fire); box-shadow: 0 0 0 4px rgba(255,90,31,.12), var(--shadow); }
   .thumb {
-    position: relative; aspect-ratio: 1 / 1; display: grid; place-items: center; cursor: zoom-in;
+    position: relative; flex: none; width: 100%; height: 0; padding-bottom: 100%; overflow: hidden; cursor: zoom-in;
     background: radial-gradient(circle at 50% 35%, #fff, #fdf1de);
   }
-  .thumb img { width: 100%; height: 100%; object-fit: cover; }
-  @media (min-width: 720px) { .thumb { aspect-ratio: 4 / 3; } }
-  .thumb .placeholder { font-size: 44px; opacity: .55; }
+  @media (min-width: 720px) { .thumb { padding-bottom: 75%; } }
+  .thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .thumb .placeholder { position: absolute; inset: 0; display: none; font-size: 44px; opacity: .55; align-items: center; justify-content: center; }
   .thumb .zoom {
     position: absolute; right: 8px; bottom: 8px; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
     background: rgba(28,22,51,.55); color: #fff; font-size: 12px; opacity: 0; transition: opacity .2s; backdrop-filter: blur(4px);
@@ -586,7 +586,7 @@ function cardHTML(p) {
     ${off > 0 ? `<span class="badge">${off}% OFF</span>` : ""}
     <div class="thumb" onclick="zoomImage(${p.id})">
       <img loading="lazy" src="${imgPath(p)}" alt="${esc(p.name)}" />
-      <span class="placeholder" style="position:absolute;z-index:0;display:none">🎆</span>
+      <span class="placeholder">🎆</span>
       <span class="zoom">⤢</span>
     </div>
     <div class="card-body">
@@ -614,7 +614,7 @@ document.addEventListener("error", e => {
   if (e.target.tagName === "IMG" && e.target.closest(".thumb")) {
     const th = e.target.closest(".thumb");
     e.target.remove();
-    const ph = th.querySelector(".placeholder"); if (ph) ph.style.display = "block";
+    const ph = th.querySelector(".placeholder"); if (ph) ph.style.display = "flex";
     th.dataset.noimg = "1";
   }
 }, true);
