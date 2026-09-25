@@ -500,7 +500,8 @@
 
 <!-- Image zoom modal -->
 <div id="imageModal" class="image-modal" onclick="closeModal()">
-  <img id="zoomedImage" src="" alt="Zoomed product" onclick="event.stopPropagation()" />
+  <img id="zoomedImage" src="" alt="Zoomed product" onclick="event.stopPropagation()" onerror="zoomImageFailed()" />
+  <div id="zoomFail" style="display:none;width:220px;height:220px;border-radius:16px;background:rgba(255,255,255,.08);align-items:center;justify-content:center;font-size:44px;">🎆</div>
   <div class="cap" id="zoomCap"></div>
 </div>
 
@@ -746,10 +747,23 @@ $("#customerPhone").addEventListener("input", function () { this.value = this.va
 function zoomImage(id) {
   const p = products[id];
   const th = $("#card-" + id + " .thumb");
-  if (th.dataset.noimg) return;
-  $("#zoomedImage").src = imgPath(p);
+  if (th.dataset.noimg) return; // this card has no working photo at all
+
+  const thumbImg = th.querySelector("img");
+  const zImg = $("#zoomedImage");
+  // Reuse the exact URL that's already showing in the card, since that's
+  // the one that actually resolved (extension/manifest fallbacks included).
+  // Re-guessing the path here was the bug: it always tried ".jpeg" first,
+  // so any photo saved under a different extension opened a blank modal.
+  zImg.style.display = "";
+  $("#zoomFail").style.display = "none";
+  zImg.src = thumbImg ? thumbImg.currentSrc || thumbImg.src : imgPath(p);
   $("#zoomCap").innerHTML = `${esc(p.name)}<small>${esc(p.tamilName)}</small>`;
   $("#imageModal").classList.add("open");
+}
+function zoomImageFailed() {
+  $("#zoomedImage").style.display = "none";
+  $("#zoomFail").style.display = "flex";
 }
 function closeModal() { $("#imageModal").classList.remove("open"); }
 
