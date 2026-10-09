@@ -688,6 +688,38 @@
     "tamilName": "240 ஷாட் (லிமிடெட் ஸ்டாக்)",
     "imagename": "240_shot_(limited_stocks_only)"
   },
+  "Golden Duck": {
+    "price": 1080,
+    "category": "Magic Night Fountains",
+    "unit": "Box",
+    "offerprice": "216",
+    "tamilName": "கோல்டன் டக்",
+    "imagename": "Golden_Duck"
+  },
+  "Elephant": {
+    "price": 1080,
+    "category": "Magic Night Fountains",
+    "unit": "Box",
+    "offerprice": "216",
+    "tamilName": "எலிஃபண்ட்",
+    "imagename": "Elephant"
+  },
+  "Golden Butterfly": {
+    "price": 1080,
+    "category": "Magic Night Fountains",
+    "unit": "Box",
+    "offerprice": "216",
+    "tamilName": "கோல்டன் பட்டர்ஃபிளை",
+    "imagename": "Golden_Butterfly"
+  },
+  "Lemon Tree": {
+    "price": 960,
+    "category": "Magic Night Fountains",
+    "unit": "Box",
+    "offerprice": "195",
+    "tamilName": "லெமன் ட்ரீ",
+    "imagename": "Lemon_Tree"
+  },
   "Ashrafi Koti Delux": {
     "price": 960,
     "category": "Magic Night Fountains",
