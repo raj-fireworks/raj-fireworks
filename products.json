@@ -528,6 +528,14 @@
     "tamilName": "கிட் கேட்",
     "imagename": "Kit_kat"
   },
+   "5\" Double Piece MNF": {
+    "price": 4800,
+    "category": "Sky Display",
+    "unit": "Box",
+    "offerprice": "960",
+    "tamilName": "5 இன்ச் டபுள் பீஸ்",
+    "imagename": "5_Double_Piece_MNF"
+  },
   "1 Chota Fancy": {
     "price": 240,
     "category": "Sky Display",
