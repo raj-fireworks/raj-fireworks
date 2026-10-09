@@ -328,6 +328,14 @@
     "tamilName": "சக்கர் ஸ்பெஷல்",
     "imagename": "Chakkar_Special"
   },
+    "Cocktail Spinner": {
+    "price": 510,
+    "category": "Round Chakra",
+    "unit": "Box",
+    "offerprice": "105",
+    "tamilName": "காக்டெயில் ஸ்பின்னர்",
+    "imagename": "Chakkar_Special"
+  },
   "Chakkar deluxe": {
     "price": 720,
     "category": "Round Chakra",
