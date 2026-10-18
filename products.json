@@ -1249,6 +1249,14 @@
     "tamilName": "50 செ.மீ. ரோட்டேட்டிங் கம்பி மத்தாப்பு",
     "imagename": "50cm_Sparklers"
   },
+   "Rotating Sparklers": {
+    "price": 1200,
+    "category": "Genz Sparklers",
+    "unit": "Pack",
+    "offerprice": 220,
+    "tamilName": "ரோட்டேட்டிங் கம்பி மத்தாப்பு",
+    "imagename": "50cm_Sparklers"
+  },
   "30 Item": {
     "price": 500,
     "category": "Gift Box",
