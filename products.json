@@ -416,14 +416,7 @@
     "tamilName": "எஃப்.பி. டீலக்ஸ் (5 பீஸ்)",
     "imagename": "FP deluxe 5 pcs"
   },
-  "Color Kotti Delux": {
-    "price": 1170,
-    "category": "Digital Flower Pots",
-    "unit": "Box",
-    "offerprice": "354",
-    "tamilName": "கலர் கொட்டி டீலக்ஸ்",
-    "imagename": "Color_Kotti_Delux"
-  },
+
   "Baby Rocket": {
     "price": 240,
     "category": "Runner Rocket",
@@ -1254,6 +1247,14 @@
     "category": "Genz Sparklers",
     "unit": "Pack",
     "offerprice": 220,
+    "tamilName": "ரோட்டேட்டிங் கம்பி மத்தாப்பு",
+    "imagename": "50cm_Sparklers"
+  },
+     "Rotating Sparklers (Multi Mix)": {
+    "price": 1200,
+    "category": "Genz Sparklers",
+    "unit": "Pack",
+    "offerprice": 240,
     "tamilName": "ரோட்டேட்டிங் கம்பி மத்தாப்பு",
     "imagename": "50cm_Sparklers"
   },
