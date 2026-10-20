@@ -12,6 +12,10 @@
     h1 { color: var(--red); margin: 0 0 4px; font-size: 24px; }
     .sub { color: var(--muted); margin: 0 0 18px; font-size: 14px; }
 
+    .sync { display: inline-block; font-size: 12px; padding: 3px 10px; border-radius: 12px; margin: 0 0 14px; background: #eee; color: #555; }
+    .sync.ok { background: #e8f5e9; color: #2e7d32; }
+    .sync.saving { background: #fff8e1; color: #8a6d00; }
+    .sync.err { background: #fdecea; color: #b71c1c; }
     .cards { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
     .card { flex: 1 1 180px; border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; background: var(--soft); }
     .card .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
@@ -55,7 +59,7 @@
     .note { color: var(--muted); font-size: 12px; margin-top: 10px; }
 
     @media print {
-      .toolbar, .del, .note, td.act, th.act, td.chk, th.chk { display: none !important; }
+      .sync, .toolbar, .del, .note, td.act, th.act, td.chk, th.chk { display: none !important; }
       body { padding: 0; }
       td input { border: none !important; padding: 0; }
       .table-scroll { border: none; overflow: visible; }
@@ -67,6 +71,8 @@
 <div class="wrap">
   <h1>Sales Summary</h1>
   <p class="sub">Amount to AJ is entered manually &nbsp;|&nbsp; Final Amount = Total Amount &minus; Amount to AJ</p>
+
+  <div id="syncStatus" class="sync local">Connecting…</div>
 
   <div class="cards">
     <div class="card"><div class="label">Entries</div><div class="value" id="cardCount">0</div></div>
@@ -112,20 +118,31 @@
     </table>
   </div>
 
-  <p class="note">Entries are saved automatically in this browser. Use “Download CSV” to keep a backup or open in Excel.</p>
+  <p class="note">Entries are saved automatically to the cloud and open on any device. Use “Download CSV” to keep a backup or open in Excel.</p>
 </div>
 
-<script>
+<script type="module">
   const STORE_KEY = 'summaryRows';
-  const AJ_SHARE = 0.9; // total - (total * 10%)
+  const MIGRATED_KEY = 'summaryCloudMigrated';
   let rows = load();
   let selected = new Set(); // indices of ticked rows
 
-  function load() {
-    try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch (e) { return []; }
+  function newId() {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
   }
-  function save() {
+  function load() {
+    let list = [];
+    try { list = JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch (e) {}
+    list.forEach(r => { if (!r.id) r.id = newId(); });
+    return list;
+  }
+  function persistLocal() {
     try { localStorage.setItem(STORE_KEY, JSON.stringify(rows)); } catch (e) {}
+  }
+  // every change: keep a copy on this device and send it to the cloud
+  function save() {
+    persistLocal();
+    scheduleCloud();
   }
   function today() {
     const d = new Date();
@@ -194,7 +211,7 @@
   }
 
   function addRow() {
-    rows.push({ date: today(), name: '', address: '', total: '', aj: '' });
+    rows.push({ id: newId(), date: today(), name: '', address: '', total: '', aj: '' });
     selected = new Set();
     save();
     render();
@@ -261,7 +278,7 @@
     fresh.forEach(c => {
       const d = new Date(c.timestamp);
       const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-      rows.push({ date: iso, name: c.name || '', address: c.address || '', total: '', aj: '', ts: c.timestamp });
+      rows.push({ date: iso, name: c.name || '', address: c.address || '', total: '', aj: '', ts: c.timestamp, id: newId() });
     });
     save();
     render();
@@ -288,7 +305,107 @@
     document.body.removeChild(a);
   }
 
+  // ---------- Cloud sync (Firestore, same project as the rest of the site) ----------
+  let cloud = null;          // { ref, setDoc } once Firebase has loaded
+  let dirty = false;         // local edits not yet confirmed by the cloud
+  let version = 0;
+  let saveTimer = null;
+  let pendingRemote = null;  // remote change waiting until the user stops typing
+
+  function setStatus(kind, text) {
+    const el = document.getElementById('syncStatus');
+    el.className = 'sync ' + kind;
+    el.textContent = text;
+  }
+  function canon(list) {
+    return JSON.stringify((list || []).map(r => Object.keys(r).sort().map(k => [k, r[k]])));
+  }
+  function isEditing() {
+    const a = document.activeElement;
+    return !!(a && a.closest && a.closest('#rows'));
+  }
+
+  function scheduleCloud() {
+    if (!cloud) { setStatus('local', 'Saved on this device only (cloud not connected)'); return; }
+    dirty = true;
+    setStatus('saving', 'Saving…');
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(pushCloud, 500);
+  }
+
+  async function pushCloud() {
+    const v = ++version;
+    try {
+      await cloud.setDoc(cloud.ref, { rows: JSON.parse(JSON.stringify(rows)), updatedAt: Date.now() });
+      if (v === version) { dirty = false; setStatus('ok', 'Saved to cloud ✓ – visible on all devices'); }
+    } catch (e) {
+      console.error(e);
+      setStatus('err', e && e.code === 'permission-denied'
+        ? 'Cloud save blocked by Firestore rules – data is only on this device'
+        : 'Could not save to cloud – data is only on this device');
+    }
+  }
+
+  function applyRemote(remote) {
+    rows = remote;
+    selected = new Set();
+    persistLocal();
+    render();
+    setStatus('ok', 'Saved to cloud ✓ – visible on all devices');
+  }
+
+  function onRemote(snap) {
+    if (snap.metadata.hasPendingWrites || dirty) return;
+    const remote = snap.exists() && Array.isArray(snap.data().rows) ? snap.data().rows : null;
+
+    if (!localStorage.getItem(MIGRATED_KEY)) {
+      // first time on this device: merge anything saved only here into the cloud copy
+      const base = remote || [];
+      const known = new Set(base.map(r => r.id));
+      const extra = rows.filter(r => !known.has(r.id));
+      try { localStorage.setItem(MIGRATED_KEY, '1'); } catch (e) {}
+      rows = base.concat(extra);
+      selected = new Set();
+      persistLocal();
+      render();
+      if (extra.length) scheduleCloud(); else setStatus('ok', 'Saved to cloud ✓ – visible on all devices');
+      return;
+    }
+
+    if (!remote) { setStatus('ok', 'Connected – cloud is empty'); return; }
+    if (canon(remote) === canon(rows)) { setStatus('ok', 'Saved to cloud ✓ – visible on all devices'); return; }
+    if (isEditing()) { pendingRemote = remote; return; }   // don't disturb typing
+    applyRemote(remote);
+  }
+
+  document.getElementById('rows').addEventListener('focusout', () => {
+    setTimeout(() => {
+      if (pendingRemote && !dirty && !isEditing()) { const r = pendingRemote; pendingRemote = null; applyRemote(r); }
+    }, 0);
+  });
+
+  async function initCloud() {
+    try {
+      const m = await import('./firebaseConfig.js');
+      cloud = { setDoc: m.setDoc, ref: m.doc(m.db, 'summary', 'main') };
+      setStatus('saving', 'Loading from cloud…');
+      m.onSnapshot(cloud.ref, onRemote, e => {
+        console.error(e);
+        setStatus('err', e && e.code === 'permission-denied'
+          ? 'Cloud access blocked by Firestore rules – data is only on this device'
+          : 'Cloud not reachable – showing data saved on this device');
+      });
+    } catch (e) {
+      console.error(e);
+      setStatus('local', 'Cloud not available – data is only on this device');
+    }
+  }
+
+  // inline onclick/onchange handlers need these on window (module scripts are scoped)
+  Object.assign(window, { addRow, importCustomers, exportCSV, clearAll, deleteSelected, toggleAll, toggleRow, update, removeRow });
+
   render();
+  initCloud();
 </script>
 </body>
 </html>
