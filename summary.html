@@ -66,7 +66,7 @@
 <body>
 <div class="wrap">
   <h1>Sales Summary</h1>
-  <p class="sub">Amount to AJ is entered manually &nbsp;|&nbsp; Final Amount = 10% of Amount to AJ</p>
+  <p class="sub">Amount to AJ is entered manually &nbsp;|&nbsp; Final Amount = Total Amount &minus; Amount to AJ</p>
 
   <div class="cards">
     <div class="card"><div class="label">Entries</div><div class="value" id="cardCount">0</div></div>
@@ -140,9 +140,9 @@
   function ajOf(r) {
     return Number(r && r.aj) || 0;
   }
-  // Final Amount = 10% of "Amount to AJ"
+  // Final Amount = Total Amount - Amount to AJ
   function finalOf(r) {
-    return ajOf(r) * 0.10;
+    return (Number(r && r.total) || 0) - ajOf(r);
   }
   function esc(s) {
     return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
