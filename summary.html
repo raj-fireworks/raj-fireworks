@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RAJ Crackers - Sales Summary</title>
+  <style>
+    :root { --red:#d9534f; --red-dark:#c9302c; --ink:#222; --muted:#777; --line:#e3e3e3; --soft:#fafafa; --green:#2e7d32; }
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, Arial, sans-serif; margin: 0; padding: 20px; color: var(--ink); background: #fff; }
+    .wrap { max-width: 1100px; margin: 0 auto; }
+    h1 { color: var(--red); margin: 0 0 4px; font-size: 24px; }
+    .sub { color: var(--muted); margin: 0 0 18px; font-size: 14px; }
+
+    .cards { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+    .card { flex: 1 1 180px; border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; background: var(--soft); }
+    .card .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+    .card .value { font-size: 22px; font-weight: 700; margin-top: 4px; }
+    .card.aj .value { color: var(--green); }
+
+    .toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    button { padding: 9px 14px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; background: #2c3e50; color: #fff; }
+    button:hover { opacity: .9; }
+    button.primary { background: var(--red); }
+    button.primary:hover { background: var(--red-dark); opacity: 1; }
+    button.ghost { background: #fff; color: var(--ink); border: 1px solid #ccc; }
+
+    .table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+    table { width: 100%; border-collapse: collapse; min-width: 760px; }
+    th, td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
+    th { background: #f4f4f4; font-size: 13px; white-space: nowrap; }
+    td.num, th.num { text-align: right; }
+    td.sr { width: 56px; text-align: center; color: var(--muted); }
+    td.act { width: 44px; text-align: center; }
+    tbody tr:hover { background: #fffaf9; }
+    td input { width: 100%; padding: 7px 8px; font-size: 14px; border: 1px solid transparent; border-radius: 5px; background: transparent; font-family: inherit; }
+    td input:hover { border-color: #ddd; }
+    td input:focus { outline: none; border-color: var(--red); background: #fff; }
+    td input.amt { text-align: right; }
+    td.aj-amt { font-variant-numeric: tabular-nums; color: var(--green); font-weight: 600; }
+    .del { background: none; color: #b00; padding: 4px 8px; font-size: 16px; }
+    .del:hover { background: #fdecea; }
+
+    tfoot td { background: #fff3f2; font-weight: 700; font-size: 16px; border-top: 2px solid var(--red); border-bottom: none; }
+    tfoot td.aj-amt { color: var(--green); }
+    .empty { text-align: center; color: var(--muted); padding: 28px 10px; }
+    .note { color: var(--muted); font-size: 12px; margin-top: 10px; }
+
+    @media print {
+      .toolbar, .del, .note, td.act, th.act { display: none !important; }
+      body { padding: 0; }
+      td input { border: none !important; padding: 0; }
+      .table-scroll { border: none; overflow: visible; }
+      table { min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Sales Summary</h1>
+  <p class="sub">Amount to AJ = Total Amount &minus; 10% of Total Amount (i.e. 90% of the total)</p>
+
+  <div class="cards">
+    <div class="card"><div class="label">Entries</div><div class="value" id="cardCount">0</div></div>
+    <div class="card"><div class="label">Total Amount</div><div class="value" id="cardTotal">₹0.00</div></div>
+    <div class="card aj"><div class="label">Total Amount to AJ</div><div class="value" id="cardAJ">₹0.00</div></div>
+  </div>
+
+  <div class="toolbar">
+    <button class="primary" onclick="addRow()">+ Add Row</button>
+    <button onclick="importCustomers()">Import Saved Customers</button>
+    <button onclick="exportCSV()">Download CSV</button>
+    <button onclick="window.print()">Print</button>
+    <button class="ghost" onclick="clearAll()">Clear All</button>
+  </div>
+
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>Sr No</th>
+          <th>Purchase Date</th>
+          <th>Name</th>
+          <th>Address</th>
+          <th class="num">Total Amount (₹)</th>
+          <th class="num">Amount to AJ (₹)</th>
+          <th class="act"></th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4" style="text-align:right;">Total</td>
+          <td class="num" id="footTotal">0.00</td>
+          <td class="num aj-amt" id="footAJ">0.00</td>
+          <td class="act"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <p class="note">Entries are saved automatically in this browser. Use “Download CSV” to keep a backup or open in Excel.</p>
+</div>
+
+<script>
+  const STORE_KEY = 'summaryRows';
+  const AJ_SHARE = 0.9; // total - (total * 10%)
+  let rows = load();
+
+  function load() {
+    try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch (e) { return []; }
+  }
+  function save() {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(rows)); } catch (e) {}
+  }
+  function today() {
+    const d = new Date();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${d.getFullYear()}-${m}-${day}`;
+  }
+  function money(n) {
+    return (Number(n) || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function ajOf(total) {
+    const t = Number(total) || 0;
+    return t - (t * 0.10);
+  }
+  function esc(s) {
+    return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function render() {
+    const body = document.getElementById('rows');
+    if (!rows.length) {
+      body.innerHTML = `<tr><td class="empty" colspan="7">No entries yet. Click “+ Add Row” to start.</td></tr>`;
+    } else {
+      body.innerHTML = rows.map((r, i) => `
+        <tr>
+          <td class="sr">${i + 1}</td>
+          <td><input type="date" value="${esc(r.date)}" onchange="update(${i}, 'date', this.value)"></td>
+          <td><input type="text" value="${esc(r.name)}" placeholder="Customer name" onchange="update(${i}, 'name', this.value)"></td>
+          <td><input type="text" value="${esc(r.address)}" placeholder="Address" onchange="update(${i}, 'address', this.value)"></td>
+          <td><input class="amt" type="number" min="0" step="0.01" value="${r.total === '' || r.total == null ? '' : esc(r.total)}" placeholder="0.00" oninput="update(${i}, 'total', this.value, true)"></td>
+          <td class="num aj-amt" id="aj-${i}">${money(ajOf(r.total))}</td>
+          <td class="act"><button class="del" title="Delete row" onclick="removeRow(${i})">&times;</button></td>
+        </tr>`).join('');
+    }
+    totals();
+  }
+
+  function totals() {
+    const total = rows.reduce((s, r) => s + (Number(r.total) || 0), 0);
+    const aj = rows.reduce((s, r) => s + ajOf(r.total), 0);
+    document.getElementById('footTotal').textContent = money(total);
+    document.getElementById('footAJ').textContent = money(aj);
+    document.getElementById('cardTotal').textContent = '₹' + money(total);
+    document.getElementById('cardAJ').textContent = '₹' + money(aj);
+    document.getElementById('cardCount').textContent = rows.length;
+  }
+
+  function update(i, field, value, live) {
+    rows[i][field] = value;
+    save();
+    if (field === 'total') {
+      // update only the calculated cell and totals so typing isn't interrupted
+      document.getElementById('aj-' + i).textContent = money(ajOf(value));
+      totals();
+    }
+  }
+
+  function addRow() {
+    rows.push({ date: today(), name: '', address: '', total: '' });
+    save();
+    render();
+    const inputs = document.querySelectorAll('#rows tr:last-child input[type="text"]');
+    if (inputs[0]) inputs[0].focus();
+  }
+
+  function removeRow(i) {
+    if (!confirm(`Delete row ${i + 1}?`)) return;
+    rows.splice(i, 1);
+    save();
+    render();
+  }
+
+  function clearAll() {
+    if (!rows.length) return;
+    if (!confirm('Delete ALL entries? This cannot be undone.')) return;
+    rows = [];
+    save();
+    render();
+  }
+
+  // Pull customers already captured by the main site (name / address / time) – amount stays blank
+  function importCustomers() {
+    let saved = [];
+    try { saved = JSON.parse(localStorage.getItem('customerData')) || []; } catch (e) {}
+    const have = new Set(rows.map(r => r.ts).filter(Boolean));
+    const fresh = saved.filter(c => c.timestamp && !have.has(c.timestamp));
+    if (!fresh.length) { alert('No new saved customers found.'); return; }
+    fresh.forEach(c => {
+      const d = new Date(c.timestamp);
+      const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      rows.push({ date: iso, name: c.name || '', address: c.address || '', total: '', ts: c.timestamp });
+    });
+    save();
+    render();
+    alert(`${fresh.length} customer(s) added. Please enter the total amount for each.`);
+  }
+
+  function exportCSV() {
+    if (!rows.length) { alert('Nothing to export.'); return; }
+    const q = s => `"${String(s ?? '').replace(/"/g, '""')}"`;
+    let csv = 'Sr No,Purchase Date,Name,Address,Total Amount,Amount to AJ\n';
+    rows.forEach((r, i) => {
+      csv += [i + 1, q(r.date), q(r.name), q(r.address), (Number(r.total) || 0).toFixed(2), ajOf(r.total).toFixed(2)].join(',') + '\n';
+    });
+    const total = rows.reduce((s, r) => s + (Number(r.total) || 0), 0);
+    const aj = rows.reduce((s, r) => s + ajOf(r.total), 0);
+    csv += `,,,Total,${total.toFixed(2)},${aj.toFixed(2)}\n`;
+    const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `Summary_${today()}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  render();
+</script>
+</body>
+</html>
