@@ -17,6 +17,7 @@
     .card .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
     .card .value { font-size: 22px; font-weight: 700; margin-top: 4px; }
     .card.aj .value { color: var(--green); }
+    .card.fin .value { color: #1565c0; }
 
     .toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
     button { padding: 9px 14px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; background: #2c3e50; color: #fff; }
@@ -43,11 +44,13 @@
     td input:focus { outline: none; border-color: var(--red); background: #fff; }
     td input.amt { text-align: right; }
     td.aj-amt { font-variant-numeric: tabular-nums; color: var(--green); font-weight: 600; }
+    td.fin-amt { font-variant-numeric: tabular-nums; color: #1565c0; font-weight: 600; }
     .del { background: none; color: #b00; padding: 4px 8px; font-size: 16px; }
     .del:hover { background: #fdecea; }
 
     tfoot td { background: #fff3f2; font-weight: 700; font-size: 16px; border-top: 2px solid var(--red); border-bottom: none; }
     tfoot td.aj-amt { color: var(--green); }
+    tfoot td.fin-amt { color: #1565c0; }
     .empty { text-align: center; color: var(--muted); padding: 28px 10px; }
     .note { color: var(--muted); font-size: 12px; margin-top: 10px; }
 
@@ -63,12 +66,13 @@
 <body>
 <div class="wrap">
   <h1>Sales Summary</h1>
-  <p class="sub">Amount to AJ = Total Amount &minus; 10% of Total Amount (i.e. 90% of the total)</p>
+  <p class="sub">Amount to AJ = Total Amount &minus; 10% of Total Amount &nbsp;|&nbsp; Final Amount = 10% of Amount to AJ</p>
 
   <div class="cards">
     <div class="card"><div class="label">Entries</div><div class="value" id="cardCount">0</div></div>
     <div class="card"><div class="label">Total Amount</div><div class="value" id="cardTotal">₹0.00</div></div>
     <div class="card aj"><div class="label">Total Amount to AJ</div><div class="value" id="cardAJ">₹0.00</div></div>
+    <div class="card fin"><div class="label">Total Final Amount</div><div class="value" id="cardFinal">₹0.00</div></div>
   </div>
 
   <div class="toolbar">
@@ -91,6 +95,7 @@
           <th>Address</th>
           <th class="num">Total Amount (₹)</th>
           <th class="num">Amount to AJ (₹)</th>
+          <th class="num">Final Amount (₹)</th>
           <th class="act"></th>
         </tr>
       </thead>
@@ -100,6 +105,7 @@
           <td colspan="5" style="text-align:right;">Total</td>
           <td class="num" id="footTotal">0.00</td>
           <td class="num aj-amt" id="footAJ">0.00</td>
+          <td class="num fin-amt" id="footFinal">0.00</td>
           <td class="act"></td>
         </tr>
       </tfoot>
@@ -134,6 +140,10 @@
     const t = Number(total) || 0;
     return t - (t * 0.10);
   }
+  // Final Amount = 10% of "Amount to AJ"
+  function finalOf(total) {
+    return ajOf(total) * 0.10;
+  }
   function esc(s) {
     return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
@@ -141,7 +151,7 @@
   function render() {
     const body = document.getElementById('rows');
     if (!rows.length) {
-      body.innerHTML = `<tr><td class="empty" colspan="8">No entries yet. Click “+ Add Row” to start.</td></tr>`;
+      body.innerHTML = `<tr><td class="empty" colspan="9">No entries yet. Click “+ Add Row” to start.</td></tr>`;
     } else {
       body.innerHTML = rows.map((r, i) => `
         <tr class="${selected.has(i) ? 'sel' : ''}">
@@ -152,6 +162,7 @@
           <td><input type="text" value="${esc(r.address)}" placeholder="Address" onchange="update(${i}, 'address', this.value)"></td>
           <td><input class="amt" type="number" min="0" step="0.01" value="${r.total === '' || r.total == null ? '' : esc(r.total)}" placeholder="0.00" oninput="update(${i}, 'total', this.value, true)"></td>
           <td class="num aj-amt" id="aj-${i}">${money(ajOf(r.total))}</td>
+          <td class="num fin-amt" id="fin-${i}">${money(finalOf(r.total))}</td>
           <td class="act"><button class="del" title="Delete row" onclick="removeRow(${i})">&times;</button></td>
         </tr>`).join('');
     }
@@ -163,7 +174,10 @@
     const total = rows.reduce((s, r) => s + (Number(r.total) || 0), 0);
     const aj = rows.reduce((s, r) => s + ajOf(r.total), 0);
     document.getElementById('footTotal').textContent = money(total);
+    const fin = rows.reduce((s, r) => s + finalOf(r.total), 0);
     document.getElementById('footAJ').textContent = money(aj);
+    document.getElementById('footFinal').textContent = money(fin);
+    document.getElementById('cardFinal').textContent = '₹' + money(fin);
     document.getElementById('cardTotal').textContent = '₹' + money(total);
     document.getElementById('cardAJ').textContent = '₹' + money(aj);
     document.getElementById('cardCount').textContent = rows.length;
@@ -175,6 +189,7 @@
     if (field === 'total') {
       // update only the calculated cell and totals so typing isn't interrupted
       document.getElementById('aj-' + i).textContent = money(ajOf(value));
+      document.getElementById('fin-' + i).textContent = money(finalOf(value));
       totals();
     }
   }
@@ -257,13 +272,14 @@
   function exportCSV() {
     if (!rows.length) { alert('Nothing to export.'); return; }
     const q = s => `"${String(s ?? '').replace(/"/g, '""')}"`;
-    let csv = 'Sr No,Purchase Date,Name,Address,Total Amount,Amount to AJ\n';
+    let csv = 'Sr No,Purchase Date,Name,Address,Total Amount,Amount to AJ,Final Amount\n';
     rows.forEach((r, i) => {
-      csv += [i + 1, q(r.date), q(r.name), q(r.address), (Number(r.total) || 0).toFixed(2), ajOf(r.total).toFixed(2)].join(',') + '\n';
+      csv += [i + 1, q(r.date), q(r.name), q(r.address), (Number(r.total) || 0).toFixed(2), ajOf(r.total).toFixed(2), finalOf(r.total).toFixed(2)].join(',') + '\n';
     });
     const total = rows.reduce((s, r) => s + (Number(r.total) || 0), 0);
     const aj = rows.reduce((s, r) => s + ajOf(r.total), 0);
-    csv += `,,,Total,${total.toFixed(2)},${aj.toFixed(2)}\n`;
+    const fin = rows.reduce((s, r) => s + finalOf(r.total), 0);
+    csv += `,,,Total,${total.toFixed(2)},${aj.toFixed(2)},${fin.toFixed(2)}\n`;
     const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
