@@ -32,6 +32,11 @@
     td.num, th.num { text-align: right; }
     td.sr { width: 56px; text-align: center; color: var(--muted); }
     td.act { width: 44px; text-align: center; }
+    th.chk, td.chk { width: 40px; text-align: center; }
+    td.chk input, th.chk input { width: 17px; height: 17px; cursor: pointer; accent-color: var(--red); }
+    tbody tr.sel { background: #fdecea; }
+    button.danger { background: #b71c1c; }
+    button:disabled { opacity: .45; cursor: not-allowed; }
     tbody tr:hover { background: #fffaf9; }
     td input { width: 100%; padding: 7px 8px; font-size: 14px; border: 1px solid transparent; border-radius: 5px; background: transparent; font-family: inherit; }
     td input:hover { border-color: #ddd; }
@@ -47,7 +52,7 @@
     .note { color: var(--muted); font-size: 12px; margin-top: 10px; }
 
     @media print {
-      .toolbar, .del, .note, td.act, th.act { display: none !important; }
+      .toolbar, .del, .note, td.act, th.act, td.chk, th.chk { display: none !important; }
       body { padding: 0; }
       td input { border: none !important; padding: 0; }
       .table-scroll { border: none; overflow: visible; }
@@ -71,6 +76,7 @@
     <button onclick="importCustomers()">Import Saved Customers</button>
     <button onclick="exportCSV()">Download CSV</button>
     <button onclick="window.print()">Print</button>
+    <button class="danger" id="delSelBtn" onclick="deleteSelected()" disabled>Delete Selected (0)</button>
     <button class="ghost" onclick="clearAll()">Clear All</button>
   </div>
 
@@ -78,6 +84,7 @@
     <table>
       <thead>
         <tr>
+          <th class="chk"><input type="checkbox" id="selAll" title="Select all" onchange="toggleAll(this.checked)"></th>
           <th>Sr No</th>
           <th>Purchase Date</th>
           <th>Name</th>
@@ -90,7 +97,7 @@
       <tbody id="rows"></tbody>
       <tfoot>
         <tr>
-          <td colspan="4" style="text-align:right;">Total</td>
+          <td colspan="5" style="text-align:right;">Total</td>
           <td class="num" id="footTotal">0.00</td>
           <td class="num aj-amt" id="footAJ">0.00</td>
           <td class="act"></td>
@@ -106,6 +113,7 @@
   const STORE_KEY = 'summaryRows';
   const AJ_SHARE = 0.9; // total - (total * 10%)
   let rows = load();
+  let selected = new Set(); // indices of ticked rows
 
   function load() {
     try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch (e) { return []; }
@@ -133,10 +141,11 @@
   function render() {
     const body = document.getElementById('rows');
     if (!rows.length) {
-      body.innerHTML = `<tr><td class="empty" colspan="7">No entries yet. Click “+ Add Row” to start.</td></tr>`;
+      body.innerHTML = `<tr><td class="empty" colspan="8">No entries yet. Click “+ Add Row” to start.</td></tr>`;
     } else {
       body.innerHTML = rows.map((r, i) => `
-        <tr>
+        <tr class="${selected.has(i) ? 'sel' : ''}">
+          <td class="chk"><input type="checkbox" ${selected.has(i) ? 'checked' : ''} onchange="toggleRow(${i}, this.checked)"></td>
           <td class="sr">${i + 1}</td>
           <td><input type="date" value="${esc(r.date)}" onchange="update(${i}, 'date', this.value)"></td>
           <td><input type="text" value="${esc(r.name)}" placeholder="Customer name" onchange="update(${i}, 'name', this.value)"></td>
@@ -147,6 +156,7 @@
         </tr>`).join('');
     }
     totals();
+    updateSelectionUI();
   }
 
   function totals() {
@@ -171,15 +181,49 @@
 
   function addRow() {
     rows.push({ date: today(), name: '', address: '', total: '' });
+    selected = new Set();
     save();
     render();
     const inputs = document.querySelectorAll('#rows tr:last-child input[type="text"]');
     if (inputs[0]) inputs[0].focus();
   }
 
+  function toggleRow(i, on) {
+    if (on) selected.add(i); else selected.delete(i);
+    const tr = document.querySelectorAll('#rows tr')[i];
+    if (tr) tr.classList.toggle('sel', on);
+    updateSelectionUI();
+  }
+
+  function toggleAll(on) {
+    selected = on ? new Set(rows.map((_, i) => i)) : new Set();
+    render();
+  }
+
+  function updateSelectionUI() {
+    const n = selected.size;
+    const btn = document.getElementById('delSelBtn');
+    btn.textContent = `Delete Selected (${n})`;
+    btn.disabled = n === 0;
+    const all = document.getElementById('selAll');
+    all.checked = rows.length > 0 && n === rows.length;
+    all.indeterminate = n > 0 && n < rows.length;
+  }
+
+  function deleteSelected() {
+    const n = selected.size;
+    if (!n) return;
+    if (!confirm(`Delete ${n} selected ${n === 1 ? 'row' : 'rows'}? This cannot be undone.`)) return;
+    rows = rows.filter((_, i) => !selected.has(i));
+    selected = new Set();
+    save();
+    render();
+  }
+
   function removeRow(i) {
     if (!confirm(`Delete row ${i + 1}?`)) return;
     rows.splice(i, 1);
+    selected = new Set();
     save();
     render();
   }
@@ -188,6 +232,7 @@
     if (!rows.length) return;
     if (!confirm('Delete ALL entries? This cannot be undone.')) return;
     rows = [];
+    selected = new Set();
     save();
     render();
   }
