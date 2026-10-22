@@ -593,14 +593,7 @@
     "tamilName": "7 கலர்ஸ்",
     "imagename": "7_Colors"
   },
-  "Penta (5 Pcs)": {
-    "price": 900,
-    "category": "Sky Display",
-    "unit": "Box",
-    "offerprice": "180",
-    "tamilName": "பென்டா (5 பீஸ்)",
-    "imagename": "Penta_(5_Pcs)"
-  },
+
   "Army Force": {
     "price": 720,
     "category": "Sky Display",
@@ -738,22 +731,6 @@
     "imagename": "Ashrafi_Koti_Delux"
   },
 
-  "Social Media 5Pcs": {
-    "price": 1080,
-    "category": "Magic Night Fountains",
-    "unit": "Box",
-    "offerprice": "216",
-    "tamilName": "சோஷியல் மீடியா 5 பீஸ்",
-    "imagename": "Social_Media_5Pcs"
-  },
-  "Super Hero": {
-    "price": 1380,
-    "category": "Magic Night Fountains",
-    "unit": "Box",
-    "offerprice": "276",
-    "tamilName": "சூப்பர் ஹீரோ",
-    "imagename": "Super_Hero"
-  },
   "Mega Asrafi": {
     "price": 1020,
     "category": "Magic Night Fountains",
